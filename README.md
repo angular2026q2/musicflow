@@ -16,25 +16,54 @@ The music catalog is powered by the **[Jamendo API v3.0](https://developer.jamen
 
 User-specific data (accounts, playlists, uploaded tracks) is stored on a custom backend built with **NestJS**.
 
+## Table of Contents
+
+- [MusicFlow — Music Streaming Service](#musicflow--music-streaming-service)
+  - [Table of Contents](#table-of-contents)
+  - [Technology Stack](#technology-stack)
+    - [Frontend](#frontend)
+    - [Backend](#backend)
+    - [External API](#external-api)
+    - [DevOps](#devops)
+    - [Tooling](#tooling)
+  - [Getting Started](#getting-started)
+    - [Prerequisites](#prerequisites)
+    - [Installation](#installation)
+    - [Development](#development)
+    - [Build](#build)
+    - [Test](#test)
+  - [Available Scripts](#available-scripts)
+  - [Git Workflow](#git-workflow)
+    - [Conventional Commits](#conventional-commits)
+  - [Angular CLI Schematics](#angular-cli-schematics)
+  - [Team](#team)
+
 ## Technology Stack
 
 ### Frontend
 
-- Angular 21+
-- TypeScript 5+
-- PrimeNG
+- [**Angular 21+**](https://angular.dev/)
+- [**PrimeNG**](https://primeng.org/)
 
 ### Backend
 
-- NestJS
+- [**NestJS**](https://nestjs.com/)
 
 ### External API
 
-- Jamendo API
+- [**Jamendo API**](https://developer.jamendo.com/v3.0)
 
-### DevOps / Tooling
+### DevOps
 
-- Git + GitHub
+- **Git** + **GitHub**
+
+### Tooling
+
+- **ESLint** + **angular-eslint** — code linting
+- **Prettier** — code formatting
+- **Stylelint** + **stylelint-config-clean-order** — CSS linting & property ordering
+- **Husky** + **lint-staged** — git hooks
+- **commitlint** — conventional commits enforcement
 
 ## Getting Started
 
@@ -51,7 +80,7 @@ cd musicflow
 npm install
 ```
 
-### Developing
+### Development
 
 ```bash
 npm run start
@@ -59,16 +88,86 @@ npm run start
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`.
 
-### Building
+### Build
 
 ```bash
 npm run build
 ```
 
-### Run Tests
+### Test
 
 ```bash
 npm run test
+```
+
+## Available Scripts
+
+| Command                 | Description                                    |
+| ----------------------- | ---------------------------------------------- |
+| `npm start`             | Start dev server (http://localhost:4200)       |
+| `npm run build`         | Build for production                           |
+| `npm run watch`         | Build in watch mode (development config)       |
+| `npm test`              | Run unit tests with Vitest                     |
+| `npm run lint`          | Run ESLint                                     |
+| `npm run lint:fix`      | Run ESLint with auto-fix                       |
+| `npm run format`        | Check formatting with Prettier                 |
+| `npm run format:fix`    | Auto-format with Prettier                      |
+| `npm run stylelint`     | Lint CSS files                                 |
+| `npm run stylelint:fix` | Lint CSS with auto-fix                         |
+| `npm run check`         | Run **all** checks (lint + format + stylelint) |
+| `npm run check:fix`     | Auto-fix everything                            |
+
+## Git Workflow
+
+### Conventional Commits
+
+Commits **must** follow [Conventional Commits](https://www.conventionalcommits.org/) format:
+
+```
+<type>: <description>
+
+[optional body]
+```
+
+**Allowed types:**
+
+| Type       | Purpose                        |
+| ---------- | ------------------------------ |
+| `feat`     | New feature                    |
+| `fix`      | Bug fix                        |
+| `docs`     | Documentation changes          |
+| `style`    | Code style (formatting, etc.)  |
+| `refactor` | Code refactoring               |
+| `test`     | Tests                          |
+| `chore`    | Tooling, configs, dependencies |
+| `ci`       | CI/CD pipeline changes         |
+
+**Rules:**
+
+- Subject must be **lowercase**
+- Subject max length: **72 characters**
+
+**Examples:**
+
+```bash
+git commit -m "feat: add player controls component"
+git commit -m "fix: resolve audio playback issue on safari"
+git commit -m "chore: update angular to v21"
+```
+
+## Angular CLI Schematics
+
+The project uses custom schematic paths so generated files land in the right folders:
+
+```bash
+# Generates into src/shared/components/
+ng g c component-name # or componentName
+
+# Generates into src/shared/services/
+ng g s service-name # or serviceName
+
+# Generates into src/shared/pipes/
+ng g p pipe-name # or pipeName
 ```
 
 ## Team

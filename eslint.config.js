@@ -6,8 +6,9 @@ const angular = require('angular-eslint');
 const eslintConfigPrettier = require('eslint-config-prettier/flat');
 
 module.exports = defineConfig([
+  { ignores: ['development-notes/**'] },
   {
-    files: ['**/*.ts'],
+    files: ['src/**/*.ts'],
     extends: [
       eslint.configs.recommended,
       tseslint.configs.recommended,
@@ -35,7 +36,7 @@ module.exports = defineConfig([
     },
   },
   {
-    files: ['**/*.html'],
+    files: ['src/**/*.html'],
     extends: [angular.configs.templateRecommended, angular.configs.templateAccessibility],
     rules: {},
   },

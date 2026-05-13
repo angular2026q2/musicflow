@@ -3,9 +3,7 @@
   "version": 1,
   "cli": {
     "packageManager": "npm",
-    "schematicCollections": [
-      "angular-eslint"
-    ],
+    "schematicCollections": ["angular-eslint"],
     "analytics": false
   },
   "newProjectRoot": "projects",
@@ -14,41 +12,41 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "path": "src/shared/components",
+          "path": "src/app/shared/components",
           "type": "component"
         },
         "@schematics/angular:service": {
-          "path": "src/shared/services",
+          "path": "src/app/core/services",
           "type": "service"
         },
         "@schematics/angular:directive": {
-          "path": "src/shared/directives",
+          "path": "src/app/shared/directives",
           "type": "directive"
         },
         "@schematics/angular:interface": {
-          "path": "src/shared/interfaces"
+          "path": "src/app/shared/interfaces"
         },
         "@schematics/angular:guard": {
-          "path": "src/shared/guards",
+          "path": "src/app/core/guards",
           "typeSeparator": "."
         },
         "@schematics/angular:interceptor": {
-          "path": "src/shared/interceptors",
+          "path": "src/app/core/interceptors",
           "typeSeparator": "."
         },
         "@schematics/angular:module": {
           "typeSeparator": "."
         },
         "@schematics/angular:pipe": {
-          "path": "src/shared/pipes",
+          "path": "src/app/shared/pipes",
           "typeSeparator": "."
         },
         "@schematics/angular:validator": {
-          "path": "src/shared/validators",
+          "path": "src/app/shared/validators",
           "typeSeparator": "."
         },
         "@schematics/angular:util": {
-          "path": "src/shared/utils",
+          "path": "src/app/shared/utils",
           "typeSeparator": "."
         },
         "@schematics/angular:environment": {

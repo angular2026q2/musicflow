@@ -23,16 +23,9 @@
     "module": "preserve",
     "baseUrl": "./",
     "paths": {
-      "@pages/*": ["src/pages/*"],
-      "@components/*": ["src/shared/components/*"],
-      "@services/*": ["src/shared/services/*"],
-      "@directives/*": ["src/shared/directives/*"],
-      "@enums/*": ["src/shared/enums/*"],
-      "@interfaces/*": ["src/shared/interfaces/*"],
-      "@validators/*": ["src/shared/validators/*"],
-      "@utils/*": ["src/shared/utils/*"],
-      "@pipes/*": ["src/shared/pipes/*"],
-      "@guards/*": ["src/shared/guards/*"],
+      "@core/*": ["src/app/core/*"],
+      "@shared/*": ["src/app/shared/*"],
+      "@features/*": ["src/app/features/*"],
       "@environments/*": ["src/environments/*"]
     }
   },

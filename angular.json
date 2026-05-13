@@ -14,7 +14,8 @@
         "@schematics/angular:component": {
           "path": "src/app/shared/components",
           "type": "component",
-          "changeDetection": "OnPush"
+          "changeDetection": "OnPush",
+          "style": "scss"
         },
         "@schematics/angular:service": {
           "path": "src/app/core/services",
@@ -70,7 +71,10 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.css"]
+            "styles": ["src/styles.css"],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src"]
+            }
           },
           "configurations": {
             "production": {

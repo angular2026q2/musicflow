@@ -13,7 +13,8 @@
       "schematics": {
         "@schematics/angular:component": {
           "path": "src/app/shared/components",
-          "type": "component"
+          "type": "component",
+          "changeDetection": "OnPush"
         },
         "@schematics/angular:service": {
           "path": "src/app/core/services",

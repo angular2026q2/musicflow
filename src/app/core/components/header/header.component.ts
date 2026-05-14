@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { APP_ROUTES } from '@shared/constants/routes';
 
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
@@ -35,4 +36,5 @@ import { LucideBell, LucideSettings } from '@lucide/angular';
 export class HeaderComponent {
   /** задача на Sprint 2 - заменить `input()` на `UserService` тут: */
   readonly avatarUrl = input<string>('');
+  protected readonly APP_ROUTES = APP_ROUTES;
 }

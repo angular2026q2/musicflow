@@ -18,12 +18,12 @@
       <svg lucideBell></svg>
     </button>
 
-    <a [routerLink]="'/settings'" class="header__actions-btn" aria-label="Settings">
+    <a [routerLink]="APP_ROUTES.SETTINGS.route" class="header__actions-btn" aria-label="Settings">
       <svg lucideSettings></svg>
     </a>
 
     <p-icon-field>
-      <a [routerLink]="'/profile'" class="header__actions-btn" aria-label="User profile">
+      <a [routerLink]="APP_ROUTES.PROFILE.route" class="header__actions-btn" aria-label="User profile">
         @if (avatarUrl()) {
           <p-avatar [image]="avatarUrl()" size="normal" shape="circle" />
         } @else {

@@ -23,7 +23,11 @@
     </a>
 
     <p-icon-field>
-      <a [routerLink]="APP_ROUTES.PROFILE.route" class="header__actions-btn" aria-label="User profile">
+      <a
+        [routerLink]="APP_ROUTES.PROFILE.route"
+        class="header__actions-btn"
+        aria-label="User profile"
+      >
         @if (avatarUrl()) {
           <p-avatar [image]="avatarUrl()" size="normal" shape="circle" />
         } @else {

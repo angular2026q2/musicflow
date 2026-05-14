@@ -1,5 +1,11 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter } from '@angular/router';
+import {
+  LucideBell,
+  LucideSettings,
+  provideLucideConfig,
+  provideLucideIcons,
+} from '@lucide/angular';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeuix/themes/aura';
 
@@ -14,5 +20,7 @@ export const appConfig: ApplicationConfig = {
         preset: Aura,
       },
     }),
+    provideLucideIcons(LucideBell, LucideSettings),
+    provideLucideConfig({ size: 20 }),
   ],
 };

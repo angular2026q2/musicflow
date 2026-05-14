@@ -1,0 +1,51 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 1rem 2rem;
+
+  &__search {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: clamp(12.5rem, 40vw, 25rem);
+
+    & p-iconfield {
+      width: 100%;
+    }
+
+    &-input {
+      width: 100%;
+      border: none;
+      background: var(--color-surface-high);
+      opacity: 0.9;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    &-btn {
+      padding: 0;
+      background: none;
+      border: none;
+      color: var(--color-on-surface-variant);
+      line-height: 0;
+      transition: color 0.2s ease, transform 0.15s ease;
+
+      @media (hover: hover) and (pointer: fine) {
+        &:hover {
+          color: var(--color-secondary);
+          cursor: pointer;
+          transform: translateY(-1px);
+        }
+      }
+    }
+  }
+}

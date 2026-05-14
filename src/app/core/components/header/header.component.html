@@ -1,0 +1,35 @@
+<header class="header">
+  <div class="header__search">
+    <p-iconfield>
+      <p-inputicon class="pi pi-search" ></p-inputicon>
+      <input
+        pInputText
+        pSize="small"
+        type="text"
+        placeholder="Search artists, songs..."
+        name="SearchBar"
+        class="header__search-input"
+      >
+    </p-iconfield>
+  </div>
+
+  <div class="header__actions">
+    <button class="header__actions-btn" type="button" aria-label="Notifications">
+      <svg lucideBell></svg>
+    </button>
+
+    <a [routerLink]="'/settings'" class="header__actions-btn" aria-label="Settings">
+      <svg lucideSettings></svg>
+    </a>
+
+    <p-icon-field>
+      <a [routerLink]="'/profile'" class="header__actions-btn" aria-label="User profile">
+        @if (avatarUrl()) {
+          <p-avatar [image]="avatarUrl()" size="normal" shape="circle" />
+        } @else {
+          <p-avatar icon="pi pi-user" size="normal" shape="circle" />
+        }
+      </a>
+    </p-icon-field>
+  </div>
+</header>

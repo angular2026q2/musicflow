@@ -1,0 +1,4 @@
+<a [routerLink]="item().route" class="nav-item" routerLinkActive="active">
+  <ng-container [ngComponentOutlet]="item().icon"></ng-container>
+  <span>{{ item().label }}</span>
+</a>

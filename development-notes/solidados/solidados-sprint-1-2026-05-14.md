@@ -15,34 +15,34 @@ Before writing any feature code setup is needed: correct folder structure, path 
 
 - [x] Create `.github/workflows/deploy.yml` to deploy to GitHub Pages on every push to `main`
 - [x] Configure `actions/setup-node@v4` with `cache: 'npm'` to skip full reinstall when
-  `package-lock.json` hasn't changed
+      `package-lock.json` hasn't changed
 - [x] Thus, the base link `https://angular2026q2.github.io/musicflow/` at build time
 - [x] Ask a Team Lead to grant Actions write permissions and configure GitHub Pages source
-  to `GitHub Actions` (not `Deploy from branch` - as it was revealed later. My mistake)
+      to `GitHub Actions` (not `Deploy from branch` - as it was revealed later. My mistake)
 
 **Project configuration:**
 
 - [x] Update `angular.json` schematics - I refactored default paths from `src/shared/*` to
-  `src/app/shared/*` and `src/app/core/*`; added `"changeDetection": "OnPush"` and
-  `"style": "scss"` to component schematic so every generated component has correct
-  defaults out of the box
+      `src/app/shared/*` and `src/app/core/*`; added `"changeDetection": "OnPush"` and
+      `"style": "scss"` to component schematic so every generated component has correct
+      defaults out of the box
 - [x] Update `tsconfig.json` - i replaced scattered legacy path aliases with four clean ones:
-  `@core/*`, `@shared/*`, `@features/*`, `@environments/*` as per folder structure;
+      `@core/*`, `@shared/*`, `@features/*`, `@environments/*` as per folder structure;
 - [x] Add `sass` as dev dependency. Good, components now use `.scss` while global `styles.css`
-  stays as is:
+      stays as is:
 - [x] Configure `stylePreprocessorOptions.includePaths: ['src']` in `angular.json` - done.
 
 **Global design system** (`src/styles.css`):
 
-- [x] Add CSS custom full color palette using Material Design 3 token naming (`--color-surface-container`, `--color-on-surface` and others), typography scale (Montserrat + 
-  Inter), spacing scale (4px baseline), border radius tokens, etc., as per design;;
+- [x] Add CSS custom full color palette using Material Design 3 token naming (`--color-surface-container`, `--color-on-surface` and others), typography scale (Montserrat +
+      Inter), spacing scale (4px baseline), border radius tokens, etc., as per design;;
 - [x] Add `@layer primeng` declaration at the top of global `styles.css` - it fixes PrimeNG styles 'do not apply
-  until' first user interaction;
+      until' first user interaction;
 - [x] Import `primeicons/primeicons.css` and Google Fonts - done.
 
 **Core components created:**
 
-- `NavItemComponent` (`src/app/shared/components/nav-item/`) - I created reusable "dumb" nav link component. The idea was to make it (as in React via props) to accept a single 
+- `NavItemComponent` (`src/app/shared/components/nav-item/`) - I created reusable "dumb" nav link component. The idea was to make it (as in React via props) to accept a single
   prop using Signals (`item = input.required<NavItem>()` where `NavItem` carries
   `icon: Type<unknown>`, `label: string`, `route: string`). This reusable component uses `[ngComponentOutlet]`
   (modern property binding syntax, instead of `*ng` prefix) to dynamically render any Lucide icon
@@ -56,14 +56,14 @@ Before writing any feature code setup is needed: correct folder structure, path 
   visually separate context items. Fixed height via CSS grid in `AppComponent`,
   internal scroll with `overflow-y: auto`.
 
-- `HeaderComponent` (`src/app/core/components/header/`) - Oh, here was a hustle-fun with icons and UI-libs. My `header` contains PrimeNG `p-iconfield` + `p-inputicon` + 
+- `HeaderComponent` (`src/app/core/components/header/`) - Oh, here was a hustle-fun with icons and UI-libs. My `header` contains PrimeNG `p-iconfield` + `p-inputicon` +
   `pInputText` for the search bar, Lucide icons (`lucideBell`,
-    `lucideSettings`) for action buttons, and `p-avatar` for the user profile picture.
-    Avatar URL comes from `avatarUrl = input<string>('')` - this is just for now! SO, I added a comment `TODO: Sprint 2` to replace this `input()` with `UserService` injection once HTTP layer is ready.
+  `lucideSettings`) for action buttons, and `p-avatar` for the user profile picture.
+  Avatar URL comes from `avatarUrl = input<string>('')` - this is just for now! SO, I added a comment `TODO: Sprint 2` to replace this `input()` with `UserService` injection once HTTP layer is ready.
 
 **App layout** (`app.html` + `app.scss`):
 
-- Implemented styles for CSS Grid layout:  now sidebar and header are fixed while content area is flexible
+- Implemented styles for CSS Grid layout: now sidebar and header are fixed while content area is flexible
   - Sidebar: `grid-row: 1 / -1`, `height: 100%`, `overflow-y: auto` never scrolls with the page;
   - Header: `position: sticky; top: 0` stays visible on scroll;
   - Main: `overflow-y: auto` makes that only the content area scrolls (inside Outlet).
@@ -84,12 +84,12 @@ the CSS layer before PrimeNG loads, so styles apply immediately on render.
 
 **Problem:** Two conflicting Lucide libraries installed simultaneously (`lucide-angular`
 and `@lucide/angular`), PrimeNG components broke when Lucide was used.
-**Solution:** I uninstalled `lucide-angular`, kept only `@lucide/angular` (used official documentstion and instructions regarding migration from v0), and updated all imports 
+**Solution:** I uninstalled `lucide-angular`, kept only `@lucide/angular` (used official documentstion and instructions regarding migration from v0), and updated all imports
 accordingly.
 
 **Problem:** WebStorm reordered class members on save, causing `@typescript-eslint/member-ordering`
 errors on every commit.
-**Solution:** I had to remove `member-ordering` ESLint rule, `private inject()` fields first, then `readonly` constants, then `computed()` signals, then public methods. 
+**Solution:** I had to remove `member-ordering` ESLint rule, `private inject()` fields first, then `readonly` constants, then `computed()` signals, then public methods.
 Otherwise, there was a mess `on save` and eslint would never let it go.
 
 **Problem:** `*ngComponentOutlet` worked, but I used legacy `*` structural directive syntax.
@@ -102,7 +102,7 @@ Otherwise, there was a mess `on save` and eslint would never let it go.
 ### Thoughts for Sprint 2
 
 - [ ] Configure routing: `app.routes.ts` with lazy-loaded feature pages
-  (Discover, Search, Library, Artist, Album, Auth)
+      (Discover, Search, Library, Artist, Album, Auth)
 - [ ] Implement `canActivate` guard for Library route (auth required)
 - [ ] Write `AuthService` and `UserService` with signal-based state
 - [ ] Replace `avatarUrl input()` in `HeaderComponent` with `UserService` injection

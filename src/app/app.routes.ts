@@ -4,11 +4,6 @@ import { APP_ROUTES } from '@shared/constants/routes';
 export const routes: Routes = [
   {
     path: '',
-    pathMatch: 'full',
-    redirectTo: APP_ROUTES.HOME.route,
-  },
-  {
-    path: APP_ROUTES.HOME.route,
     loadComponent: () => import('@features/home/home.page').then((m) => m.HomePage),
   },
   {
@@ -29,6 +24,6 @@ export const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: APP_ROUTES.HOME.route,
+    loadComponent: () => import('@features/not-found/not-found.page').then((m) => m.NotFoundPage),
   },
 ];

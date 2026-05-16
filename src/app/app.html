@@ -3,14 +3,9 @@
   <div class="app-layout__content">
     <app-header class="app-layout__header" />
     <main class="app-layout__main">
-      <div class="demo-section">
-        <p-button (click)="toggleDemoText()" label="Check Demo"> </p-button>
-
-        @if (isDemoTextVisible()) {
-          <p class="demo-text">This is demo text</p>
-        }
-      </div>
       <router-outlet />
+
+      <app-player></app-player>
     </main>
   </div>
 </div>

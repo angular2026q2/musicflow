@@ -1,0 +1,11 @@
+.volume {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  &__slider {
+    width: 80px;
+    padding: 2px 0;
+    cursor: pointer;
+  }
+}

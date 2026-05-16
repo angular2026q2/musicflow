@@ -13,6 +13,22 @@ export const MusicFlowPreset = definePreset(Aura, {
     },
   },
   components: {
+    button: {
+      css: () => `
+        .p-button.control-button {
+          padding: var(--space-xs);
+        }
+
+        .p-button.control-button:not(:disabled):hover {
+          color: var(--color-secondary);
+          background: transparent;
+        }
+
+        .p-button.control-button--active {
+          color: var(--color-secondary);
+        }
+      `,
+    },
     slider: {
       track: {
         background: 'var(--color-surface-highest)',

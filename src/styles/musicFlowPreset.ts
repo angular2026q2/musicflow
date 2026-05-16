@@ -40,6 +40,10 @@ export const MusicFlowPreset = definePreset(Aura, {
           background: transparent;
           box-shadow: none;
         }
+        
+        .timestep .p-slider-range {
+          background: var(--color-secondary);
+        }
       `,
       track: {
         background: 'var(--color-surface-highest)',

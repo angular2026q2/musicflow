@@ -8,7 +8,7 @@ import { ButtonModule } from 'primeng/button';
  *
  * Рендерит иконку из реестра `ICONS` внутри PrimeNG `<p-button>` в text-варианте.
  * Поддерживает активное состояние (визуально подсвечивается).
- * 
+ *
  * @property {IconKey} icon - Обязательное значение. Ключ иконки из реестра `ICONS`, отображаемой на кнопке.
  * @property {number} [size=20] - Размер иконки в пикселях (ширина и высота svg).
  * @property {boolean} [active=false] - Активное состояние кнопки. Иконка посвечивается при значении `true`.

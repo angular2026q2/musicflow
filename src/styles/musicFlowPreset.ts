@@ -30,6 +30,17 @@ export const MusicFlowPreset = definePreset(Aura, {
       `,
     },
     slider: {
+      css: () => `
+        .p-slider .p-slider-handle {
+          background: transparent;
+          border: none;
+          box-shadow: none;
+        }
+        .p-slider .p-slider-handle::before {
+          background: transparent;
+          box-shadow: none;
+        }
+      `,
       track: {
         background: 'var(--color-surface-highest)',
       },
@@ -37,9 +48,8 @@ export const MusicFlowPreset = definePreset(Aura, {
         background: 'var(--color-on-surface-variant)',
       },
       handle: {
-        width: '4px',
-        height: '4px',
         background: 'transparent',
+        hoverBackground: 'transparent',
 
         content: {
           background: 'transparent',

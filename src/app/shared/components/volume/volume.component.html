@@ -1,0 +1,5 @@
+<div class="volume">
+  <app-control-button [icon]="iconKey()" (click)="toggleMute()"></app-control-button>
+
+  <p-slider [(ngModel)]="volume" [step]="0.01" class="volume__slider" ariaLabel="Volume" />
+</div>

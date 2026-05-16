@@ -1,8 +1,14 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import Aura from '@primeuix/themes/aura';
+import {
+  LucideBell,
+  LucideSettings,
+  provideLucideConfig,
+  provideLucideIcons,
+} from '@lucide/angular';
 import { providePrimeNG } from 'primeng/config';
 
+import { MusicFlowPreset } from '@styles/musicFlowPreset';
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
@@ -11,8 +17,10 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     providePrimeNG({
       theme: {
-        preset: Aura,
+        preset: MusicFlowPreset,
       },
     }),
+    provideLucideIcons(LucideBell, LucideSettings),
+    provideLucideConfig({ size: 20 }),
   ],
 };

@@ -1,0 +1,19 @@
+<aside class="sidebar">
+  <div class="sidebar__logo">
+    <span class="sidebar__logo-title">{{ title | titlecase }}</span>
+    <span class="sidebar__logo-subtitle">{{ subtitle | titlecase }}</span>
+  </div>
+
+  <nav class="sidebar__nav">
+    @for (item of mainNavItems; track item.route) {
+      <app-nav-item [item]="item" />
+    }
+
+    @if (contextNavItems().length > 0) {
+      <p-divider class="sidebar__divider" />
+      @for (item of contextNavItems(); track item.route) {
+        <app-nav-item [item]="item" />
+      }
+    }
+  </nav>
+</aside>

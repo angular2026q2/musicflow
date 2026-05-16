@@ -428,7 +428,7 @@ placed `/* eslint-disable */` at the top of the file to suppress warnings on aut
 
 Deployment plan (to be implemented):
 
-- investigate to deploy Backend -> Railway (FreeTier), or find alternatives for MVP
-- decide where to deploy Frontend -> Vercel (free)... or keep statics on GH-Pages?
-- configure CI/CD -> GitHub Actions (for frontend). as well for the backend!
-- Make Swagger be publicly accessible at the URL for the Team
+- [x] investigate to deploy Backend -> Railway (FreeTier), or find alternatives for MVP
+- [x] decide where to deploy Frontend -> Vercel (free)... or keep statics on GH-Pages?
+- [x] configure CI/CD -> GitHub Actions (for frontend). as well for the backend!
+- [] Make Swagger be publicly accessible at the URL for the Team

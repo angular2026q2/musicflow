@@ -2,39 +2,49 @@ import { NgClass } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 /**
- * Компонент для деталей item с обложкой и слотами.
- * 
+ * Универсальный UI-компонент для отображения элемента с обложкой и текстовой информацией.
+ *
  * @description
- * контейнер с изображением, заголовком и описанием.
- * Изображение 3 формы:
- * квадрат m
- * квадрарт xl
- * круг
- * 
+ * Отображает изображение (обложку), заголовок и до двух строк описания.
+ * Поддерживает различные варианты отображения изображения и заголовка.
  *
- * header в жирном и обычном начертании
- * desc1, desc2. 
- * desc2 опционально, если не передать их при вызове — не отрисуются
+ * Компонент является "глупым" (presentational) и полностью управляется входными данными.
  *
- * Подойдет для
- * music library / recently added
- * user profile / recently played & top artists
- * player bar
- * artist profile
- * discovery
- * full player
- * 
+ * @input imageUrl         URL изображения (обложки)
+ * @input imageVariant     Вариант отображения изображения:
+ *                        - 'square'   — квадрат (по умолчанию)
+ *                        - 'squareXl' — увеличенный квадрат
+ *                        - 'rounded'  — круг
+ *
+ * @input title            Заголовок (обязательный)
+ * @input titleVariant     Вариант отображения заголовка:
+ *                        - 'bold'   — жирный (по умолчанию)
+ *                        - 'normal' — обычный
+ *
+ * @input primaryDesc      Основное описание (опционально)
+ * @input secondaryDesc    Дополнительное описание (опционально)
+ *
+ * @remarks
+ * Если `primaryDesc` или `secondaryDesc` не переданы, соответствующие элементы не рендерятся.
+ *
  * @example
- *<app-item-details
- * [imageUrl]="'https://upload.wikimedia.org/wikipedia/ru/9/99/More_Pink_Floyd_Cover.jpg'"
- * [title]="'Динамический заголовок'"
- * [primaryDesc]="'Описание primary'"
- * [secondaryDesc]="'Описание secondary'"
- * [imageVariant]="'rounded'"
- * [titleVariant]="'normal'"
- *</app-item-details>
- * 
-
+ * ```html
+ * <app-item-details
+ *   [imageUrl]="'https://upload.wikimedia.org/wikipedia/ru/9/99/More_Pink_Floyd_Cover.jpg'"
+ *   [title]="'Pink Floyd'"
+ *   [primaryDesc]="'Progressive Rock'"
+ *   [secondaryDesc]="'1970s'"
+ *   [imageVariant]="'rounded'"
+ *   [titleVariant]="'normal'"
+ * />
+ * ```
+ *
+ * @usage
+ * Компонент может использоваться в различных UI-сценариях:
+ * - списки (library, recently added)
+ * - профиль пользователя (recently played, top artists)
+ * - player bar / full player
+ * - страницы артиста и discovery
  */
 
 @Component({

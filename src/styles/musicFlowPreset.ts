@@ -28,7 +28,7 @@ export const MusicFlowPreset = definePreset(Aura, {
           color: var(--color-secondary);
         }
 
-        .p-button.rrecentlyPlayed-menu-button{
+        .p-button.recentlyPlayed-menu-button{
           color: var(--color-on-surface-variant);
         }
 
@@ -36,6 +36,7 @@ export const MusicFlowPreset = definePreset(Aura, {
           background: transparent;
           color: var(--color-primary)
         }
+
       `,
     },
     slider: {
@@ -49,7 +50,6 @@ export const MusicFlowPreset = definePreset(Aura, {
           background: transparent;
           box-shadow: none;
         }
-        
         .timestep .p-slider-range {
           background: var(--color-secondary);
         }
@@ -85,11 +85,9 @@ export const MusicFlowPreset = definePreset(Aura, {
           -webkit-backdrop-filter: blur(24px);
           color: var(--color-on-surface)
         }
-        
         .p-menu.recentlyPlayed-menu .p-menu-item-content {
           color: var(--color-on-surface);
         }
-        
         .p-menu.recentlyPlayed-menu .p-menu-item-content:hover {
             background: transparent;
             color: var(--color-primary)

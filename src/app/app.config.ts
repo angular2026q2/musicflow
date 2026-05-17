@@ -7,8 +7,8 @@ import {
   provideLucideIcons,
 } from '@lucide/angular';
 import { providePrimeNG } from 'primeng/config';
-import Aura from '@primeuix/themes/aura';
 
+import { MusicFlowPreset } from '@styles/musicFlowPreset';
 import { routes } from './app.routes';
 
 export const appConfig: ApplicationConfig = {
@@ -17,7 +17,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     providePrimeNG({
       theme: {
-        preset: Aura,
+        preset: MusicFlowPreset,
       },
     }),
     provideLucideIcons(LucideBell, LucideSettings),

@@ -80,17 +80,27 @@ export const MusicFlowPreset = definePreset(Aura, {
       css: () => `
         .p-menu.recentlyPlayed-menu {
           border: 1px solid var(--color-surface-bright);
-          background: rgba(var(--color-surface), 0.6)
+          background: rgba(var(--color-surface), 0.8);
           backdrop-filter: blur(24px);
           -webkit-backdrop-filter: blur(24px);
           color: var(--color-on-surface)
         }
+
         .p-menu.recentlyPlayed-menu .p-menu-item-content {
           color: var(--color-on-surface);
         }
+
+        .p-menu.recentlyPlayed-menu .p-menu-item-icon {
+        color: var(--color-on-surface);
+        }
+
         .p-menu.recentlyPlayed-menu .p-menu-item-content:hover {
-            background: transparent;
-            color: var(--color-primary)
+        background: transparent;
+        color: var(--color-primary);
+        }
+
+        .p-menu.recentlyPlayed-menu .p-menu-item-content:hover .p-menu-item-icon {
+        color: var(--color-primary);
         }
         `,
     },

@@ -6,11 +6,30 @@ import { MenuItem } from 'primeng/api';
 @Component({
   selector: 'app-recently-played-menu',
   template: `
-    <div class="card flex justify-center">
-      <p-menu #menu [model]="items" [popup]="true" />
-      <p-button (click)="menu.toggle($event)" icon="pi pi-ellipsis-v" />
+    <div>
+      <p-menu
+        #menu
+        [model]="items"
+        [popup]="true"
+        [appendTo]="'body'"
+        styleClass="recentlyPlayed-menu"
+      />
+      <p-button
+        (click)="menu.toggle($event)"
+        icon="pi pi-ellipsis-h"
+        [text]="true"
+        styleClass="recentlyPlayed-menu-button"
+      />
     </div>
   `,
+  styles: [
+    `
+      :host {
+        display: inline-block;
+        width: auto;
+      }
+    `,
+  ],
   standalone: true,
   imports: [ButtonModule, MenuModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -21,17 +40,16 @@ export class RecentlyPlayedMenuPopup implements OnInit {
   ngOnInit() {
     this.items = [
       {
-        label: 'Options',
-        items: [
-          {
-            label: 'Refresh',
-            icon: 'pi pi-refresh',
-          },
-          {
-            label: 'Export',
-            icon: 'pi pi-upload',
-          },
-        ],
+        label: 'Add to favorites',
+        icon: 'pi pi-heart-fill',
+      },
+      {
+        label: 'View artist',
+        icon: 'pi pi-user-plus',
+      },
+      {
+        label: 'Remove from recents',
+        icon: 'pi pi-trash',
       },
     ];
   }

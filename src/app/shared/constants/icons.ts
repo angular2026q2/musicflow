@@ -1,10 +1,15 @@
 import {
+  LucideBell,
   LucideHeart,
+  LucideHouse,
+  LucideLibraryBig,
   LucideListMusic,
   LucidePause,
   LucidePlay,
   LucideRepeat,
   LucideRepeat1,
+  LucideSearch,
+  LucideSettings,
   LucideShuffle,
   LucideSkipBack,
   LucideSkipForward,
@@ -20,6 +25,14 @@ import { IconConfig } from '@shared/interfaces/icon-config';
  */
 
 export const ICONS = {
+  bell: {
+    icon: LucideBell,
+    label: 'Notifications',
+  },
+  house: {
+    icon: LucideHouse,
+    label: 'Home',
+  },
   play: {
     icon: LucidePlay,
     label: 'Play',
@@ -67,6 +80,18 @@ export const ICONS = {
   playlist: {
     icon: LucideListMusic,
     label: 'Playlist',
+  },
+  library: {
+    icon: LucideLibraryBig,
+    label: 'Library List',
+  },
+  search: {
+    icon: LucideSearch,
+    label: 'Search',
+  },
+  settings: {
+    icon: LucideSettings,
+    label: 'Settings',
   },
 } as const satisfies Record<string, IconConfig>;
 

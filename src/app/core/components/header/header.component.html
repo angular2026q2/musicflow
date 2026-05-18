@@ -14,12 +14,10 @@
   </div>
 
   <div class="header__actions">
-    <button class="header__actions-btn" type="button" aria-label="Notifications">
-      <svg lucideBell></svg>
-    </button>
+    <app-control-button class="header__actions-btn" icon="bell" ariaLabel="Notifications" />
 
     <a [routerLink]="APP_ROUTES.SETTINGS.route" class="header__actions-btn" aria-label="Settings">
-      <svg lucideSettings></svg>
+      <svg [lucideIcon]="ICONS.settings.icon" [size]="20"></svg>
     </a>
 
     <p-icon-field>

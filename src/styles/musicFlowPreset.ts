@@ -78,6 +78,45 @@ export const MusicFlowPreset = definePreset(Aura, {
     },
     card: {
       css: () => `
+        .p-card.cover-card {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .p-card.cover-card .p-card-body {
+            padding: var(--space-lg);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            flex: 1;
+        }
+
+        .p-card.cover-card .discovery-trending__label {
+            color: var(--color-on-secondary);
+            font-size: var(--text-label);
+            line-height: var(--text-body-md);
+            text-transform: uppercase;
+            padding: var(--space-xs) var(--space-sm);
+            background: var(--color-secondary);
+            border-radius: var(--radius-default);
+            width: fit-content;
+            margin-bottom: var(--space-sm);
+        }
+        .p-card.cover-card .discovery-trending__title {
+            color: var(--color-white);
+            font-size: var(--text-headline-md);
+        }
+
+       .p-card.cover-card .discovery-trending__description {
+            font-size: var(--text-body-sm);
+            color: var(--color-on-surface-variant);
+        }
+  `,
       .p-card.small-card {
         background: color-mix(in srgb, var(--color-player-background) 60%, transparent);
         border: 1px solid color-mix(in srgb, var(--color-white) 10%, transparent);

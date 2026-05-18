@@ -12,13 +12,13 @@ import { MenuItem } from 'primeng/api';
         [model]="items"
         [popup]="true"
         [appendTo]="'body'"
-        styleClass="recentlyPlayed-menu"
+        styleClass="recently-played-menu"
       />
       <p-button
         (click)="menu.toggle($event)"
         icon="pi pi-ellipsis-h"
         [text]="true"
-        styleClass="recentlyPlayed-menu-button"
+        styleClass="recently-played-menu-button"
       />
     </div>
   `,

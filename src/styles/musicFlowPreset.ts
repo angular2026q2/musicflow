@@ -28,11 +28,11 @@ export const MusicFlowPreset = definePreset(Aura, {
           color: var(--color-secondary);
         }
 
-        .p-button.recentlyPlayed-menu-button{
+        .p-button.recently-played-menu-button{
           color: var(--color-on-surface-variant);
         }
 
-        .p-button.recentlyPlayed-menu-button:not(:disabled):hover{
+        .p-button.recently-played-menu-button:not(:disabled):hover{
           background: transparent;
           color: var(--color-primary)
         }
@@ -78,7 +78,7 @@ export const MusicFlowPreset = definePreset(Aura, {
     },
     menu: {
       css: () => `
-        .p-menu.recentlyPlayed-menu {
+        .p-menu.recently-played-menu {
           border: 1px solid var(--color-surface-bright);
           background: rgba(var(--color-surface), 0.8);
           backdrop-filter: blur(24px);
@@ -86,20 +86,20 @@ export const MusicFlowPreset = definePreset(Aura, {
           color: var(--color-on-surface)
         }
 
-        .p-menu.recentlyPlayed-menu .p-menu-item-content {
+        .p-menu.recently-played-menu .p-menu-item-content {
           color: var(--color-on-surface);
         }
 
-        .p-menu.recentlyPlayed-menu .p-menu-item-icon {
+        .p-menu.recently-played-menu .p-menu-item-icon {
         color: var(--color-on-surface);
         }
 
-        .p-menu.recentlyPlayed-menu .p-menu-item-content:hover {
+        .p-menu.recently-played-menu .p-menu-item-content:hover {
         background: transparent;
         color: var(--color-primary);
         }
 
-        .p-menu.recentlyPlayed-menu .p-menu-item-content:hover .p-menu-item-icon {
+        .p-menu.recently-played-menu .p-menu-item-content:hover .p-menu-item-icon {
         color: var(--color-primary);
         }
         `,

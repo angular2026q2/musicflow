@@ -1,10 +1,9 @@
-import { type Type, ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { NgComponentOutlet } from '@angular/common';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import type { IconConfig } from '@shared/interfaces/icon-config';
 
-export interface NavItem {
-  icon: Type<unknown>;
-  label: string;
+export interface NavItem extends IconConfig {
   route: string;
 }
 

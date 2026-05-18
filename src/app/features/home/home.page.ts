@@ -1,9 +1,12 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CoverCardComponent } from '@shared/components/cover-card/cover-card.component';
 
+import { SmallCardComponent } from '@shared/components/small-card/small-card.component';
+import { RecentlyPlayedMenuPopup } from './components/dropdown-menu.component';
+
 @Component({
   selector: 'app-home',
-  imports: [CoverCardComponent],
+  imports: [SmallCardComponent, RecentlyPlayedMenuPopup, CoverCardComponent],
   templateUrl: './home.page.html',
   styleUrl: './home.page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

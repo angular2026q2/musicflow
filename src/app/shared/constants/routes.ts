@@ -4,4 +4,5 @@ export const APP_ROUTES = {
   LIBRARY: { label: 'Library', route: 'library' },
   SETTINGS: { label: 'Settings', route: 'settings' },
   PROFILE: { label: 'Profile', route: 'profile' },
+  DISCOVER: { label: 'Discover', route: 'discover' },
 } as const;

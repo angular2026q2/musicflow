@@ -40,7 +40,7 @@ export const MusicFlowPreset = definePreset(Aura, {
           background: transparent;
           box-shadow: none;
         }
-        
+
         .timestep .p-slider-range {
           background: var(--color-secondary);
         }
@@ -80,7 +80,7 @@ export const MusicFlowPreset = definePreset(Aura, {
         }
 
         .p-card.cover-card .p-card-body {
-            padding: 24px;
+            padding: var(--space-lg);
             display: flex;
             flex-direction: column;
             justify-content: flex-end;

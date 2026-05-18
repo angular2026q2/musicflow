@@ -27,6 +27,16 @@ export const MusicFlowPreset = definePreset(Aura, {
         .p-button.control-button--active {
           color: var(--color-secondary);
         }
+
+        .p-button.recently-played-menu-button{
+          color: var(--color-on-surface-variant);
+        }
+
+        .p-button.recently-played-menu-button:not(:disabled):hover{
+          background: transparent;
+          color: var(--color-primary)
+        }
+
       `,
     },
     slider: {
@@ -40,7 +50,6 @@ export const MusicFlowPreset = definePreset(Aura, {
           background: transparent;
           box-shadow: none;
         }
-        
         .timestep .p-slider-range {
           background: var(--color-secondary);
         }
@@ -66,6 +75,34 @@ export const MusicFlowPreset = definePreset(Aura, {
           width: '0px',
         },
       },
+    },
+    menu: {
+      css: () => `
+        .p-menu.recently-played-menu {
+          border: 1px solid var(--color-surface-bright);
+          background: rgba(var(--color-surface), 0.8);
+          backdrop-filter: blur(24px);
+          -webkit-backdrop-filter: blur(24px);
+          color: var(--color-on-surface)
+        }
+
+        .p-menu.recently-played-menu .p-menu-item-content {
+          color: var(--color-on-surface);
+        }
+
+        .p-menu.recently-played-menu .p-menu-item-icon {
+        color: var(--color-on-surface);
+        }
+
+        .p-menu.recently-played-menu .p-menu-item-content:hover {
+        background: transparent;
+        color: var(--color-primary);
+        }
+
+        .p-menu.recently-played-menu .p-menu-item-content:hover .p-menu-item-icon {
+        color: var(--color-primary);
+        }
+        `,
     },
   },
 });

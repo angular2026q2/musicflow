@@ -1,13 +1,15 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { LucideDynamicIcon } from '@lucide/angular';
 import { APP_ROUTES } from '@shared/constants/routes';
+import { ICONS } from '@shared/constants/icons';
 
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
-import { LucideBell, LucideSettings } from '@lucide/angular';
+import { ControlButtonComponent } from '@shared/components/control-button/control-button.component';
 
 /**
  * todo: задача на Sprint 2 - заменить avatarUrl `input()` иньекцией сервиса `UserService` injection.
@@ -26,8 +28,8 @@ import { LucideBell, LucideSettings } from '@lucide/angular';
     InputTextModule,
     AvatarModule,
     ButtonModule,
-    LucideBell,
-    LucideSettings,
+    LucideDynamicIcon,
+    ControlButtonComponent,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
@@ -36,5 +38,7 @@ import { LucideBell, LucideSettings } from '@lucide/angular';
 export class HeaderComponent {
   /** задача на Sprint 2 - заменить `input()` на `UserService` тут: */
   readonly avatarUrl = input<string>('');
+
   protected readonly APP_ROUTES = APP_ROUTES;
+  protected readonly ICONS = ICONS;
 }

@@ -9,9 +9,10 @@
       <app-nav-item [item]="item" />
     }
 
-    @if (contextNavItems().length > 0) {
+    @let contextItems = contextNavItems();
+    @if (contextItems.length > 0) {
       <p-divider class="sidebar__divider" />
-      @for (item of contextNavItems(); track item.route) {
+      @for (item of contextItems; track item.route) {
         <app-nav-item [item]="item" />
       }
     }

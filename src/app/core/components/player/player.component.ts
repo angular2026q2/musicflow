@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { ControlButtonComponent } from '../../../shared/components/control-button/control-button.component';
-import { ControlsBarComponent } from '../../../shared/components/controls-bar/controls-bar.component';
-import { MetaComponent } from '../../../shared/components/meta/meta.component';
-import { VolumeComponent } from '../../../shared/components/volume/volume.component';
+import { ControlButtonComponent } from '@shared/components/control-button/control-button.component';
+import { ControlsBarComponent } from '@shared/components/controls-bar/controls-bar.component';
+import { MetaComponent } from '@shared/components/meta/meta.component';
+import { VolumeComponent } from '@shared/components/volume/volume.component';
 
 @Component({
   selector: 'app-player',

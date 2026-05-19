@@ -117,14 +117,7 @@ export const MusicFlowPreset = definePreset(Aura, {
             color: var(--color-on-surface-variant);
         }
   `,
-      .p-card.small-card {
-        background: color-mix(in srgb, var(--color-player-background) 60%, transparent);
-        border: 1px solid color-mix(in srgb, var(--color-white) 10%, transparent);
-        backdrop-filter: blur(12px);
-        border-radius: var(--space-gutter);
-        max-width: 222px;
-    }
-  `,
+    },
     menu: {
       css: () => `
         .p-menu.recently-played-menu {

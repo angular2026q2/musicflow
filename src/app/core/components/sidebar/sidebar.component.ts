@@ -1,14 +1,14 @@
 import { TitleCasePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { isActive, Router } from '@angular/router';
-import { DividerModule } from 'primeng/divider';
+import { isActive, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { type NavItem, NavItemComponent } from '@shared/components/nav-item/nav-item.component';
-import { APP_ROUTES } from '@shared/constants/routes';
 import { ICONS } from '@shared/constants/icons';
+import { APP_ROUTES } from '@shared/constants/routes';
+import { DividerModule } from 'primeng/divider';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [NavItemComponent, DividerModule, TitleCasePipe],
+  imports: [NavItemComponent, DividerModule, TitleCasePipe, RouterLink, RouterLinkActive],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -23,6 +23,8 @@ export class SidebarComponent {
     { ...APP_ROUTES.SEARCH, icon: ICONS.search.icon },
     { ...APP_ROUTES.LIBRARY, icon: ICONS.library.icon },
   ];
+
+  readonly aboutTeamNavItem = APP_ROUTES.ABOUT;
 
   readonly isSettingsPage = isActive(`/${APP_ROUTES.SETTINGS.route}`, this.router, {
     paths: 'exact',

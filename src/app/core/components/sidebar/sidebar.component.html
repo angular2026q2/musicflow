@@ -17,4 +17,15 @@
       }
     }
   </nav>
+
+  <div class="sidebar__footer">
+    <p-divider />
+    <a
+      [routerLink]="aboutTeamNavItem.route"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="sidebar__footer-link"
+      >{{ aboutTeamNavItem.label }}</a
+    >
+  </div>
 </aside>

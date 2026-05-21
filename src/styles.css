@@ -98,3 +98,17 @@ body {
 
   -webkit-font-smoothing: antialiased;
 }
+
+a {
+  color: var(--color-on-surface);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--color-primary);
+}
+
+a:active {
+  color: var(--color-secondary);
+}

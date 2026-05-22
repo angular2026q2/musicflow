@@ -33,9 +33,18 @@ export class SidebarComponent {
     matrixParams: 'ignored',
   });
 
+  readonly isProfilePage = isActive(`/${APP_ROUTES.PROFILE.route}`, this.router, {
+    paths: 'exact',
+    queryParams: 'exact',
+    fragment: 'ignored',
+    matrixParams: 'ignored',
+  });
+
   readonly contextNavItems = computed<NavItem[]>(() => {
     if (this.isSettingsPage()) {
       return [{ ...APP_ROUTES.SETTINGS, icon: ICONS.settings.icon }];
+    } else if (this.isProfilePage()) {
+      return [{ ...APP_ROUTES.PROFILE, icon: ICONS.user.icon }];
     }
     return [];
   });

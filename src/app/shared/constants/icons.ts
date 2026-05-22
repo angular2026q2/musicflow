@@ -13,6 +13,7 @@ import {
   LucideShuffle,
   LucideSkipBack,
   LucideSkipForward,
+  LucideUser,
   LucideVolume1,
   LucideVolume2,
   LucideVolumeX,
@@ -92,6 +93,10 @@ export const ICONS = {
   settings: {
     icon: LucideSettings,
     label: 'Settings',
+  },
+  user: {
+    icon: LucideUser,
+    label: 'Profile',
   },
 } as const satisfies Record<string, IconConfig>;
 

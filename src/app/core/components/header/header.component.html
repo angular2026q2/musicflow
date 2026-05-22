@@ -20,18 +20,11 @@
       <svg [lucideIcon]="ICONS.settings.icon" [size]="20"></svg>
     </a>
 
-    <p-icon-field>
-      <a
-        [routerLink]="APP_ROUTES.PROFILE.route"
-        class="header__actions-btn"
-        aria-label="User profile"
-      >
-        @if (avatarUrl()) {
-          <p-avatar [image]="avatarUrl()" size="normal" shape="circle" />
-        } @else {
-          <p-avatar icon="pi pi-user" size="normal" shape="circle" />
-        }
-      </a>
-    </p-icon-field>
+    <app-user-avatar
+      class="header__actions-btn"
+      [avatarUrl]="avatarUrl()"
+      [link]="profileLink"
+      ariaLabel="User profile"
+    />
   </div>
 </header>

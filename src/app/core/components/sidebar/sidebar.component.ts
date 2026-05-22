@@ -1,10 +1,10 @@
 import { TitleCasePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@angular/core';
 import { isActive, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { DividerModule } from 'primeng/divider';
 import { type NavItem, NavItemComponent } from '@shared/components/nav-item/nav-item.component';
 import { ICONS } from '@shared/constants/icons';
 import { APP_ROUTES } from '@shared/constants/routes';
-import { DividerModule } from 'primeng/divider';
 
 @Component({
   selector: 'app-sidebar',
@@ -24,28 +24,24 @@ export class SidebarComponent {
     { ...APP_ROUTES.LIBRARY, icon: ICONS.library.icon },
   ];
 
+  private readonly contextNavRegistry: { item: NavItem; isActive: Signal<boolean> }[] = (
+    [
+      { ...APP_ROUTES.SETTINGS, icon: ICONS.settings.icon },
+      { ...APP_ROUTES.PROFILE, icon: ICONS.user.icon },
+    ] as NavItem[]
+  ).map((item) => ({
+    item,
+    isActive: isActive(`/${item.route}`, this.router, {
+      paths: 'exact',
+      queryParams: 'exact',
+      fragment: 'ignored',
+      matrixParams: 'ignored',
+    }),
+  }));
   readonly aboutTeamNavItem = APP_ROUTES.ABOUT;
 
-  readonly isSettingsPage = isActive(`/${APP_ROUTES.SETTINGS.route}`, this.router, {
-    paths: 'exact',
-    queryParams: 'exact',
-    fragment: 'ignored',
-    matrixParams: 'ignored',
-  });
-
-  readonly isProfilePage = isActive(`/${APP_ROUTES.PROFILE.route}`, this.router, {
-    paths: 'exact',
-    queryParams: 'exact',
-    fragment: 'ignored',
-    matrixParams: 'ignored',
-  });
-
   readonly contextNavItems = computed<NavItem[]>(() => {
-    if (this.isSettingsPage()) {
-      return [{ ...APP_ROUTES.SETTINGS, icon: ICONS.settings.icon }];
-    } else if (this.isProfilePage()) {
-      return [{ ...APP_ROUTES.PROFILE, icon: ICONS.user.icon }];
-    }
-    return [];
+    const active = this.contextNavRegistry.find(({ isActive }) => isActive());
+    return active ? [active.item] : [];
   });
 }

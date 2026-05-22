@@ -1,13 +1,13 @@
 @let avatar = avatarUrl();
 
-@if (link(); as href  ) {
+@if (link(); as href) {
   <a [routerLink]="href" class="user-avatar" [attr.aria-label]="ariaLabel()">
-      <p-avatar
-        [image]="avatar ? avatar : undefined"
-        [icon]="avatar ? undefined : icon()"
-        [size]="size()"
-        shape="circle"
-      />
+    <p-avatar
+      [image]="avatar ? avatar : undefined"
+      [icon]="avatar ? undefined : icon()"
+      [size]="size()"
+      shape="circle"
+    />
   </a>
 } @else {
   <span class="user-avatar" [attr.aria-label]="ariaLabel()">

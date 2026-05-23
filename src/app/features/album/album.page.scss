@@ -14,7 +14,6 @@
     }
   }
 
-
   &__meta {
     display: flex;
     align-items: center;
@@ -24,7 +23,6 @@
       color: var(--color-outline);
     }
   }
-
 
   &__artist-link {
     color: var(--color-on-surface);
@@ -58,7 +56,9 @@
     font-size: var(--text-body-md);
     font-weight: var(--weight-regular);
     cursor: pointer;
-    transition: opacity 0.2s ease, transform 0.15s ease;
+    transition:
+      opacity 0.2s ease,
+      transform 0.15s ease;
 
     @media (hover: hover) and (pointer: fine) {
       &:hover {
@@ -96,10 +96,6 @@
 
     &-num {
       text-align: center;
-    }
-
-    &-title {
-      // takes 1fr
     }
 
     &-plays {

@@ -1,3 +1,5 @@
+import { Route } from '@shared/interfaces/route';
+
 export const APP_ROUTES = {
   HOME: { label: 'Home', route: '' },
   SEARCH: { label: 'Search', route: 'search' },
@@ -5,4 +7,5 @@ export const APP_ROUTES = {
   SETTINGS: { label: 'Settings', route: 'settings' },
   PROFILE: { label: 'Profile', route: 'profile' },
   DISCOVER: { label: 'Discover', route: 'discover' },
-} as const;
+  ABOUT: { label: 'About Us', route: 'about' },
+} as const satisfies Record<string, Route>;

@@ -40,6 +40,17 @@
     gap: var(--space-xs);
   }
 
+  &__footer {
+    font-size: var(--text-label);
+
+    &-link {
+      &.active {
+        color: var(--color-secondary);
+      }
+    }
+  }
+}
+
   :host ::ng-deep &__divider.p-divider {
     margin: var(--space-sm) 0;
     border-color: var(--color-outline-variant);

@@ -23,6 +23,10 @@ export const routes: Routes = [
     loadComponent: () => import('@features/profile/profile.page').then((m) => m.ProfilePage),
   },
   {
+    path: APP_ROUTES.ABOUT.route,
+    loadComponent: () => import('@features/about/about.page').then((m) => m.AboutPage),
+  },
+  {
     path: '**',
     loadComponent: () => import('@features/not-found/not-found.page').then((m) => m.NotFoundPage),
   },

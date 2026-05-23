@@ -15,7 +15,8 @@
     "stylelint:fix": "stylelint \"src/**/*.{scss,css}\" --fix",
     "check": "npm run lint && npm run format:check && npm run stylelint",
     "check:fix": "npm run lint:fix && npm run format && npm run stylelint:fix",
-    "prepare": "husky"
+    "prepare": "husky",
+    "g:page": "ng g c --path=src/app/features --type=page"
   },
   "lint-staged": {
     "*.ts": [

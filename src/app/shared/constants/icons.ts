@@ -6,6 +6,7 @@ import {
   LucideEllipsis,
   LucideHeart,
   LucideHouse,
+  LucideInfo,
   LucideLibraryBig,
   LucideListMusic,
   LucidePause,
@@ -46,6 +47,10 @@ export const ICONS = {
   house: {
     icon: LucideHouse,
     label: 'Home',
+  },
+  info: {
+    icon: LucideInfo,
+    label: 'About',
   },
   play: {
     icon: LucidePlay,

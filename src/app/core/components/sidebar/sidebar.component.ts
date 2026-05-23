@@ -1,6 +1,6 @@
 import { TitleCasePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@angular/core';
-import { isActive, Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { isActive, Router } from '@angular/router';
 import { DividerModule } from 'primeng/divider';
 import { type NavItem, NavItemComponent } from '@shared/components/nav-item/nav-item.component';
 import { ICONS } from '@shared/constants/icons';
@@ -8,7 +8,7 @@ import { APP_ROUTES } from '@shared/constants/routes';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [NavItemComponent, DividerModule, TitleCasePipe, RouterLink, RouterLinkActive],
+  imports: [NavItemComponent, DividerModule, TitleCasePipe],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -24,6 +24,8 @@ export class SidebarComponent {
     { ...APP_ROUTES.LIBRARY, icon: ICONS.playlist.icon },
   ];
 
+  readonly aboutNavItem: NavItem = { ...APP_ROUTES.ABOUT, icon: ICONS.info.icon };
+
   private readonly contextNavRegistry: { item: NavItem; isActive: Signal<boolean> }[] = (
     [
       { ...APP_ROUTES.SETTINGS, icon: ICONS.settings.icon },
@@ -38,7 +40,6 @@ export class SidebarComponent {
       matrixParams: 'ignored',
     }),
   }));
-  readonly aboutTeamNavItem = APP_ROUTES.ABOUT;
 
   readonly contextNavItems = computed<NavItem[]>(() => {
     const active = this.contextNavRegistry.find(({ isActive }) => isActive());

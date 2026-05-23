@@ -37,6 +37,16 @@
     flex-direction: column;
     gap: var(--space-xs);
   }
+
+  &__footer {
+    font-size: var(--text-label);
+
+    &-link {
+      &.active {
+        color: var(--color-secondary);
+      }
+    }
+  }
 }
 
 :host ::ng-deep .sidebar__divider.p-divider {

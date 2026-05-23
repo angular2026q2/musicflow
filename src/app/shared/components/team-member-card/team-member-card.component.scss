@@ -1,0 +1,57 @@
+:host ::ng-deep .team-member-card {
+  height: 100%;
+
+  .p-card-body {
+    height: 100%;
+  }
+
+  &__avatar {
+    --size: 96px;
+
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    overflow: hidden;
+
+    &-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .p-card-footer {
+    margin-top: auto;
+    padding-top: var(--space-xs);
+    align-self: flex-end;
+    font-size: var(--text-body-sm);
+  }
+
+  &__github-link {
+    color: var(--color-primary);
+
+    &:hover {
+      color: var(--color-secondary);
+    }
+  }
+
+  &__member-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+    min-height: 100px;
+  }
+
+  &__name {
+    color: var(--color-primary);
+    font-size: var(--text-headline-md);
+    font-weight: 500;
+  }
+
+  &__role {
+    margin-top: 4px;
+    color: var(--color-outline);
+  }
+}

@@ -1,0 +1,59 @@
+<section class="about-page">
+  <div class="about-page__banner">
+    <h2 class="about-page__title">{{ PAGE_TITLE }}</h2>
+  </div>
+
+  <div class="about-page__description">
+    <p class="about-page__description-text">
+      Welcome, everyone! We are the
+      <span class="about-page__description-text--highlight">ngTunes</span> team. In 2026, as part of
+      the
+      <a
+        href="{{ ANGULAR_LINK_COURSE }}"
+        class="about-page__description-link"
+        target="_blank"
+        rel="noopener noreferrer"
+        >Angular course</a
+      >
+      at
+      <a
+        href="{{ RSS_LINK }}"
+        class="about-page__description-link"
+        target="_blank"
+        rel="noopener noreferrer"
+        >RS School</a
+      >, we developed the MusicFlow project. This is our first Angular project, and it took us a
+      little over a month to complete.
+    </p>
+    <p class="about-page__description-text">
+      MusicFlow is a music single-page application with a user-friendly interface. We all put a lot
+      of effort into making this project enjoyable for you. We hope you have a pleasant experience
+      using it.
+    </p>
+    <p class="about-page__description-text">
+      You can explore the application code and each team member’s contribution via the
+      <a
+        href="https://github.com/angular2026q2/musicflow"
+        class="about-page__description-link"
+        target="_blank"
+        rel="noopener noreferrer"
+        >link</a
+      >.
+    </p>
+  </div>
+
+  <div class="about-page__team-content">
+    @for (member of teamMembers; track member.name) {
+      <app-team-member-card [member]="member"></app-team-member-card>
+    }
+  </div>
+
+  <div class="about-page__footer">
+    <div class="about-page__copyright">© 2026 ngTunes</div>
+    <div class="about-page__rsschool">
+      <a href="{{ RSS_LINK }}" target="_blank" rel="noopener noreferrer">
+        <img src="https://rs.school/_next/static/media/rss-logo.c19ce1b4.svg" alt="RSS-logo" />
+      </a>
+    </div>
+  </div>
+</section>

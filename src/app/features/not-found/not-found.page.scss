@@ -65,12 +65,12 @@
     font-weight: var(--weight-regular);
     line-height: var(--leading-body-md);
     background: linear-gradient(
-            90deg,
-            var(--color-outline),
-            var(--color-primary),
-            var(--color-secondary),
-            var(--color-outline-variant),
-            var(--color-outline)
+      90deg,
+      var(--color-outline),
+      var(--color-primary),
+      var(--color-secondary),
+      var(--color-outline-variant),
+      var(--color-outline)
     );
     background-size: 300% 300%;
     background-clip: text;
@@ -92,11 +92,12 @@
     font-family: var(--font-body), serif;
     font-size: var(--text-body-sm);
     font-weight: var(--weight-semibold);
-    text-decoration: none;
 
     -webkit-text-fill-color: var(--color-on-primary);
 
-    transition: opacity 0.2s ease, transform 0.15s ease;
+    transition:
+      opacity 0.2s ease,
+      transform 0.15s ease;
 
     svg {
       width: 1rem;
@@ -115,23 +116,23 @@
 @keyframes glow-pulse {
   0% {
     box-shadow:
-            0 0 20px 4px color-mix(in srgb, var(--color-primary) 30%, transparent),
-            0 0 40px 8px color-mix(in srgb, var(--color-primary-container) 20%, transparent);
+      0 0 20px 4px color-mix(in srgb, var(--color-primary) 30%, transparent),
+      0 0 40px 8px color-mix(in srgb, var(--color-primary-container) 20%, transparent);
   }
   33% {
     box-shadow:
-            0 0 24px 6px color-mix(in srgb, var(--color-secondary) 30%, transparent),
-            0 0 48px 12px color-mix(in srgb, var(--color-secondary-container) 20%, transparent);
+      0 0 24px 6px color-mix(in srgb, var(--color-secondary) 30%, transparent),
+      0 0 48px 12px color-mix(in srgb, var(--color-secondary-container) 20%, transparent);
   }
   66% {
     box-shadow:
-            0 0 20px 4px color-mix(in srgb, var(--color-primary) 25%, transparent),
-            0 0 40px 8px color-mix(in srgb, var(--color-tertiary) 15%, transparent);
+      0 0 20px 4px color-mix(in srgb, var(--color-primary) 25%, transparent),
+      0 0 40px 8px color-mix(in srgb, var(--color-tertiary) 15%, transparent);
   }
   100% {
     box-shadow:
-            0 0 20px 4px color-mix(in srgb, var(--color-primary) 30%, transparent),
-            0 0 40px 8px color-mix(in srgb, var(--color-primary-container) 20%, transparent);
+      0 0 20px 4px color-mix(in srgb, var(--color-primary) 30%, transparent),
+      0 0 40px 8px color-mix(in srgb, var(--color-primary-container) 20%, transparent);
   }
 }
 

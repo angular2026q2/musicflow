@@ -1,0 +1,84 @@
+.about-page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  height: 100%;
+
+  &__team-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
+    gap: var(--space-md);
+  }
+
+  &__banner {
+    background: linear-gradient(
+      135deg,
+      var(--color-primary-container) 30%,
+      var(--color-secondary-container) 70%
+    );
+
+    padding: var(--space-xxl);
+    border-radius: var(--radius-md);
+    text-align: center;
+
+    font-size: var(--text-headline-md);
+    background-size: 200% 200%;
+    animation: background-shimmer 6s ease-in-out infinite;
+  }
+
+  @keyframes background-shimmer {
+    0% {
+      background-position: 0 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0 50%;
+    }
+  }
+
+  &__description {
+    &-text {
+      margin-bottom: var(--space-md);
+
+      &:last-of-type {
+        margin-bottom: 0;
+      }
+
+      &--highlight {
+        font-weight: 600;
+        color: var(--color-secondary);
+      }
+    }
+
+    &-link {
+      color: var(--color-primary);
+
+      &:hover {
+        color: var(--color-secondary);
+      }
+    }
+  }
+
+  &__footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-md);
+
+    margin-top: auto;
+    padding: var(--space-md);
+  }
+
+  &__copyright {
+    font-size: var(--text-label);
+  }
+
+  &__rsschool {
+    --size: 32px;
+
+    width: var(--size);
+    height: var(--32px);
+  }
+}

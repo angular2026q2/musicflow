@@ -1,0 +1,103 @@
+.track {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr auto auto;
+  align-items: center;
+  gap: var(--space-md);
+  padding: var(--space-sm) 0;
+  border-radius: var(--radius-default);
+  transition: background-color 0.2s ease;
+
+  @media(hover: hover) and (pointer: fine) {
+    &:hover {
+      background-color: var(--color-surface-container);
+
+      .track__num {
+        opacity: 0;
+      }
+
+      .track__play-btn {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__position {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+  }
+
+  &__num {
+    font-size: var(--text-body-sm);
+    color: var(--color-outline);
+    transition: opacity 0.15s ease;
+  }
+
+  &__play-btn {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    opacity: 0;
+    color: var(--color-on-surface);
+    transition: opacity 0.15s ease;
+    cursor: pointer;
+  }
+
+  &__image {
+    //width: 2.5rem;
+    //height: 2.5rem;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    min-width: 0;
+  }
+
+  &__name {
+    font-size: var(--text-body-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-on-surface);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__artist {
+    font-size: var(--text-label);
+    color: var(--color-outline);
+    text-decoration: none;
+    transition: color 0.15s ease;
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        color: var(--color-on-surface);
+        text-decoration: underline;
+      }
+    }
+
+    &__plays {
+      font-size: var(--text-body-sm);
+      color: var(--color-outline);
+      text-align: right;
+      min-width: 4rem;
+    }
+
+    &__duration {
+      font-size: var(--text-body-sm);
+      color: var(--color-outline);
+      text-align: right;
+      min-width: 3rem;
+    }
+  }
+}

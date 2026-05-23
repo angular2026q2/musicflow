@@ -21,7 +21,7 @@ export class SidebarComponent {
   readonly mainNavItems: NavItem[] = [
     { ...APP_ROUTES.HOME, icon: ICONS.house.icon },
     { ...APP_ROUTES.SEARCH, icon: ICONS.search.icon },
-    { ...APP_ROUTES.LIBRARY, icon: ICONS.library.icon },
+    { ...APP_ROUTES.LIBRARY, icon: ICONS.playlist.icon },
   ];
 
   private readonly contextNavRegistry: { item: NavItem; isActive: Signal<boolean> }[] = (

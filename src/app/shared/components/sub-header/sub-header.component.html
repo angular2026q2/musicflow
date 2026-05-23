@@ -1,0 +1,28 @@
+<header class="sub-header">
+<!--   <button class="sub-header__back" type="button" (click)="goBack()"> -->
+<!--     <svg [lucideIcon]="ICONS.arrowBigLeft.icon"></svg> -->
+<!--     <span>Back</span> -->
+<!--   </button> -->
+  <div class="sub-header__body">
+    <img
+      [ngSrc]="imageUrl()"
+      [alt]="title()"
+      class="sub-header__image"
+      [class.sub-header__image-rounded]="imageVariant() === 'rounded'"
+      width="200"
+      height="200"
+    />
+    <div class="sub-header__info">
+      @if (kind()) {
+        <span class="sub-header__kind">{{ kind() }}</span>
+      }
+      <h1 class="sub-header__title">{{ title() }}</h1>
+      <div class="sub-header__meta">
+        <ng-content select="[meta]" />
+      </div>
+      <div class="sub-header__actions">
+        <ng-content select="[actions]" />
+      </div>
+    </div>
+  </div>
+</header>

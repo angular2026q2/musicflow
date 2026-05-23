@@ -1,25 +1,25 @@
 .app-layout {
+  overflow: hidden;
   display: grid;
   grid-template-columns: 16.5rem 1fr;
   grid-template-rows: 1fr;
+
   height: 100vh;
 
   &__sidebar {
+    overflow: hidden auto;
     grid-row: 1 / -1;
-    overflow-y: auto;
-    overflow-x: hidden;
   }
 
   &__content {
+    overflow: hidden;
     display: grid;
     grid-template-rows: auto 1fr;
-    overflow: hidden;
   }
 
   &__main {
-    padding: 0 var(--space-xl);
-    overflow-y: auto;
-    overflow-x: hidden;
     position: relative;
+    overflow: hidden auto;
+    padding: 0 var(--space-xl);
   }
 }

@@ -1,15 +1,16 @@
 :host {
   width: 100%;
 }
+
 .controls-bar {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 
   &__root-container {
     display: flex;
-    align-items: center;
     gap: var(--space-sm);
+    align-items: center;
   }
 }

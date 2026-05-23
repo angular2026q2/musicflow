@@ -8,10 +8,10 @@
   &__avatar {
     --size: 96px;
 
+    overflow: hidden;
     width: var(--size);
     height: var(--size);
     border-radius: 50%;
-    overflow: hidden;
 
     &-img {
       width: 100%;
@@ -21,9 +21,9 @@
   }
 
   .p-card-footer {
+    align-self: flex-end;
     margin-top: auto;
     padding-top: var(--space-xs);
-    align-self: flex-end;
     font-size: var(--text-body-sm);
   }
 
@@ -37,17 +37,18 @@
 
   &__member-info {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
     gap: var(--space-md);
-    margin-bottom: var(--space-md);
+    align-items: center;
+    justify-content: space-between;
+
     min-height: 100px;
+    margin-bottom: var(--space-md);
   }
 
   &__name {
-    color: var(--color-primary);
     font-size: var(--text-headline-md);
     font-weight: 500;
+    color: var(--color-primary);
   }
 
   &__role {

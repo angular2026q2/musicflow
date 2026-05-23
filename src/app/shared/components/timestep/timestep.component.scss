@@ -4,8 +4,8 @@
 
 .timestep {
   display: flex;
-  align-items: center;
   gap: var(--space-sm);
+  align-items: center;
   font-size: var(--text-label);
 
   &__time {
@@ -13,8 +13,8 @@
   }
 
   &__slider {
+    cursor: pointer;
     flex: 1;
     padding: 3px 0;
-    cursor: pointer;
   }
 }

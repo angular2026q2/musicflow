@@ -1,6 +1,6 @@
 @use 'app/shared/styles/breakpoints' as *;
 
-.itemDetails {
+.item-details {
   display: flex;
   gap: 18px;
   align-items: center;
@@ -19,6 +19,7 @@
       height: 54px;
       border-radius: var(--radius-default);
     }
+
     &-squareXl {
       width: 80px;
       height: 80px;
@@ -27,10 +28,10 @@
   }
 
   &__title {
-    font-size: var(--text-body-md);
-    white-space: nowrap;
     overflow: hidden;
+    font-size: var(--text-body-md);
     text-overflow: ellipsis;
+    white-space: nowrap;
 
     &-normal {
       font-weight: var(--weight-regular);
@@ -46,11 +47,12 @@
   }
 
   &__description {
+    overflow: hidden;
+
     font-size: var(--text-body-sm);
     color: var(--color-on-surface-variant);
-    white-space: nowrap;
-    overflow: hidden;
     text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   &__secondaryDesc {

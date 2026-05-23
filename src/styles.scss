@@ -1,7 +1,7 @@
 @layer primeng;
 
-@import url('primeicons/primeicons.css');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;700&display=swap');
+@import 'primeicons/primeicons.css';
+@import 'https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;700&display=swap';
 
 :root {
   /* Colors */
@@ -112,4 +112,19 @@ a:hover {
 
 a:active {
   color: var(--color-secondary);
+}
+
+.team-member-card {
+  height: 100%;
+
+  .p-card-body {
+    height: 100%;
+  }
+
+  .p-card-footer {
+    align-self: flex-end;
+    margin-top: auto;
+    padding-top: var(--space-xs);
+    font-size: var(--text-body-sm);
+  }
 }

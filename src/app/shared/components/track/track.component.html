@@ -1,11 +1,7 @@
 <div class="track">
   <div class="track__position">
     <span class="track__num">{{ position() }}</span>
-    <button
-      class="track__play-btn"
-      type="button"
-      [attr.aria-label]="`Play ${track().name}`"
-    >
+    <button class="track__play-btn" type="button" [attr.aria-label]="`Play ${track().name}`">
       <svg [lucideIcon]="ICONS.play.icon" [size]="16"></svg>
     </button>
   </div>
@@ -22,10 +18,7 @@
 
   <div class="track__info">
     <span class="track__name">{{ track().name }}</span>
-    <a
-      [routerLink]="artistLink(track().artist_id)"
-      class="track__artist"
-    >
+    <a [routerLink]="artistLink(track().artist_id)" class="track__artist">
       {{ track().artist_name }}
     </a>
   </div>

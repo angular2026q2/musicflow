@@ -1,9 +1,5 @@
-:host ::ng-deep .team-member-card {
+.team-member-card {
   height: 100%;
-
-  .p-card-body {
-    height: 100%;
-  }
 
   &__avatar {
     --size: 96px;
@@ -18,13 +14,6 @@
       height: 100%;
       object-fit: cover;
     }
-  }
-
-  .p-card-footer {
-    align-self: flex-end;
-    margin-top: auto;
-    padding-top: var(--space-xs);
-    font-size: var(--text-body-sm);
   }
 
   &__github-link {

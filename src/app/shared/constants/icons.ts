@@ -1,11 +1,17 @@
 import {
+  LucideArrowBigLeft,
   LucideBell,
+  LucideClock,
+  LucideDownload,
+  LucideEllipsis,
   LucideHeart,
   LucideHouse,
+  LucideInfo,
   LucideLibraryBig,
   LucideListMusic,
   LucidePause,
   LucidePlay,
+  LucideRefreshCcw,
   LucideRepeat,
   LucideRepeat1,
   LucideSearch,
@@ -13,6 +19,7 @@ import {
   LucideShuffle,
   LucideSkipBack,
   LucideSkipForward,
+  LucideUser,
   LucideVolume1,
   LucideVolume2,
   LucideVolumeX,
@@ -25,13 +32,25 @@ import { IconConfig } from '@shared/interfaces/icon-config';
  */
 
 export const ICONS = {
+  arrowBigLeft: {
+    icon: LucideArrowBigLeft,
+    label: 'Back',
+  },
   bell: {
     icon: LucideBell,
     label: 'Notifications',
   },
+  clock: {
+    icon: LucideClock,
+    label: 'Duration',
+  },
   house: {
     icon: LucideHouse,
     label: 'Home',
+  },
+  info: {
+    icon: LucideInfo,
+    label: 'About',
   },
   play: {
     icon: LucidePlay,
@@ -60,6 +79,10 @@ export const ICONS = {
   repeatOne: {
     icon: LucideRepeat1,
     label: 'Repeat current track',
+  },
+  retry: {
+    icon: LucideRefreshCcw,
+    label: 'Retry',
   },
   volumeOff: {
     icon: LucideVolumeX,
@@ -92,6 +115,18 @@ export const ICONS = {
   settings: {
     icon: LucideSettings,
     label: 'Settings',
+  },
+  user: {
+    icon: LucideUser,
+    label: 'Profile',
+  },
+  download: {
+    icon: LucideDownload,
+    label: 'Download',
+  },
+  moreOptions: {
+    icon: LucideEllipsis,
+    label: 'More options',
   },
 } as const satisfies Record<string, IconConfig>;
 

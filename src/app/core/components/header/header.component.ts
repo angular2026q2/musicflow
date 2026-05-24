@@ -7,9 +7,9 @@ import { ICONS } from '@shared/constants/icons';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
-import { AvatarModule } from 'primeng/avatar';
 import { ButtonModule } from 'primeng/button';
 import { ControlButtonComponent } from '@shared/components/control-button/control-button.component';
+import { UserAvatarComponent } from '@shared/components/user-avatar/user-avatar.component';
 
 /**
  * todo: задача на Sprint 2 - заменить avatarUrl `input()` иньекцией сервиса `UserService` injection.
@@ -26,10 +26,10 @@ import { ControlButtonComponent } from '@shared/components/control-button/contro
     IconFieldModule,
     InputIconModule,
     InputTextModule,
-    AvatarModule,
     ButtonModule,
     LucideDynamicIcon,
     ControlButtonComponent,
+    UserAvatarComponent,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
@@ -41,4 +41,5 @@ export class HeaderComponent {
 
   protected readonly APP_ROUTES = APP_ROUTES;
   protected readonly ICONS = ICONS;
+  protected readonly profileLink = `/${APP_ROUTES.PROFILE.route}`;
 }

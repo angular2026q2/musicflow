@@ -23,7 +23,9 @@ export default {
         ],
 
         'media-query-no-invalid': null,
+
         'no-descending-specificity': null,
+        
         // FIX: Allow double slash comments in SCSS.
         'no-invalid-double-slash-comments': null,
 

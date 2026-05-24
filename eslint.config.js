@@ -33,20 +33,6 @@ module.exports = defineConfig([
           style: 'kebab-case',
         },
       ],
-      // '@typescript-eslint/member-ordering': [
-      //   'error',
-      //   {
-      //     default: [
-      //       'public-instance-field',
-      //       'protected-instance-field',
-      //       'private-instance-field',
-      //       'constructor',
-      //       'public-instance-method',
-      //       'protected-instance-method',
-      //       'private-instance-method',
-      //     ],
-      //   },
-      // ],
     },
   },
   {

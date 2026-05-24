@@ -1,0 +1,67 @@
+<section class="album-page">
+  @if (isLoading()) {
+    <!--     todo: разнести скелетон в отдельный SubHeaderSkeletonComponent, когда появятся ещё страницы (artist/track и
+прочие), которые будут им пользоватья
+ -->
+    <div class="album-page__skeleton">
+      <p-skeleton width="200px" height="200px" />
+      <div class="album-page__skeleton-info">
+        <p-skeleton width="60px" height="1rem" />
+        <p-skeleton width="60%" height="2.5rem" />
+        <p-skeleton width="40%" height="1rem" />
+        <p-skeleton width="200px" height="2.5rem" />
+      </div>
+    </div>
+  } @else if (error()) {
+    <div class="album-page__error">
+      <p-message severity="error">Failed to load album. Please try again later.</p-message>
+      <button type="button" (click)="albumResource.reload()" class="album-page__retry-btn">
+        <svg [lucideIcon]="ICONS.retry.icon"></svg>
+        <span>Retry</span>
+      </button>
+    </div>
+  } @else if (album(); as a) {
+    <app-sub-header [title]="a.name" [imageUrl]="a.image" kind="Album" imageVariant="square">
+      <div meta class="album-page__meta">
+        <a [routerLink]="artistLink(a.artist_id)" class="album-page__artist-link">
+          {{ a.artist_name }}
+        </a>
+        <span class="album-page__meta-dot">•</span>
+        <span>{{ a.releasedate | date: 'MMM yyyy' }}</span>
+        <span class="album-page__meta-dot">•</span>
+        <span class="album-page__meta-duration">{{ totalDuration() | duration: 'total' }}</span>
+      </div>
+
+      <div actions class="album-page__actions">
+        <button class="album-page__play-btn" type="button" aria-label="Play album">
+          <svg [lucideIcon]="ICONS.play.icon" [size]="18"></svg>
+          <span>Play</span>
+        </button>
+        <app-control-button icon="heart" ariaLabel="Add to favorites" />
+        <app-control-button icon="download" ariaLabel="Download" />
+        <app-control-button icon="moreOptions" ariaLabel="Options" />
+      </div>
+    </app-sub-header>
+
+    <div class="album-page__content">
+      <div class="album-page__tracklist">
+        <div class="album-page__tracks">
+          <div class="album-page__tracks-header">
+            <span class="album-page__tracks-num">#</span>
+            <span class="album-page__tracks-title">Title</span>
+            <span class="album-page__tracks-plays">Plays</span>
+            <span class="album-page__tracks-duration">
+              <svg [lucideIcon]="ICONS.clock.icon" [size]="16"></svg>
+            </span>
+          </div>
+
+          <div class="album-page__tracks-divider"></div>
+
+          @for (track of tracks(); track track.id) {
+            <app-track [track]="toTrack(track)" [position]="$index + 1" />
+          }
+        </div>
+      </div>
+    </div>
+  }
+</section>

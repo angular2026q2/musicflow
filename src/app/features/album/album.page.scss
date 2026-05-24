@@ -16,8 +16,8 @@
 
   &__meta {
     display: flex;
-    align-items: center;
     gap: var(--space-sm);
+    align-items: center;
 
     &-dot {
       color: var(--color-outline);
@@ -25,8 +25,8 @@
   }
 
   &__artist-link {
-    color: var(--color-on-surface);
     font-weight: var(--weight-semibold);
+    color: var(--color-on-surface);
     text-decoration: none;
     transition: color 0.15s ease;
 
@@ -40,30 +40,35 @@
 
   &__actions {
     display: flex;
-    align-items: center;
     gap: var(--space-sm);
+    align-items: center;
   }
 
   &__play-btn {
+    cursor: pointer;
+
     display: inline-flex;
-    align-items: center;
     gap: var(--space-sm);
+    align-items: center;
+
     padding: var(--space-sm) var(--space-xl);
     border: none;
     border-radius: var(--radius-full);
-    background-color: var(--color-primary-container);
-    color: var(--color-on-primary-container);
+
     font-size: var(--text-body-md);
     font-weight: var(--weight-regular);
-    cursor: pointer;
+    color: var(--color-on-primary-container);
+
+    background-color: var(--color-primary-container);
+
     transition:
       opacity 0.2s ease,
       transform 0.15s ease;
 
     @media (hover: hover) and (pointer: fine) {
       &:hover {
-        opacity: 0.85;
         transform: translateY(-1px);
+        opacity: 0.85;
       }
     }
   }
@@ -87,9 +92,9 @@
 
       padding: var(--space-sm) var(--space-xs);
 
-      color: var(--color-outline);
       font-size: var(--text-label);
       font-weight: var(--weight-bold);
+      color: var(--color-outline);
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
@@ -107,37 +112,46 @@
       display: flex;
       align-items: center;
       justify-content: flex-end;
+
       min-width: 3rem;
+
       text-align: center;
     }
 
     &-divider {
       height: 1px;
-      background-color: var(--color-outline-variant);
       margin: var(--space-xs) 0;
+      background-color: var(--color-outline-variant);
     }
   }
 
   &__error {
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: var(--space-md);
+    align-items: center;
+
     padding: var(--space-xl);
     border-radius: var(--radius-md);
+
     background-color: var(--color-surface-container);
   }
 
   &__retry-btn {
+    cursor: pointer;
+
     display: flex;
-    align-items: center;
     gap: var(--space-sm);
+    align-items: center;
+
     padding: var(--space-sm) var(--space-lg);
     border: none;
     border-radius: var(--radius-full);
-    background-color: var(--color-surface-high);
+
     color: var(--color-on-surface);
-    cursor: pointer;
+
+    background-color: var(--color-surface-high);
+
     transition: background-color 0.2s ease;
 
     @media (hover: hover) and (pointer: fine) {

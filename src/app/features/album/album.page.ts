@@ -1,0 +1,100 @@
+import { httpResource } from '@angular/common/http';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { DatePipe } from '@angular/common';
+import { LucideDynamicIcon } from '@lucide/angular';
+
+import { buildArtistPath } from '@shared/constants/routes';
+import { ICONS } from '@shared/constants/icons';
+
+import type { Album } from '@shared/interfaces/album.interface';
+import type { AlbumTrack } from '@shared/interfaces/album-track.interface';
+import type { Track } from '@shared/interfaces/track.interface';
+
+import { MessageModule } from 'primeng/message';
+import { SkeletonModule } from 'primeng/skeleton';
+
+import { SubHeaderComponent } from '@shared/components/sub-header/sub-header.component';
+import { TrackComponent } from '@shared/components/track/track.component';
+import { ControlButtonComponent } from '@shared/components/control-button/control-button.component';
+import { DurationPipe } from '@shared/pipes/duration.pipe';
+
+@Component({
+  selector: 'app-album',
+  imports: [
+    DatePipe,
+    RouterLink,
+    SubHeaderComponent,
+    TrackComponent,
+    SkeletonModule,
+    MessageModule,
+    LucideDynamicIcon,
+    ControlButtonComponent,
+    DurationPipe,
+  ],
+  templateUrl: './album.page.html',
+  styleUrl: './album.page.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class AlbumPage {
+  readonly id = input.required<string>();
+
+  readonly albumResource = httpResource<Album>(() =>
+    this.id() ? `/api/v1/music/albums/${this.id()}` : undefined,
+  );
+
+  readonly tracksResource = httpResource<AlbumTrack[]>(() =>
+    this.id() ? `/api/v1/music/albums/${this.id()}/tracks` : undefined,
+  );
+
+  readonly album = computed(() => this.albumResource.value());
+  readonly tracks = computed(() => this.tracksResource.value() ?? []);
+
+  readonly isLoading = computed(
+    () => this.albumResource.isLoading() || this.tracksResource.isLoading(),
+  );
+  readonly error = computed(() => this.albumResource.error() ?? this.tracksResource.error());
+
+  /**
+   * @description Calculates total album duration from tracks.
+   * @returns 'Xh YY min' if >= 1h, otherwise 'YY min'.
+   *
+   * @note todo: DurationPipe handles seconds→mm:ss but total needs different format - keeping local here
+   */
+  readonly totalDuration = computed(() => {
+    const trackList = this.tracks();
+    if (!trackList.length) return 0;
+    return trackList.reduce((sum, t) => sum + parseInt(t.duration, 10), 0);
+  });
+
+  toTrack(albumTrack: AlbumTrack): Track {
+    return {
+      id: albumTrack.id,
+      name: albumTrack.name,
+      duration: parseInt(albumTrack.duration, 10),
+      artist_id: this.album()?.artist_id ?? '',
+      artist_name: this.album()?.artist_name ?? '',
+      artist_idstr: '',
+      album_name: this.album()?.name ?? '',
+      album_id: this.id(),
+      license_ccurl: albumTrack.license_ccurl,
+      position: parseInt(albumTrack.position, 10),
+      releasedate: this.album()?.releasedate ?? '',
+      album_image: this.album()?.image ?? '',
+      audio: albumTrack.audio,
+      audiodownload: albumTrack.audiodownload,
+      prourl: '',
+      shorturl: '',
+      shareurl: '',
+      image: this.album()?.image ?? '',
+      audiodownload_allowed: albumTrack.audiodownload_allowed,
+      content_id_free: false,
+    };
+  }
+
+  artistLink(artistId: string): string {
+    return buildArtistPath(artistId);
+  }
+
+  protected readonly ICONS = ICONS;
+}

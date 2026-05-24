@@ -23,6 +23,12 @@ export default {
         ],
 
         'media-query-no-invalid': null,
+
+        // FIX: Allow double slash comments in SCSS.
+        'no-invalid-double-slash-comments': null,
+
+        // FIX: Allow BEM or kebab-case naming convention for class selectors.
+        'selector-class-pattern': null,
       },
     },
   ],

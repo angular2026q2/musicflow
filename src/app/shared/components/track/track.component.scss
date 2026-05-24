@@ -1,0 +1,116 @@
+.track {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr auto auto;
+  gap: var(--space-md);
+  align-items: center;
+
+  padding: var(--space-sm) 0;
+  border-radius: var(--radius-default);
+
+  transition: background-color 0.2s ease;
+
+  &__position {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 2rem;
+    height: 2rem;
+  }
+
+  &__num {
+    font-size: var(--text-body-sm);
+    color: var(--color-outline);
+    transition: opacity 0.15s ease;
+  }
+
+  &__play-btn {
+    cursor: pointer;
+
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+
+    color: var(--color-on-surface);
+
+    opacity: 0;
+    background: none;
+
+    transition: opacity 0.15s ease;
+  }
+
+  &__image {
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+
+    //height: 2.5rem;
+    //width: 2.5rem;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    min-width: 0;
+  }
+
+  &__name {
+    overflow: hidden;
+
+    font-size: var(--text-body-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-on-surface);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__artist {
+    font-size: var(--text-label);
+    color: var(--color-outline);
+    text-decoration: none;
+    transition: color 0.15s ease;
+
+    &__plays {
+      min-width: 4rem;
+      font-size: var(--text-body-sm);
+      color: var(--color-outline);
+      text-align: right;
+    }
+
+    &__duration {
+      min-width: 3rem;
+      font-size: var(--text-body-sm);
+      color: var(--color-outline);
+      text-align: right;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        color: var(--color-on-surface);
+        text-decoration: underline;
+      }
+    }
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      background-color: var(--color-surface-container);
+
+      .track__num {
+        opacity: 0;
+      }
+
+      .track__play-btn {
+        color: var(--color-on-surface);
+        opacity: 1;
+      }
+    }
+  }
+}

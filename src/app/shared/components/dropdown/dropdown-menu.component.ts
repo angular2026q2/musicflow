@@ -3,6 +3,17 @@ import { ButtonModule } from 'primeng/button';
 import { MenuModule } from 'primeng/menu';
 import { MenuItem } from 'primeng/api';
 
+/**
+ * Компонент выпадающего меню с кнопкой-триггером (три точки).
+ *
+ * Предназначен для многократного использования в приложении как готовый
+ * виджет дропдауна: меню + кнопка с настраиваемым направлением иконки
+ * и опциональной рамкой вокруг кнопки.
+ * @input items - Массив пунктов меню (PrimeNG `MenuItem[]`), отображаемых в выпадающем меню.
+ * @input dir - Направление иконки кнопки с тремя точками: `'horizontal'` или `'vertical'`. По умолчанию: `'horizontal'`.
+ * @input withBorder - Флаг: показывать круглую рамку вокруг кнопки (`true`) или нет (`false`). По умолчанию: `false`.
+ */
+
 type EllipsisDir = 'horizontal' | 'vertical';
 
 @Component({

@@ -110,6 +110,7 @@ export const MusicFlowPreset = definePreset(Aura, {
         .p-card.cover-card .discovery-trending__title {
             color: var(--color-white);
             font-size: var(--text-headline-md);
+            font-family: var(--font-display);
         }
 
        .p-card.cover-card .discovery-trending__description {

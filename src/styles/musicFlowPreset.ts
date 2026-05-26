@@ -28,13 +28,22 @@ export const MusicFlowPreset = definePreset(Aura, {
           color: var(--color-secondary);
         }
 
-        .p-button.recently-played-menu-button{
+        .p-button.dropdown-menu-button{
           color: var(--color-on-surface-variant);
         }
 
-        .p-button.recently-played-menu-button:not(:disabled):hover{
+        .p-button.dropdown-menu-button:not(:disabled):hover{
           background: transparent;
           color: var(--color-primary)
+        }
+        .p-button.dropdown-menu-button--bordered {
+          border: 1px solid var(--color-surface-bright);
+          border-radius: 50%;
+        }
+
+        .p-button.dropdown-menu-button--bordered:not(:disabled):hover {
+          background: transparent;
+          color: var(--color-primary);
         }
 
       `,
@@ -110,6 +119,7 @@ export const MusicFlowPreset = definePreset(Aura, {
         .p-card.cover-card .discovery-trending__title {
             color: var(--color-white);
             font-size: var(--text-headline-md);
+            font-family: var(--font-display);
         }
 
        .p-card.cover-card .discovery-trending__description {
@@ -120,7 +130,7 @@ export const MusicFlowPreset = definePreset(Aura, {
     },
     menu: {
       css: () => `
-        .p-menu.recently-played-menu {
+        .p-menu.dropdown-menu {
           border: 1px solid var(--color-surface-bright);
           background: rgba(var(--color-surface), 0.8);
           backdrop-filter: blur(24px);
@@ -128,20 +138,20 @@ export const MusicFlowPreset = definePreset(Aura, {
           color: var(--color-on-surface)
         }
 
-        .p-menu.recently-played-menu .p-menu-item-content {
+        .p-menu.dropdown-menu .p-menu-item-content {
           color: var(--color-on-surface);
         }
 
-        .p-menu.recently-played-menu .p-menu-item-icon {
+        .p-menu.dropdown-menu .p-menu-item-icon {
         color: var(--color-on-surface);
         }
 
-        .p-menu.recently-played-menu .p-menu-item-content:hover {
+        .p-menu.dropdown-menu .p-menu-item-content:hover {
         background: transparent;
         color: var(--color-primary);
         }
 
-        .p-menu.recently-played-menu .p-menu-item-content:hover .p-menu-item-icon {
+        .p-menu.dropdown-menu .p-menu-item-content:hover .p-menu-item-icon {
         color: var(--color-primary);
         }
         `,

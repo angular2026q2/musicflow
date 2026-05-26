@@ -6,9 +6,9 @@
     [ngClass]="'item-details__image-' + imageVariant()"
   />
   <div class="item-details__textBlock">
-    <h3 class="item-details__title" [ngClass]="'item-details__title-' + titleVariant()">
+    <h4 class="item-details__title" [ngClass]="'item-details__title-' + titleVariant()">
       {{ title() }}
-    </h3>
+    </h4>
     <div class="item-details__description">
       <span>{{ primaryDesc() }}</span>
       @if (secondaryDesc()) {

@@ -1,0 +1,107 @@
+<div class="glow-border"></div>
+<div class="sign-in-modal">
+  <button
+    class="sign-in-modal__close"
+    type="button"
+    (click)="close()"
+    [attr.aria-label]="ICONS.close.label"
+  >
+    <svg [lucideIcon]="ICONS.close.icon"></svg>
+  </button>
+
+  <div class="sign-in-modal__header">
+    <h2 class="sign-in-modal__title">Music Flow</h2>
+    <p class="sign-in-modal__subtitle">Sign in to your audio workspace</p>
+  </div>
+
+  <form class="sign-in-modal__form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="sign-in-modal__field">
+      <label for="email" class="sign-in-modal__label">EMAIL ADDRESS</label>
+      <p-iconfield>
+        <p-inputicon>
+          <svg [lucideIcon]="ICONS.mail.icon" [size]="16"></svg>
+        </p-inputicon>
+        <input
+          pInputText
+          type="email"
+          id="email"
+          formControlName="email"
+          placeholder="name@musicflow.com"
+          class="sign-in-modal__input"
+          autocomplete="email"
+        />
+      </p-iconfield>
+
+      <span class="sign-in-modal__error-text">
+        @if (form.controls.email.invalid && form.controls.email.touched) {
+          Enter a valid email
+        }
+      </span>
+    </div>
+
+    <div class="sign-in-modal__field">
+      <div class="sign-in-modal__label-row">
+        <label for="password" class="sign-in-modal__label">PASSWORD</label>
+      </div>
+      <p-iconfield>
+        <p-inputicon>
+          <svg [lucideIcon]="ICONS.lock.icon" [size]="16"></svg>
+        </p-inputicon>
+        <input
+          pInputText
+          type="password"
+          id="password"
+          formControlName="password"
+          placeholder="••••••••"
+          class="sign-in-modal__input"
+          autocomplete="current-password"
+        />
+      </p-iconfield>
+      <div class="sign-in-modal__label-row">
+        <span class="sign-in-modal__error-text">
+          @if (form.controls.password.invalid && form.controls.password.touched) {
+            Password must be at least 6 characters
+          }
+        </span>
+        <button
+          type="button"
+          class="sign-in-modal__forgot-password"
+          (click)="switchToForgotPassword()"
+        >
+          Forgot password?
+        </button>
+      </div>
+    </div>
+
+    <div class="sign-in-modal__persistent">
+      <p-checkbox
+        formControlName="persistent"
+        [binary]="true"
+        inputId="persistent"
+        label="Keep me signed in"
+      />
+      <label for="persistent"> Keep me signed in </label>
+    </div>
+
+    @if (error()) {
+      <div class="sign-in-modal__error">{{ error() }}</div>
+    }
+
+    <button class="sign-in-modal__submit" type="submit" [disabled]="form.invalid || isLoading()">
+      @if (isLoading()) {
+        <p-progressSpinner class="sign-in-modal__spinner" strokeWidth="4" />
+      } @else {
+        Sign in
+      }
+    </button>
+  </form>
+
+  <div class="sign-in-modal__footer">
+    <p class="sign-in-modal__switch">
+      New to the flow?
+      <button type="button" class="sign-in-modal__link" (click)="switchToSignUp()">
+        Create an account
+      </button>
+    </p>
+  </div>
+</div>

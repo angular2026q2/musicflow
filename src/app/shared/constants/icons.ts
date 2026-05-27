@@ -9,6 +9,8 @@ import {
   LucideInfo,
   LucideLibraryBig,
   LucideListMusic,
+  LucideLock,
+  LucideMail,
   LucidePause,
   LucidePlay,
   LucideRefreshCcw,
@@ -23,111 +25,38 @@ import {
   LucideVolume1,
   LucideVolume2,
   LucideVolumeX,
+  LucideX,
 } from '@lucide/angular';
 import { IconConfig } from '@shared/interfaces/icon-config';
 
-/**
- * Реестр всех иконок проекта.
- * Может использоваться в ControlButtonComponent и других местах, где нужна иконка.
- */
-
 export const ICONS = {
-  arrowBigLeft: {
-    icon: LucideArrowBigLeft,
-    label: 'Back',
-  },
-  bell: {
-    icon: LucideBell,
-    label: 'Notifications',
-  },
-  clock: {
-    icon: LucideClock,
-    label: 'Duration',
-  },
-  house: {
-    icon: LucideHouse,
-    label: 'Home',
-  },
-  info: {
-    icon: LucideInfo,
-    label: 'About',
-  },
-  play: {
-    icon: LucidePlay,
-    label: 'Play',
-  },
-  pause: {
-    icon: LucidePause,
-    label: 'Pause',
-  },
-  previousTrack: {
-    icon: LucideSkipBack,
-    label: 'Previous track',
-  },
-  nextTrack: {
-    icon: LucideSkipForward,
-    label: 'Next track',
-  },
-  shuffle: {
-    icon: LucideShuffle,
-    label: 'Shuffle',
-  },
-  repeat: {
-    icon: LucideRepeat,
-    label: 'Repeat',
-  },
-  repeatOne: {
-    icon: LucideRepeat1,
-    label: 'Repeat current track',
-  },
-  retry: {
-    icon: LucideRefreshCcw,
-    label: 'Retry',
-  },
-  volumeOff: {
-    icon: LucideVolumeX,
-    label: 'Volume off',
-  },
-  volumeDown: {
-    icon: LucideVolume1,
-    label: 'Volume down',
-  },
-  volumeUp: {
-    icon: LucideVolume2,
-    label: 'Volume up',
-  },
-  heart: {
-    icon: LucideHeart,
-    label: 'Add to favorites',
-  },
-  playlist: {
-    icon: LucideListMusic,
-    label: 'Playlist',
-  },
-  library: {
-    icon: LucideLibraryBig,
-    label: 'Library List',
-  },
-  search: {
-    icon: LucideSearch,
-    label: 'Search',
-  },
-  settings: {
-    icon: LucideSettings,
-    label: 'Settings',
-  },
-  user: {
-    icon: LucideUser,
-    label: 'Profile',
-  },
-  download: {
-    icon: LucideDownload,
-    label: 'Download',
-  },
-  moreOptions: {
-    icon: LucideEllipsis,
-    label: 'More options',
-  },
+  arrowBigLeft: { icon: LucideArrowBigLeft, label: 'Back' },
+  bell: { icon: LucideBell, label: 'Notifications' },
+  clock: { icon: LucideClock, label: 'Duration' },
+  close: { icon: LucideX, label: 'Close' },
+  download: { icon: LucideDownload, label: 'Download' },
+  heart: { icon: LucideHeart, label: 'Add to favorites' },
+  house: { icon: LucideHouse, label: 'Home' },
+  info: { icon: LucideInfo, label: 'About' },
+  library: { icon: LucideLibraryBig, label: 'Library List' },
+  lock: { icon: LucideLock, label: 'Password' },
+  mail: { icon: LucideMail, label: 'Email' },
+  moreOptions: { icon: LucideEllipsis, label: 'More options' },
+  nextTrack: { icon: LucideSkipForward, label: 'Next track' },
+  pause: { icon: LucidePause, label: 'Pause' },
+  play: { icon: LucidePlay, label: 'Play' },
+  playlist: { icon: LucideListMusic, label: 'Playlist' },
+  previousTrack: { icon: LucideSkipBack, label: 'Previous track' },
+  repeat: { icon: LucideRepeat, label: 'Repeat' },
+  repeatOne: { icon: LucideRepeat1, label: 'Repeat current track' },
+  retry: { icon: LucideRefreshCcw, label: 'Retry' },
+  search: { icon: LucideSearch, label: 'Search' },
+  settings: { icon: LucideSettings, label: 'Settings' },
+  shuffle: { icon: LucideShuffle, label: 'Shuffle' },
+  user: { icon: LucideUser, label: 'Profile' },
+  volumeDown: { icon: LucideVolume1, label: 'Volume down' },
+  volumeOff: { icon: LucideVolumeX, label: 'Volume off' },
+  volumeUp: { icon: LucideVolume2, label: 'Volume up' },
 } as const satisfies Record<string, IconConfig>;
 
 export type IconKey = keyof typeof ICONS;

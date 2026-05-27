@@ -1,0 +1,66 @@
+@if (artist(); as artist) {
+  <section class="artist-page">
+    <div
+      class="artist-page__header"
+      [class.artist-page__header--no-cover]="!artist.cover"
+      [style.background-image]="artist.cover ? 'url(' + artist.cover + ')' : null"
+    >
+      <div class="artist-page__avatar">
+        @if (artist.avatar) {
+          <img [src]="artist.avatar" [alt]="artist.name" class="artist-page__avatar-img" />
+        } @else {
+          <span class="artist-page__avatar-label">{{ avatarFallback() }}</span>
+        }
+      </div>
+
+      <div class="artist-page__header-root">
+        <div class="artist-page__left-side">
+          <div class="artist-page__header-entity-name">{{ ENTITY_LABEL }}</div>
+          <h1 class="artist-page__header-title">{{ artist.name }}</h1>
+
+          @if (artist.albumCount) {
+            <div class="artist-page__meta">
+              <span class="artist-page__meta-icon">
+                <svg [lucideIcon]="albumsIcon" size="20"></svg>
+              </span>
+              <span class="artist-page__meta-label"
+                >{{ artist.albumCount }} {{ artist.albumCount > 1 ? 'albums' : 'album' }}
+              </span>
+            </div>
+          }
+        </div>
+        <div class="artist-page__right-side">
+          <app-control-button
+            [icon]="iconPlay()"
+            [active]="isPlay()"
+            (click)="toggleMusicPlay()"
+            class="artist-page__button artist-page__button--play"
+          />
+
+          <button
+            type="button"
+            class="artist-page__button artist-page__button--follow"
+            (click)="toggleFollow()"
+          >
+            {{ isFollowing() ? 'unfollow' : 'follow' }}
+          </button>
+
+          <app-dropdown-menu [items]="dropDownMenuItems"></app-dropdown-menu>
+        </div>
+      </div>
+    </div>
+
+    <div class="artist-page__content">
+      <!-- тут будут песни -->
+    </div>
+
+    @if (artist.bio) {
+      <div class="artist-page__footer">
+        <p-divider></p-divider>
+
+        <h2 class="artist-page__footer-title">Подробнее об исполнителе {{ artist.name }}</h2>
+        {{ artist.bio }}
+      </div>
+    }
+  </section>
+}

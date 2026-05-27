@@ -33,10 +33,10 @@ export class AuthService {
    */
   async signIn(dto: SignInDto, persistent: boolean): Promise<void> {
     const response = await firstValueFrom(
-      this.http.post<{ access_token: string }>(`${environment.apiUrl}/v1/auth/sign-in`, dto),
+      this.http.post<{ accessToken: string }>(`${environment.apiUrl}/v1/auth/sign-in`, dto),
     );
 
-    this.tokenService.save(response.access_token, persistent);
+    this.tokenService.save(response.accessToken, persistent);
     await this.loadCurrentUser();
   }
 
@@ -45,9 +45,9 @@ export class AuthService {
    */
   async signUp(dto: SignUpDto): Promise<void> {
     const response = await firstValueFrom(
-      this.http.post<{ access_token: string }>(`${environment.apiUrl}/v1/auth/sign-up`, dto),
+      this.http.post<{ accessToken: string }>(`${environment.apiUrl}/v1/auth/sign-up`, dto),
     );
-    this.tokenService.save(response.access_token, false);
+    this.tokenService.save(response.accessToken, false);
     await this.loadCurrentUser();
   }
 

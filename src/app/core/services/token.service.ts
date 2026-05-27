@@ -25,7 +25,7 @@ export class TokenService {
     const storage = persistent ? localStorage : sessionStorage;
     storage.setItem(TOKEN_KEY, token);
   }
-  
+
   /** @description Retrieves JWT token from storage.
    *
    * Checks `sessionStorage` first, then `localStorage`
@@ -34,14 +34,14 @@ export class TokenService {
   get(): string | null {
     return sessionStorage.getItem(TOKEN_KEY) ?? localStorage.getItem(TOKEN_KEY);
   }
-  
+
   /** @description Removes JWT token from both storages.
    *  Called on `logout`.*/
   clear(): void {
     sessionStorage.removeItem(TOKEN_KEY);
     localStorage.removeItem(TOKEN_KEY);
   }
-  
+
   /** @description Returns true if a token exists in either storage.*/
   exists(): boolean {
     return !!this.get();

@@ -76,6 +76,8 @@
 
   /* Widths */
   --sidebar-width-default: 16.5rem;
+
+  --duration-default: 0.3s;
 }
 
 *,
@@ -127,4 +129,25 @@ a:active {
     padding-top: var(--space-xs);
     font-size: var(--text-body-sm);
   }
+}
+
+.p-button.control-button {
+  padding: var(--space-xs);
+}
+
+.p-button.control-button:not(:disabled):hover {
+  color: var(--color-secondary);
+  background: transparent;
+}
+
+.p-button.control-button--active {
+  color: var(--color-secondary);
+}
+
+.artist-page__button--play .p-button {
+  color: var(--color-on-secondary);
+}
+
+.artist-page__button--play:hover .p-button.control-button {
+  color: var(--color-on-primary);
 }

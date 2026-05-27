@@ -1,0 +1,16 @@
+.track-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 936px;
+  padding: var(--space-md);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  margin-bottom: var(--space-xs);
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    column-gap: var(--space-container);
+  }
+}

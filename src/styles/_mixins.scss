@@ -1,16 +1,8 @@
-@mixin glow-pulse(
-  $duration: 4s,
-  $timing: ease-in-out,
-  $iterations: infinite
-) {
+@mixin glow-pulse($duration: 4s, $timing: ease-in-out, $iterations: infinite) {
   animation: glow-pulse $duration $timing $iterations;
 }
 
-@mixin shimmer-text(
-  $duration: 6s,
-  $timing: ease-in-out,
-  $iterations: infinite
-) {
+@mixin shimmer-text($duration: 6s, $timing: ease-in-out, $iterations: infinite) {
   background-clip: text;
   background-size: 300% 300%;
   animation: text-shimmer $duration $timing $iterations;

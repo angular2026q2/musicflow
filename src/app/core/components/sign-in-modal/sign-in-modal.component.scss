@@ -13,9 +13,6 @@
   border-radius: var(--radius-md);
 
   background-color: var(--color-surface-low);
-  box-shadow:
-    0 -2px 0 0 var(--color-primary-container),
-    0 0 10px 4px color-mix(in srgb, var(--color-primary) 20%, transparent);
 
   @include styles.glow-pulse(4s, ease-in-out, infinite);
 
@@ -220,8 +217,4 @@
       }
     }
   }
-}
-
-:host p-password {
-  width: 100%;
 }

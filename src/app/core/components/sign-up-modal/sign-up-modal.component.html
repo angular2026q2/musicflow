@@ -1,1 +1,104 @@
-<p>sign-up-modal works!</p>
+<div class="sign-up-modal">
+  <button
+    class="sign-up-modal__close"
+    type="button"
+    (click)="close()"
+    [attr.aria-label]="ICONS.close.label"
+  >
+    <svg [lucideIcon]="ICONS.close.icon"></svg>
+  </button>
+
+  <div class="sign-up-modal__header">
+    <h2 class="sign-up-modal__title">Music Flow</h2>
+    <h3 class="sign-up-modal__heading">Join the Flow</h3>
+    <p class="sign-up-modal__subtitle">Elevate your listening experience today.</p>
+  </div>
+
+  <form class="sign-up-modal__form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="sign-up-modal__field">
+      <label for="full_name" class="sign-up-modal__label">FULL NAME</label>
+      <p-iconfield>
+        <p-inputicon>
+          <svg [lucideIcon]="ICONS.user.icon" [size]="16"></svg>
+        </p-inputicon>
+        <input
+          pInputText
+          type="text"
+          id="full_name"
+          formControlName="full_name"
+          placeholder="Alex Musician"
+          autocomplete="name"
+          class="sign-up-modal__input"
+        />
+      </p-iconfield>
+      <span class="sign-up-modal__error-text">
+        @if (form.controls.full_name.invalid && form.controls.full_name.touched) {
+          Full name must be at least 2 characters
+        }
+      </span>
+    </div>
+
+    <div class="sign-up-modal__field">
+      <label for="email" class="sign-up-modal__label">EMAIL</label>
+      <p-iconfield>
+        <p-inputicon>
+          <svg [lucideIcon]="ICONS.mail.icon" [size]="16"></svg>
+        </p-inputicon>
+        <input
+          pInputText
+          type="email"
+          id="email"
+          formControlName="email"
+          placeholder="alex@musicflow.io"
+          autocomplete="email"
+          class="sign-up-modal__input"
+        />
+      </p-iconfield>
+      <span class="sign-up-modal__error-text">
+        @if (form.controls.email.invalid && form.controls.email.touched) {
+          Enter a valid email address
+        }
+      </span>
+    </div>
+
+    <div class="sign-up-modal__field form-field--fluid">
+      <label for="password" class="sign-up-modal__label">PASSWORD</label>
+      <p-iconfield>
+        <p-inputicon>
+          <svg [lucideIcon]="ICONS.lock.icon" [size]="16"></svg>
+        </p-inputicon>
+        <p-password
+          formControlName="password"
+          inputId="password"
+          [toggleMask]="true"
+          [feedback]="true"
+          placeholder="••••••••"
+          autocomplete="new-password"
+        />
+      </p-iconfield>
+      <span class="sign-up-modal__error-text">
+        @if (form.controls.password.invalid && form.controls.password.touched) {
+          Password must be at least 6 characters
+        }
+      </span>
+    </div>
+
+    <button
+      class="sign-up-modal__submit"
+      type="submit"
+      [disabled]="form.invalid || isLoading()"
+    >
+      @if (isLoading()) {
+        <p-progressSpinner class="sign-up-modal__spinner" strokeWidth="4" />
+      } @else {
+        Create Account
+      }
+    </button>
+  </form>
+
+  <div class="sign-up-modal__footer">
+    <p class="sign-up-modal__switch">Already have an account?
+      <button class="sign-up-modal__link" (click)="switchToSignIn()">Sign In</button>
+    </p>
+  </div>
+</div>

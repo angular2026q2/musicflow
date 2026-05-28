@@ -157,4 +157,21 @@ export const MusicFlowPreset = definePreset(Aura, {
         `,
     },
   },
+  css: () => `
+  .form-field--fluid .p-iconfield {
+    display: flex;
+    width: 100%;
+  }
+
+  .form-field--fluid .p-iconfield > * {
+    width: 100%;
+  }
+
+  .form-field--fluid .p-password,
+  .form-field--fluid .p-password .p-inputtext,
+  .form-field--fluid input,
+  .form-field--fluid .p-inputtext {
+    width: 100%;
+  }
+`,
 });

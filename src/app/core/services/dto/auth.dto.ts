@@ -5,5 +5,5 @@ export interface SignInDto {
 
 export interface SignUpDto extends SignInDto {
   username: string;
-  full_name: string;
+  full_name: string | null;
 }

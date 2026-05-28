@@ -47,15 +47,14 @@
         <p-inputicon>
           <svg [lucideIcon]="ICONS.lock.icon" [size]="16"></svg>
         </p-inputicon>
-        <input
-          pInputText
-          type="password"
-          id="password"
+        <p-password
           formControlName="password"
+          inputId="password"
+          [toggleMask]="true"
+          [feedback]="false"
           placeholder="••••••••"
-          class="sign-in-modal__input"
           autocomplete="current-password"
-        />
+          />
       </p-iconfield>
       <div class="sign-in-modal__label-row">
         <span class="sign-in-modal__error-text">
@@ -82,10 +81,6 @@
       />
       <label for="persistent"> Keep me signed in </label>
     </div>
-
-    @if (error()) {
-      <div class="sign-in-modal__error">{{ error() }}</div>
-    }
 
     <button class="sign-in-modal__submit" type="submit" [disabled]="form.invalid || isLoading()">
       @if (isLoading()) {

@@ -13,6 +13,7 @@ import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ProgressSpinner } from 'primeng/progressspinner';
+import { MessageService } from 'primeng/api';
 
 import { ICONS } from '@shared/constants/icons';
 
@@ -39,10 +40,10 @@ import { ICONS } from '@shared/constants/icons';
 export class SignInModalComponent {
   private readonly authService = inject(AuthService);
   private readonly modalService = inject(ModalService);
+  private readonly messageService = inject(MessageService);
   private readonly fb = inject(FormBuilder);
 
   readonly isLoading = signal<boolean>(false);
-  readonly error = signal<string | null>(null);
   readonly ICONS = ICONS;
 
   readonly form = this.fb.nonNullable.group({
@@ -55,14 +56,18 @@ export class SignInModalComponent {
     if (this.form.invalid) return;
 
     this.isLoading.set(true);
-    this.error.set(null);
 
     try {
       const { email, password, persistent } = this.form.getRawValue();
       await this.authService.signIn({ email, password }, persistent);
       this.modalService.close();
     } catch {
-      this.error.set('Invalid email or password. Please try again.');
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Sign in failed',
+        detail: 'Invalid email or password. Please try again.',
+        life: 4000,
+      });
     } finally {
       this.isLoading.set(false);
     }

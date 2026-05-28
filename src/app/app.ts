@@ -6,6 +6,7 @@ import { SidebarComponent } from '@core/components/sidebar/sidebar.component';
 import { SignInModalComponent } from '@core/components/sign-in-modal/sign-in-modal.component';
 import { SignUpModalComponent } from '@core/components/sign-up-modal/sign-up-modal.component';
 import { ModalService } from '@core/services/modal.service';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +17,7 @@ import { ModalService } from '@core/services/modal.service';
     SignInModalComponent,
     SignUpModalComponent,
     ForgotPasswordModalComponent,
+    ToastModule,
   ],
   templateUrl: './app.html',
   styleUrl: './app.scss',

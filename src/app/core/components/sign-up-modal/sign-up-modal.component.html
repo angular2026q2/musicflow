@@ -83,11 +83,7 @@
       </span>
     </div>
 
-    <button
-      class="sign-up-modal__submit"
-      type="submit"
-      [disabled]="form.invalid || isLoading()"
-    >
+    <button class="sign-up-modal__submit" type="submit" [disabled]="form.invalid || isLoading()">
       @if (isLoading()) {
         <p-progressSpinner class="sign-up-modal__spinner" strokeWidth="4" />
       } @else {
@@ -97,7 +93,8 @@
   </form>
 
   <div class="sign-up-modal__footer">
-    <p class="sign-up-modal__switch">Already have an account?
+    <p class="sign-up-modal__switch">
+      Already have an account?
       <button class="sign-up-modal__link" (click)="switchToSignIn()">Sign In</button>
     </p>
   </div>

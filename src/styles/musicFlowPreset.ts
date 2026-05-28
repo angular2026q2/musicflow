@@ -166,6 +166,10 @@ export const MusicFlowPreset = definePreset(Aura, {
   .form-field--fluid .p-iconfield > * {
     width: 100%;
   }
+  
+  .form-field--fluid p-password input {
+    padding-left: var(--space-xxl);
+  }
 
   .form-field--fluid .p-password,
   .form-field--fluid .p-password .p-inputtext,

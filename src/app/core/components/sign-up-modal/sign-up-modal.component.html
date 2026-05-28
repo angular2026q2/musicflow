@@ -63,10 +63,12 @@
 
     <div class="sign-up-modal__field form-field--fluid">
       <label for="password" class="sign-up-modal__label">PASSWORD</label>
-      <p-iconfield>
-        <p-inputicon>
-          <svg [lucideIcon]="ICONS.lock.icon" [size]="16"></svg>
-        </p-inputicon>
+      <!--       <p-iconfield> -->
+      <!--         <p-inputicon> -->
+      <!--           <svg [lucideIcon]="ICONS.lock.icon" [size]="16"></svg> -->
+      <!--         </p-inputicon> -->
+      <div class="sign-up-modal__password-wrapper">
+        <svg [lucideIcon]="ICONS.lock.icon" [size]="16" class="lock-icon"></svg>
         <p-password
           formControlName="password"
           inputId="password"
@@ -75,7 +77,8 @@
           placeholder="••••••••"
           autocomplete="new-password"
         />
-      </p-iconfield>
+      </div>
+      <!--       </p-iconfield> -->
       <span class="sign-up-modal__error-text">
         @if (form.controls.password.invalid && form.controls.password.touched) {
           Password must be at least 6 characters

@@ -90,11 +90,21 @@
     color: var(--color-outline);
     text-transform: uppercase;
     letter-spacing: 0.05em;
+  }
 
-    &-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
+  &__password-wrapper {
+    position: relative;
+
+    svg.lock-icon {
+      pointer-events: none;
+
+      position: absolute;
+      z-index: 1;
+      top: 50%;
+      left: var(--space-md);
+      transform: translateY(-50%);
+
+      color: var(--color-outline);
     }
   }
 
@@ -129,13 +139,11 @@
   }
 
   &__error {
-    padding: var(--space-sm) var(--space-md);
-    border-radius: var(--radius-default);
-
-    font-size: var(--text-body-sm);
-    color: var(--color-on-error);
-
-    background-color: var(--color-error-container);
+    &-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
     &-text {
       display: block;

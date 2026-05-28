@@ -39,13 +39,15 @@
     </div>
 
     <div class="sign-in-modal__field form-field--fluid">
-      <div class="sign-in-modal__label-row">
-        <label for="password" class="sign-in-modal__label">PASSWORD</label>
-      </div>
-      <p-iconfield>
-        <p-inputicon>
-          <svg [lucideIcon]="ICONS.lock.icon" [size]="16"></svg>
-        </p-inputicon>
+      <!--       <div class="sign-in-modal__label-row"> -->
+      <label for="password" class="sign-in-modal__label">PASSWORD</label>
+      <!--       </div> -->
+      <!--       <p-iconfield> -->
+      <!--         <p-inputicon> -->
+      <!--           <svg [lucideIcon]="ICONS.lock.icon" [size]="16"></svg> -->
+      <!--         </p-inputicon> -->
+      <div class="sign-in-modal__password-wrapper">
+        <svg [lucideIcon]="ICONS.lock.icon" [size]="16" class="lock-icon"></svg>
         <p-password
           formControlName="password"
           inputId="password"
@@ -54,8 +56,9 @@
           placeholder="••••••••"
           autocomplete="current-password"
         />
-      </p-iconfield>
-      <div class="sign-in-modal__label-row">
+      </div>
+      <!--       </p-iconfield> -->
+      <div class="sign-in-modal__error-row">
         <span class="sign-in-modal__error-text">
           @if (form.controls.password.invalid && form.controls.password.touched) {
             Password must be at least 6 characters

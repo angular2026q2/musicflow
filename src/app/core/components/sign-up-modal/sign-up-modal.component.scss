@@ -101,6 +101,22 @@
     letter-spacing: 0.05em;
   }
 
+  &__password-wrapper {
+    position: relative;
+
+    svg.lock-icon {
+      pointer-events: none;
+
+      position: absolute;
+      z-index: 1;
+      top: 50%;
+      left: var(--space-md);
+      transform: translateY(-50%);
+
+      color: var(--color-outline);
+    }
+  }
+
   &__input {
     width: 100%;
   }

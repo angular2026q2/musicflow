@@ -6,28 +6,22 @@ import { ModalService } from '@core/services/modal.service';
 import { MessageService } from 'primeng/api';
 
 import { ButtonModule } from 'primeng/button';
-import { CheckboxModule } from 'primeng/checkbox';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ProgressSpinner } from 'primeng/progressspinner';
-
 import { LucideDynamicIcon } from '@lucide/angular';
+
+import { FormFieldComponent } from '@shared/components/form-field/form-field.component';
 import { ICONS } from '@shared/constants/icons';
 
 @Component({
   selector: 'app-sign-up-modal',
   imports: [
     ReactiveFormsModule,
-    InputTextModule,
     ButtonModule,
-    CheckboxModule,
-    IconFieldModule,
-    InputIconModule,
     PasswordModule,
     LucideDynamicIcon,
     ProgressSpinner,
+    FormFieldComponent,
   ],
   templateUrl: './sign-up-modal.component.html',
   styleUrl: './sign-up-modal.component.scss',
@@ -67,9 +61,9 @@ export class SignUpModalComponent {
 
       await this.authService.signUp({
         full_name,
+        username,
         email,
         password,
-        username,
       });
       this.modalService.close();
     } catch {

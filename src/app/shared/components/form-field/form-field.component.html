@@ -1,0 +1,23 @@
+<!-- <div class="form-field form-field-fluid"></div> -->
+<div class="form-field">
+  <label [for]="inputId()" class="form-field__label">{{ label() }}</label>
+  <p-iconfield>
+    <p-inputicon>
+      <svg [lucideIcon]="icon()" [size]="16"></svg>
+    </p-inputicon>
+    <input
+      pInputText
+      [type]="type()"
+      [id]="inputId()"
+      class="form-field__input"
+      [formControl]="$any(control())"
+      [placeholder]="placeholder()"
+      [attr.autocomplete]="autocomplete()"
+    />
+  </p-iconfield>
+  <span class="form-field__error">
+    @if (control().invalid && control().touched) {
+      {{ errorMessage() }}
+    }
+  </span>
+</div>

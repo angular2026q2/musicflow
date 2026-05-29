@@ -14,38 +14,19 @@
   </div>
 
   <form class="sign-in-modal__form" [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="sign-in-modal__field">
-      <label for="email" class="sign-in-modal__label">EMAIL ADDRESS</label>
-      <p-iconfield>
-        <p-inputicon>
-          <svg [lucideIcon]="ICONS.mail.icon" [size]="16"></svg>
-        </p-inputicon>
-        <input
-          pInputText
-          type="email"
-          id="email"
-          formControlName="email"
-          placeholder="name@musicflow.com"
-          class="sign-in-modal__input"
-          autocomplete="email"
-        />
-      </p-iconfield>
-
-      <span class="sign-in-modal__error-text">
-        @if (form.controls.email.invalid && form.controls.email.touched) {
-          Enter a valid email
-        }
-      </span>
-    </div>
+    <app-form-field
+      label="EMAIL ADDRESS"
+      inputId="email"
+      [icon]="ICONS.mail.icon"
+      type="email"
+      placeholder="name@musicflow.com"
+      autocomplete="email"
+      [control]="form.controls.email"
+      errorMessage="Enter a valid email"
+    />
 
     <div class="sign-in-modal__field form-field--fluid">
-      <!--       <div class="sign-in-modal__label-row"> -->
       <label for="password" class="sign-in-modal__label">PASSWORD</label>
-      <!--       </div> -->
-      <!--       <p-iconfield> -->
-      <!--         <p-inputicon> -->
-      <!--           <svg [lucideIcon]="ICONS.lock.icon" [size]="16"></svg> -->
-      <!--         </p-inputicon> -->
       <div class="sign-in-modal__password-wrapper">
         <svg [lucideIcon]="ICONS.lock.icon" [size]="16" class="lock-icon"></svg>
         <p-password
@@ -57,7 +38,7 @@
           autocomplete="current-password"
         />
       </div>
-      <!--       </p-iconfield> -->
+
       <div class="sign-in-modal__error-row">
         <span class="sign-in-modal__error-text">
           @if (form.controls.password.invalid && form.controls.password.touched) {

@@ -15,81 +15,41 @@
   </div>
 
   <form class="sign-up-modal__form" [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="sign-up-modal__field">
-      <label for="full_name" class="sign-up-modal__label">FULL NAME</label>
-      <p-iconfield>
-        <p-inputicon>
-          <svg [lucideIcon]="ICONS.user.icon" [size]="16"></svg>
-        </p-inputicon>
-        <input
-          pInputText
-          type="text"
-          id="full_name"
-          formControlName="full_name"
-          placeholder="Alex Musician"
-          autocomplete="name"
-          class="sign-up-modal__input"
-        />
-      </p-iconfield>
-      <span class="sign-up-modal__error-text">
-        @if (form.controls.full_name.invalid && form.controls.full_name.touched) {
-          Full name must be at least 2 characters
-        }
-      </span>
-    </div>
+    <app-form-field
+      label="FULL NAME"
+      inputId="full_name"
+      [icon]="ICONS.user.icon"
+      type="text"
+      placeholder="Alex Musician"
+      autocomplete="name"
+      [control]="form.controls.full_name"
+      errorMessage="Full name must be at least 3 characters"
+    />
 
-    <div class="sign-up-modal__field">
-      <label for="username" class="sign-up-modal__label">USERNAME</label>
-      <p-iconfield>
-        <p-inputicon>
-          <svg [lucideIcon]="ICONS.user.icon" [size]="16"></svg>
-        </p-inputicon>
-        <input
-          pInputText
-          type="text"
-          id="username"
-          class="sign-up-modal__input"
-          formControlName="username"
-          placeholder="alexmusician"
-          autocomplete="username"
-        />
-      </p-iconfield>
-      <span class="sign-up-modal__error-text">
-        @if (form.controls.username.invalid && form.controls.username.touched) {
-          Username must be at least 3 characters
-        }
-      </span>
-    </div>
+    <app-form-field
+      label="USERNAME"
+      inputId="username"
+      [icon]="ICONS.userPen.icon"
+      type="text"
+      placeholder="alexmusician"
+      autocomplete="username"
+      [control]="form.controls.username"
+      errorMessage="Username must be at least 3 characters"
+    />
 
-    <div class="sign-up-modal__field">
-      <label for="email" class="sign-up-modal__label">EMAIL</label>
-      <p-iconfield>
-        <p-inputicon>
-          <svg [lucideIcon]="ICONS.mail.icon" [size]="16"></svg>
-        </p-inputicon>
-        <input
-          pInputText
-          type="email"
-          id="email"
-          formControlName="email"
-          placeholder="alex@musicflow.io"
-          autocomplete="email"
-          class="sign-up-modal__input"
-        />
-      </p-iconfield>
-      <span class="sign-up-modal__error-text">
-        @if (form.controls.email.invalid && form.controls.email.touched) {
-          Enter a valid email address
-        }
-      </span>
-    </div>
+    <app-form-field
+      label="EMAIL"
+      inputId="email"
+      [icon]="ICONS.mail.icon"
+      type="email"
+      placeholder="alex@musicflow.io"
+      autocomplete="email"
+      [control]="form.controls.email"
+      errorMessage="Enter a valid email address"
+    />
 
     <div class="sign-up-modal__field form-field--fluid">
       <label for="password" class="sign-up-modal__label">PASSWORD</label>
-      <!--       <p-iconfield> -->
-      <!--         <p-inputicon> -->
-      <!--           <svg [lucideIcon]="ICONS.lock.icon" [size]="16"></svg> -->
-      <!--         </p-inputicon> -->
       <div class="sign-up-modal__password-wrapper">
         <svg [lucideIcon]="ICONS.lock.icon" [size]="16" class="lock-icon"></svg>
         <p-password
@@ -101,7 +61,6 @@
           autocomplete="new-password"
         />
       </div>
-      <!--       </p-iconfield> -->
       <span class="sign-up-modal__error-text">
         @if (form.controls.password.invalid && form.controls.password.touched) {
           Password must be at least 6 characters

@@ -3,17 +3,15 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { AuthService } from '@core/services/auth.service';
 import { ModalService } from '@core/services/modal.service';
-
-import { LucideDynamicIcon } from '@lucide/angular';
+import { MessageService } from 'primeng/api';
 
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
-import { IconFieldModule } from 'primeng/iconfield';
-import { InputIconModule } from 'primeng/inputicon';
-import { InputTextModule } from 'primeng/inputtext';
 import { PasswordModule } from 'primeng/password';
 import { ProgressSpinner } from 'primeng/progressspinner';
-import { MessageService } from 'primeng/api';
+import { LucideDynamicIcon } from '@lucide/angular';
+
+import { FormFieldComponent } from '@shared/components/form-field/form-field.component';
 
 import { ICONS } from '@shared/constants/icons';
 
@@ -21,14 +19,12 @@ import { ICONS } from '@shared/constants/icons';
   selector: 'app-sign-in-modal',
   imports: [
     ReactiveFormsModule,
-    InputTextModule,
     ButtonModule,
     CheckboxModule,
-    IconFieldModule,
-    InputIconModule,
     LucideDynamicIcon,
     PasswordModule,
     ProgressSpinner,
+    FormFieldComponent,
   ],
   templateUrl: './sign-in-modal.component.html',
   styleUrl: './sign-in-modal.component.scss',

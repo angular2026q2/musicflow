@@ -1,12 +1,11 @@
 <div class="sign-in-modal">
-  <button
+  <app-control-button
     class="sign-in-modal__close"
-    type="button"
+    styleClass="modal-close-button"
+    icon="close"
+    ariaLabel="Close"
     (click)="close()"
-    [attr.aria-label]="ICONS.close.label"
-  >
-    <svg [lucideIcon]="ICONS.close.icon"></svg>
-  </button>
+  />
 
   <div class="sign-in-modal__header">
     <h2 class="sign-in-modal__title">Music Flow</h2>
@@ -17,7 +16,7 @@
     <app-form-field
       label="EMAIL ADDRESS"
       inputId="email"
-      [icon]="ICONS.mail.icon"
+      icon="mail"
       type="email"
       placeholder="name@musicflow.com"
       autocomplete="email"

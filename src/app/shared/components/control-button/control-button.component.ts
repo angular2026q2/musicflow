@@ -40,6 +40,7 @@ export class ControlButtonComponent {
   readonly size = input<number>(20);
   readonly active = input<boolean>(false);
   readonly ariaLabel = input<string>();
+  readonly styleClass = input<string>('');
 
   protected readonly config = computed(() => ICONS[this.icon()]);
   protected readonly resolvedAriaLabel = computed(() => this.ariaLabel() ?? this.config().label);

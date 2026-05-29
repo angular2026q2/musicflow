@@ -1,12 +1,11 @@
 <div class="sign-up-modal">
-  <button
+  <app-control-button
     class="sign-up-modal__close"
-    type="button"
+    styleClass="modal-close-button"
+    icon="close"
+    ariaLabel="Close"
     (click)="close()"
-    [attr.aria-label]="ICONS.close.label"
-  >
-    <svg [lucideIcon]="ICONS.close.icon"></svg>
-  </button>
+  />
 
   <div class="sign-up-modal__header">
     <h2 class="sign-up-modal__title">Music Flow</h2>
@@ -18,7 +17,7 @@
     <app-form-field
       label="FULL NAME"
       inputId="full_name"
-      [icon]="ICONS.user.icon"
+      icon="user"
       type="text"
       placeholder="Alex Musician"
       autocomplete="name"
@@ -29,7 +28,7 @@
     <app-form-field
       label="USERNAME"
       inputId="username"
-      [icon]="ICONS.userPen.icon"
+      icon="userPen"
       type="text"
       placeholder="alexmusician"
       autocomplete="username"
@@ -40,7 +39,7 @@
     <app-form-field
       label="EMAIL"
       inputId="email"
-      [icon]="ICONS.mail.icon"
+      icon="mail"
       type="email"
       placeholder="alex@musicflow.io"
       autocomplete="email"

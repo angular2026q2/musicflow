@@ -1,9 +1,8 @@
-<!-- <div class="form-field form-field-fluid"></div> -->
 <div class="form-field">
   <label [for]="inputId()" class="form-field__label">{{ label() }}</label>
   <p-iconfield>
     <p-inputicon>
-      <svg [lucideIcon]="icon()" [size]="16"></svg>
+      <svg [lucideIcon]="config().icon" [size]="iconSize()"></svg>
     </p-inputicon>
     <input
       pInputText

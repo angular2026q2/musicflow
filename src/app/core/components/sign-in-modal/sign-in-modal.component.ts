@@ -12,6 +12,7 @@ import { ProgressSpinner } from 'primeng/progressspinner';
 import { LucideDynamicIcon } from '@lucide/angular';
 
 import { FormFieldComponent } from '@shared/components/form-field/form-field.component';
+import { ControlButtonComponent } from '@shared/components/control-button/control-button.component';
 
 import { ICONS } from '@shared/constants/icons';
 
@@ -25,6 +26,7 @@ import { ICONS } from '@shared/constants/icons';
     PasswordModule,
     ProgressSpinner,
     FormFieldComponent,
+    ControlButtonComponent,
   ],
   templateUrl: './sign-in-modal.component.html',
   styleUrl: './sign-in-modal.component.scss',

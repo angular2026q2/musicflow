@@ -9,3 +9,9 @@
 
   -webkit-text-fill-color: transparent;
 }
+
+@mixin modal-close-position {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+}

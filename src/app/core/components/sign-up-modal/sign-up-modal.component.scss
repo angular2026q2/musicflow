@@ -17,35 +17,7 @@
   @include styles.glow-pulse(4s, ease-in-out, infinite);
 
   &__close {
-    cursor: pointer;
-
-    position: absolute;
-    top: var(--space-md);
-    right: var(--space-md);
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 2rem;
-    height: 2rem;
-    border: none;
-    border-radius: var(--radius-full);
-
-    color: var(--color-outline);
-
-    background: none;
-
-    transition:
-      color 0.2s ease,
-      background-color 0.2s ease;
-
-    @media (hover: hover) and (pointer: fine) {
-      &:hover {
-        color: var(--color-on-surface);
-        background-color: var(--color-surface-container);
-      }
-    }
+    @include styles.modal-close-position;
   }
 
   &__header {

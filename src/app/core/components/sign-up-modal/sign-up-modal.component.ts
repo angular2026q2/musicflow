@@ -46,7 +46,8 @@ export class SignUpModalComponent {
   readonly ICONS = ICONS;
 
   readonly form = this.fb.group({
-    full_name: ['', [Validators.required, Validators.minLength(2)]],
+    full_name: ['', [Validators.required, Validators.minLength(3)]],
+    username: ['', [Validators.required, Validators.minLength(3)]],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(6)]],
   });
@@ -57,8 +58,9 @@ export class SignUpModalComponent {
     this.isLoading.set(true);
 
     try {
-      const { full_name, email, password } = this.form.getRawValue() as {
+      const { full_name, username, email, password } = this.form.getRawValue() as {
         full_name: string;
+        username: string;
         email: string;
         password: string;
       };
@@ -67,7 +69,7 @@ export class SignUpModalComponent {
         full_name,
         email,
         password,
-        username: email,
+        username,
       });
       this.modalService.close();
     } catch {

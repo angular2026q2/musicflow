@@ -67,13 +67,11 @@
       </span>
     </div>
 
-    <button class="sign-up-modal__submit" type="submit" [disabled]="form.invalid || isLoading()">
-      @if (isLoading()) {
-        <p-progressSpinner class="sign-up-modal__spinner" strokeWidth="4" />
-      } @else {
-        Create Account
-      }
-    </button>
+    <app-submit-button
+      label="Create Account"
+      [isLoading]="isLoading()"
+      [disabled]="form.invalid || isLoading()"
+    />
   </form>
 
   <div class="sign-up-modal__footer">

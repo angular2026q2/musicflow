@@ -8,11 +8,11 @@ import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { PasswordModule } from 'primeng/password';
-import { ProgressSpinner } from 'primeng/progressspinner';
 import { LucideDynamicIcon } from '@lucide/angular';
 
 import { FormFieldComponent } from '@shared/components/form-field/form-field.component';
 import { ControlButtonComponent } from '@shared/components/control-button/control-button.component';
+import { SubmitButtonComponent } from '@shared/components/submit-button/submit-button.component';
 
 import { ICONS } from '@shared/constants/icons';
 
@@ -24,9 +24,9 @@ import { ICONS } from '@shared/constants/icons';
     CheckboxModule,
     LucideDynamicIcon,
     PasswordModule,
-    ProgressSpinner,
     FormFieldComponent,
     ControlButtonComponent,
+    SubmitButtonComponent,
   ],
   templateUrl: './sign-in-modal.component.html',
   styleUrl: './sign-in-modal.component.scss',

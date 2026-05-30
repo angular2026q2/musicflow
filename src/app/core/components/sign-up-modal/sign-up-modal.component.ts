@@ -7,11 +7,11 @@ import { MessageService } from 'primeng/api';
 
 import { ButtonModule } from 'primeng/button';
 import { PasswordModule } from 'primeng/password';
-import { ProgressSpinner } from 'primeng/progressspinner';
 import { LucideDynamicIcon } from '@lucide/angular';
 
 import { FormFieldComponent } from '@shared/components/form-field/form-field.component';
 import { ControlButtonComponent } from '@shared/components/control-button/control-button.component';
+import { SubmitButtonComponent } from '@shared/components/submit-button/submit-button.component';
 
 import { ICONS } from '@shared/constants/icons';
 
@@ -22,9 +22,9 @@ import { ICONS } from '@shared/constants/icons';
     ButtonModule,
     PasswordModule,
     LucideDynamicIcon,
-    ProgressSpinner,
     FormFieldComponent,
     ControlButtonComponent,
+    SubmitButtonComponent,
   ],
   templateUrl: './sign-up-modal.component.html',
   styleUrl: './sign-up-modal.component.scss',

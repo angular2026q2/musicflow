@@ -64,13 +64,7 @@
       <label for="persistent"> Keep me signed in </label>
     </div>
 
-    <button class="sign-in-modal__submit" type="submit" [disabled]="form.invalid || isLoading()">
-      @if (isLoading()) {
-        <p-progressSpinner class="sign-in-modal__spinner" strokeWidth="4" />
-      } @else {
-        Sign in
-      }
-    </button>
+    <app-submit-button label="Sign in" [isLoading]="isLoading()" [disabled]="form.invalid" />
   </form>
 
   <div class="sign-in-modal__footer">

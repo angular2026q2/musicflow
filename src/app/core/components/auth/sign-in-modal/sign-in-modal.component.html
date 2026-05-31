@@ -47,7 +47,7 @@
         <button
           type="button"
           class="sign-in-modal__forgot-password"
-          (click)="switchToForgotPassword()"
+          (click)="switchTo('forgot-password')"
         >
           Forgot password?
         </button>
@@ -70,7 +70,7 @@
   <div class="sign-in-modal__footer">
     <p class="sign-in-modal__switch">
       New to the flow?
-      <button type="button" class="sign-in-modal__link" (click)="switchToSignUp()">
+      <button type="button" class="sign-in-modal__link" (click)="switchTo('sign-up')">
         Create an account
       </button>
     </p>

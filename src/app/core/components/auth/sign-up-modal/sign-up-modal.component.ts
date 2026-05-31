@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
+import { BaseAuthModal } from '@core/components/auth/base-auth-modal';
 import { AuthService } from '@core/services/auth.service';
-import { ModalService } from '@core/services/modal.service';
-import { MessageService } from 'primeng/api';
 
 import { ButtonModule } from 'primeng/button';
 import { PasswordModule } from 'primeng/password';
@@ -12,8 +11,6 @@ import { LucideDynamicIcon } from '@lucide/angular';
 import { FormFieldComponent } from '@shared/components/form-field/form-field.component';
 import { ControlButtonComponent } from '@shared/components/control-button/control-button.component';
 import { SubmitButtonComponent } from '@shared/components/submit-button/submit-button.component';
-
-import { ICONS } from '@shared/constants/icons';
 
 @Component({
   selector: 'app-sign-up-modal',
@@ -33,16 +30,11 @@ import { ICONS } from '@shared/constants/icons';
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SignUpModalComponent {
+export class SignUpModalComponent extends BaseAuthModal {
   private readonly authService = inject(AuthService);
-  private readonly modalService = inject(ModalService);
-  private readonly messageService = inject(MessageService);
   private readonly fb = inject(FormBuilder);
 
-  readonly isLoading = signal<boolean>(false);
-  readonly ICONS = ICONS;
-
-  readonly form = this.fb.group({
+  readonly form = this.fb.nonNullable.group({
     full_name: ['', [Validators.required, Validators.minLength(3)]],
     username: ['', [Validators.required, Validators.minLength(3)]],
     email: ['', [Validators.required, Validators.email]],
@@ -53,14 +45,8 @@ export class SignUpModalComponent {
     if (this.form.invalid) return;
 
     this.isLoading.set(true);
-
     try {
-      const { full_name, username, email, password } = this.form.getRawValue() as {
-        full_name: string;
-        username: string;
-        email: string;
-        password: string;
-      };
+      const { full_name, username, email, password } = this.form.getRawValue();
 
       await this.authService.signUp({
         full_name,
@@ -70,22 +56,9 @@ export class SignUpModalComponent {
       });
       this.modalService.close();
     } catch {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Sign up failed',
-        detail: 'An error occurred during sign up. Please try again.',
-        life: 4000,
-      });
+      this.showError('Sign up failed', 'An error occurred during sign up. Please try again.');
     } finally {
       this.isLoading.set(false);
     }
-  }
-
-  switchToSignIn(): void {
-    this.modalService.switchTo('sign-in');
-  }
-
-  close(): void {
-    this.modalService.close();
   }
 }

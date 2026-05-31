@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
-import { AbstractControl, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 import { LucideDynamicIcon } from '@lucide/angular';
 import { IconKey, ICONS } from '@shared/constants/icons';
@@ -30,7 +30,7 @@ export class FormFieldComponent {
   readonly iconSize = input<number>(16);
   readonly placeholder = input<string>('');
   readonly autocomplete = input<string>('off');
-  readonly control = input.required<AbstractControl>();
+  readonly control = input.required<FormControl>();
   readonly errorMessage = input<string>('');
 
   protected readonly config = computed(() => ICONS[this.icon()]);

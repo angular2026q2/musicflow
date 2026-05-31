@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
+import { BaseAuthModal } from '@core/components/auth/base-auth-modal';
 import { AuthService } from '@core/services/auth.service';
-import { ModalService } from '@core/services/modal.service';
-import { MessageService } from 'primeng/api';
 
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
@@ -13,8 +12,6 @@ import { LucideDynamicIcon } from '@lucide/angular';
 import { FormFieldComponent } from '@shared/components/form-field/form-field.component';
 import { ControlButtonComponent } from '@shared/components/control-button/control-button.component';
 import { SubmitButtonComponent } from '@shared/components/submit-button/submit-button.component';
-
-import { ICONS } from '@shared/constants/icons';
 
 @Component({
   selector: 'app-sign-in-modal',
@@ -35,14 +32,9 @@ import { ICONS } from '@shared/constants/icons';
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SignInModalComponent {
+export class SignInModalComponent extends BaseAuthModal {
   private readonly authService = inject(AuthService);
-  private readonly modalService = inject(ModalService);
-  private readonly messageService = inject(MessageService);
   private readonly fb = inject(FormBuilder);
-
-  readonly isLoading = signal<boolean>(false);
-  readonly ICONS = ICONS;
 
   readonly form = this.fb.nonNullable.group({
     email: ['', [Validators.required, Validators.email]],
@@ -54,32 +46,14 @@ export class SignInModalComponent {
     if (this.form.invalid) return;
 
     this.isLoading.set(true);
-
     try {
       const { email, password, persistent } = this.form.getRawValue();
       await this.authService.signIn({ email, password }, persistent);
       this.modalService.close();
     } catch {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Sign in failed',
-        detail: 'Invalid email or password. Please try again.',
-        life: 4000,
-      });
+      this.showError('Sign in failed', 'Invalid email or password. Please try again.');
     } finally {
       this.isLoading.set(false);
     }
-  }
-
-  switchToSignUp(): void {
-    this.modalService.switchTo('sign-up');
-  }
-
-  switchToForgotPassword(): void {
-    this.modalService.switchTo('forgot-password');
-  }
-
-  close(): void {
-    this.modalService.close();
   }
 }

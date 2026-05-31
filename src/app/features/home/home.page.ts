@@ -3,20 +3,21 @@ import { CoverCardComponent } from '@shared/components/cover-card/cover-card.com
 
 import { SmallCardComponent } from '@shared/components/small-card/small-card.component';
 import { DropdownMenuComponent } from '../../shared/components/dropdown/dropdown-menu.component';
-import { MenuItem } from 'primeng/api';
+
 import { ButtonModule } from 'primeng/button';
+import { RecentlyPlayedComponent } from '@shared/components/recently-played/recently-played.component';
 
 @Component({
   selector: 'app-home',
-  imports: [SmallCardComponent, DropdownMenuComponent, CoverCardComponent, ButtonModule],
+  imports: [
+    SmallCardComponent,
+    DropdownMenuComponent,
+    CoverCardComponent,
+    ButtonModule,
+    RecentlyPlayedComponent,
+  ],
   templateUrl: './home.page.html',
   styleUrl: './home.page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomePage {
-  menuItems: MenuItem[] = [
-    { label: 'Add to favorites', icon: 'pi pi-heart-fill' },
-    { label: 'View artist', icon: 'pi pi-user-plus' },
-    { label: 'Remove from recents', icon: 'pi pi-trash' },
-  ];
-}
+export class HomePage {}

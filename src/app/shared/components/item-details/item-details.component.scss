@@ -1,4 +1,4 @@
-@use 'styles/_breakpoints' as *;
+@use 'styles/breakpoints' as styles;
 
 .item-details {
   display: flex;
@@ -63,7 +63,7 @@
     }
   }
 
-  @media (max-width: $bp-sm) {
+  @media (max-width: styles.$bp-sm) {
     &__description {
       font-size: var(--text-label);
     }

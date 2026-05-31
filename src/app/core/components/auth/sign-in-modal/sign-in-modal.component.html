@@ -1,0 +1,78 @@
+<div class="sign-in-modal">
+  <app-control-button
+    class="sign-in-modal__close"
+    styleClass="modal-close-button"
+    icon="close"
+    ariaLabel="Close"
+    (click)="close()"
+  />
+
+  <div class="sign-in-modal__header">
+    <h2 class="sign-in-modal__title">Music Flow</h2>
+    <p class="sign-in-modal__subtitle">Sign in to your audio workspace</p>
+  </div>
+
+  <form class="sign-in-modal__form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <app-form-field
+      label="EMAIL ADDRESS"
+      inputId="email"
+      icon="mail"
+      type="email"
+      placeholder="name@musicflow.com"
+      autocomplete="email"
+      [control]="form.controls.email"
+      errorMessage="Enter a valid email"
+    />
+
+    <div class="sign-in-modal__field form-field--fluid">
+      <label for="password" class="sign-in-modal__label">PASSWORD</label>
+      <div class="sign-in-modal__password-wrapper">
+        <svg [lucideIcon]="ICONS.lock.icon" [size]="16" class="lock-icon"></svg>
+        <p-password
+          formControlName="password"
+          inputId="password"
+          [toggleMask]="true"
+          [feedback]="false"
+          placeholder="••••••••"
+          autocomplete="current-password"
+        />
+      </div>
+
+      <div class="sign-in-modal__error-row">
+        <span class="sign-in-modal__error-text">
+          @if (form.controls.password.invalid && form.controls.password.touched) {
+            Password must be at least 6 characters
+          }
+        </span>
+        <button
+          type="button"
+          class="sign-in-modal__forgot-password"
+          (click)="switchTo('forgot-password')"
+        >
+          Forgot password?
+        </button>
+      </div>
+    </div>
+
+    <div class="sign-in-modal__persistent">
+      <p-checkbox
+        formControlName="persistent"
+        [binary]="true"
+        inputId="persistent"
+        label="Keep me signed in"
+      />
+      <label for="persistent"> Keep me signed in </label>
+    </div>
+
+    <app-submit-button label="Sign in" [isLoading]="isLoading()" [disabled]="form.invalid" />
+  </form>
+
+  <div class="sign-in-modal__footer">
+    <p class="sign-in-modal__switch">
+      New to the flow?
+      <button type="button" class="sign-in-modal__link" (click)="switchTo('sign-up')">
+        Create an account
+      </button>
+    </p>
+  </div>
+</div>

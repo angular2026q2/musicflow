@@ -1,0 +1,22 @@
+<div class="form-field">
+  <label [for]="inputId()" class="form-field__label">{{ label() }}</label>
+  <p-iconfield>
+    <p-inputicon>
+      <svg [lucideIcon]="config().icon" [size]="iconSize()"></svg>
+    </p-inputicon>
+    <input
+      pInputText
+      [type]="type()"
+      [id]="inputId()"
+      class="form-field__input"
+      [formControl]="control()"
+      [placeholder]="placeholder()"
+      [attr.autocomplete]="autocomplete()"
+    />
+  </p-iconfield>
+  <span class="form-field__error">
+    @if (control().invalid && control().touched) {
+      {{ errorMessage() }}
+    }
+  </span>
+</div>

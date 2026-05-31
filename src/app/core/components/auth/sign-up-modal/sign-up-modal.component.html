@@ -1,0 +1,83 @@
+<div class="sign-up-modal">
+  <app-control-button
+    class="sign-up-modal__close"
+    styleClass="modal-close-button"
+    icon="close"
+    ariaLabel="Close"
+    (click)="close()"
+  />
+
+  <div class="sign-up-modal__header">
+    <h2 class="sign-up-modal__title">Music Flow</h2>
+    <h3 class="sign-up-modal__heading">Join the Flow</h3>
+    <p class="sign-up-modal__subtitle">Elevate your listening experience today.</p>
+  </div>
+
+  <form class="sign-up-modal__form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <app-form-field
+      label="FULL NAME"
+      inputId="full_name"
+      icon="user"
+      type="text"
+      placeholder="Alex Musician"
+      autocomplete="name"
+      [control]="form.controls.full_name"
+      errorMessage="Full name must be at least 3 characters"
+    />
+
+    <app-form-field
+      label="USERNAME"
+      inputId="username"
+      icon="userPen"
+      type="text"
+      placeholder="alexmusician"
+      autocomplete="username"
+      [control]="form.controls.username"
+      errorMessage="Username must be at least 3 characters"
+    />
+
+    <app-form-field
+      label="EMAIL"
+      inputId="email"
+      icon="mail"
+      type="email"
+      placeholder="alex@musicflow.io"
+      autocomplete="email"
+      [control]="form.controls.email"
+      errorMessage="Enter a valid email address"
+    />
+
+    <div class="sign-up-modal__field form-field--fluid">
+      <label for="password" class="sign-up-modal__label">PASSWORD</label>
+      <div class="sign-up-modal__password-wrapper">
+        <svg [lucideIcon]="ICONS.lock.icon" [size]="16" class="lock-icon"></svg>
+        <p-password
+          formControlName="password"
+          inputId="password"
+          [toggleMask]="true"
+          [feedback]="true"
+          placeholder="••••••••"
+          autocomplete="new-password"
+        />
+      </div>
+      <span class="sign-up-modal__error-text">
+        @if (form.controls.password.invalid && form.controls.password.touched) {
+          Password must be at least 6 characters
+        }
+      </span>
+    </div>
+
+    <app-submit-button
+      label="Create Account"
+      [isLoading]="isLoading()"
+      [disabled]="form.invalid || isLoading()"
+    />
+  </form>
+
+  <div class="sign-up-modal__footer">
+    <p class="sign-up-modal__switch">
+      Already have an account?
+      <button class="sign-up-modal__link" (click)="switchTo('sign-in')">Sign In</button>
+    </p>
+  </div>
+</div>

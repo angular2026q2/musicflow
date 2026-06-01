@@ -37,7 +37,7 @@ export class SignInModalComponent extends BaseAuthModal {
   private readonly fb = inject(FormBuilder);
 
   readonly form = this.fb.nonNullable.group({
-    email: ['', [Validators.required, Validators.email]],
+    identifier: ['', [Validators.required, Validators.minLength(3)]],
     password: ['', [Validators.required, Validators.minLength(6)]],
     persistent: [false],
   });
@@ -47,11 +47,11 @@ export class SignInModalComponent extends BaseAuthModal {
 
     this.isLoading.set(true);
     try {
-      const { email, password, persistent } = this.form.getRawValue();
-      await this.authService.signIn({ email, password }, persistent);
+      const { identifier, password, persistent } = this.form.getRawValue();
+      await this.authService.signIn({ identifier, password }, persistent);
       this.modalService.close();
     } catch {
-      this.showError('Sign in failed', 'Invalid email or password. Please try again.');
+      this.showError('Sign in failed', 'Invalid credentials. Please try again.');
     } finally {
       this.isLoading.set(false);
     }

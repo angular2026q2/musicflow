@@ -14,14 +14,14 @@
 
   <form class="sign-in-modal__form" [formGroup]="form" (ngSubmit)="onSubmit()">
     <app-form-field
-      label="EMAIL ADDRESS"
-      inputId="email"
-      icon="mail"
+      label="EMAIL OR USERNAME"
+      inputId="identifier"
+      icon="user"
       type="email"
-      placeholder="name@musicflow.com"
-      autocomplete="email"
-      [control]="form.controls.email"
-      errorMessage="Enter a valid email"
+      placeholder="name@musicflow.com or username"
+      autocomplete="username"
+      [control]="form.controls.identifier"
+      errorMessage="Enter your email or username"
     />
 
     <div class="sign-in-modal__field form-field--fluid">

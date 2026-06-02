@@ -32,7 +32,26 @@ export const MusicFlowPreset = definePreset(Aura, {
           background: transparent;
           color: var(--color-primary);
         }
-
+        
+        .p-button.p-button-text.modal-close-button {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: var(--space-xl);
+          height: var(--space-xl);
+          border: none;
+          border-radius: var(--radius-full);
+          color: var(--color-outline);
+          background: none;
+          transition: color 0.2s ease, background-color 0.2s ease;
+        }
+        
+        @media (hover: hover) and (pointer: fine) {
+          .p-button.p-button-text.modal-close-button:not(:disabled):hover {
+            color: var(--color-on-surface);
+            background-color: var(--color-surface-container);
+          }
+        }
       `,
     },
     slider: {
@@ -144,4 +163,25 @@ export const MusicFlowPreset = definePreset(Aura, {
         `,
     },
   },
+  css: () => `
+  .form-field--fluid .p-iconfield {
+    display: flex;
+    width: 100%;
+  }
+
+  .form-field--fluid .p-iconfield > * {
+    width: 100%;
+  }
+  
+  .form-field--fluid p-password input {
+    padding-left: var(--space-xxl);
+  }
+
+  .form-field--fluid .p-password,
+  .form-field--fluid .p-password .p-inputtext,
+  .form-field--fluid input,
+  .form-field--fluid .p-inputtext {
+    width: 100%;
+  }
+`,
 });

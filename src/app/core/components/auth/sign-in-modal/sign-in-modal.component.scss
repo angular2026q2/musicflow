@@ -1,0 +1,105 @@
+@use 'styles/index' as styles;
+
+.sign-in-modal {
+  @include styles.modal-container;
+
+  &__close {
+    @include styles.modal-close-position;
+  }
+
+  &__header {
+    @include styles.modal-header;
+  }
+
+  &__title {
+    @include styles.modal-title;
+  }
+
+  &__subtitle {
+    @include styles.modal-subtitle;
+  }
+
+  &__form {
+    @include styles.modal-form;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  &__label {
+    font-size: var(--text-label);
+    font-weight: var(--weight-bold);
+    color: var(--color-outline);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  &__password-wrapper {
+    position: relative;
+
+    svg.lock-icon {
+      pointer-events: none;
+
+      position: absolute;
+      z-index: 1;
+      top: 50%;
+      left: var(--space-md);
+      transform: translateY(-50%);
+
+      color: var(--color-outline);
+    }
+  }
+
+  &__forgot-password {
+    cursor: pointer;
+
+    border: none;
+
+    font-size: var(--text-label);
+    color: var(--color-secondary);
+
+    background: none;
+
+    transition: opacity 0.2s ease;
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+
+  &__persistent {
+    display: flex;
+    gap: var(--space-md);
+    align-items: center;
+    margin-bottom: var(--space-md);
+  }
+
+  &__error {
+    &-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    &-text {
+      @include styles.modal-error-text;
+    }
+  }
+
+  &__footer p {
+    @include styles.modal-footer;
+  }
+
+  &__switch {
+    @include styles.modal-switch-text;
+  }
+
+  &__link {
+    @include styles.modal-footer-link;
+  }
+}

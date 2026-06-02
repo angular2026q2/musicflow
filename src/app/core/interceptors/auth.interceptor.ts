@@ -1,4 +1,6 @@
 import { HttpHandlerFn, HttpInterceptorFn, HttpRequest } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { TokenService } from '@core/services/token.service';
 import { environment } from '@environments/environment';
 
 /**
@@ -18,10 +20,15 @@ export const authInterceptor: HttpInterceptorFn = (
   }
 
   const absoluteUrl = req.url.replace('/api/', `${environment.apiUrl}/`);
+  const token = inject(TokenService).get();
+
+  if (!token) {
+    return next(req.clone({ url: absoluteUrl }));
+  }
 
   const authReq = req.clone({
     url: absoluteUrl,
-    setHeaders: { Authorization: `Bearer ${DEV_BEARER_TOKEN}` },
+    setHeaders: { Authorization: `Bearer ${token}` },
   });
 
   return next(authReq);

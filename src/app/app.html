@@ -1,11 +1,36 @@
+<p-toast position="bottom-center" [baseZIndex]="10000" />
+
 <div class="app-layout">
   <app-sidebar class="app-layout__sidebar" />
   <div class="app-layout__content">
     <app-header class="app-layout__header" />
     <main class="app-layout__main">
       <router-outlet />
-      <!-- <app-cover-card></app-cover-card> -->
-      <!-- <app-player></app-player> -->
     </main>
   </div>
 </div>
+
+@if (modalService.activeModal()) {
+  <div
+    class="modal-overlay"
+    role="dialog"
+    aria-modal="true"
+    (click)="modalService.close()"
+    (keydown.escape)="modalService.close()"
+    tabindex="0"
+  >
+    <div class="modal-container">
+      @switch (modalService.activeModal()) {
+        @case ('sign-in') {
+          <app-sign-in-modal />
+        }
+        @case ('sign-up') {
+          <app-sign-up-modal />
+        }
+        @case ('forgot-password') {
+          <app-forgot-password-modal />
+        }
+      }
+    </div>
+  </div>
+}

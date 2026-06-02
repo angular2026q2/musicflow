@@ -2,6 +2,7 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { provideLucideConfig } from '@lucide/angular';
+import { MessageService } from 'primeng/api';
 import { providePrimeNG } from 'primeng/config';
 import { authInterceptor } from '@core/interceptors/auth.interceptor';
 
@@ -18,6 +19,7 @@ export const appConfig: ApplicationConfig = {
         preset: MusicFlowPreset,
       },
     }),
+    MessageService,
     provideLucideConfig({ size: 20 }),
   ],
 };

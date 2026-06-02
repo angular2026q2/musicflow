@@ -18,9 +18,32 @@
 
   <div class="track__info">
     <span class="track__name">{{ track().name }}</span>
-    <a [routerLink]="artistLink(track().artist_id)" class="track__artist">
-      {{ track().artist_name }}
-    </a>
+
+    @if (meta().length) {
+      <div class="track__meta">
+        @for (field of meta(); track field; let last = $last) {
+          @switch (field) {
+            @case ('artist') {
+              <a [routerLink]="artistLink(track().artist_id)" class="track__meta-item">
+                {{ track().artist_name }}
+              </a>
+            }
+            @case ('album') {
+              <a [routerLink]="albumLink(track().album_id)" class="track__meta-item">
+                {{ track().album_name }}
+              </a>
+            }
+            @case ('releasedate') {
+              <span class="track__meta-item">{{ track().releasedate | date: 'yyyy' }}</span>
+            }
+          }
+
+          @if (!last) {
+            <span class="track__meta-dot" aria-hidden="true">•</span>
+          }
+        }
+      </div>
+    }
   </div>
 
   <span class="track__plays">

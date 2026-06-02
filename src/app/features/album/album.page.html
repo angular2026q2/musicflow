@@ -58,7 +58,7 @@
           <div class="album-page__tracks-divider"></div>
 
           @for (track of tracks(); track track.id) {
-            <app-track [track]="toTrack(track)" [position]="$index + 1" />
+            <app-track [track]="toTrack(track)" [meta]="['artist']" [position]="$index + 1" />
           }
         </div>
       </div>

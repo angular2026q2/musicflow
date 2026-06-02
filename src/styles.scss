@@ -150,3 +150,19 @@ a:active {
 .artist-page__button--play:hover .p-button.control-button {
   color: var(--color-on-primary);
 }
+
+.artist-page__button--show-all .p-button {
+  color: var(--color-secondary);
+}
+
+.artist-page__button--show-all:hover button.p-button-text {
+  color: var(--color-primary);
+  background: transparent;
+}
+
+.artist-page__album-meta .p-divider-vertical {
+  max-height: fit-content;
+  margin-top: 0;
+  margin-bottom: 0;
+  padding: 0;
+}

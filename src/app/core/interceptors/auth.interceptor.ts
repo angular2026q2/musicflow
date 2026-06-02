@@ -6,7 +6,7 @@ import { environment } from '@environments/environment';
  * Inject AuthService, read token signal, attach to request.
  */
 const DEV_BEARER_TOKEN =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI4NGY5MzJiNi1iMjA3LTQ4NDAtYmU3NS0xZDBiNzM2N2JiY2QiLCJlbWFpbCI6InNvbGlkYWRvc0BleGFtcGxlLmlvIiwiaWF0IjoxNzc5NDM1NDgzLCJleHAiOjE3ODAwNDAyODN9.mfTl2qbN7luI93WfciC9qhDPexspcYWh6Ip5IyWhbw0';
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1NWE1MTcwYi1mZjhlLTQ4MGItYmNhMS02M2U2M2YwZGM4ZDQiLCJlbWFpbCI6InRlc3RfdXNlcl83NzdAZ21haWwuY29tIiwiaWF0IjoxNzgwMzkxMTIzLCJleHAiOjE3ODA5OTU5MjN9.m4pOnEUNKWludGar5oGZ-nZ0NKue7X124MgJnkIo0mQ';
 
 export const authInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,

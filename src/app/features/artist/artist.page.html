@@ -1,7 +1,7 @@
 @let albumCount = albums().length;
 
-@if (artist(); as artist) {
-  <section class="artist-page">
+<section class="artist-page">
+  @if (artist(); as artist) {
     <div
       class="artist-page__header"
       [class.artist-page__header--no-cover]="!artist.image"
@@ -120,5 +120,5 @@
         } -->
       </div>
     </div>
-  </section>
-}
+  }
+</section>

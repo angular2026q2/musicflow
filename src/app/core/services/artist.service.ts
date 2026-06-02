@@ -14,11 +14,7 @@ export class ArtistService {
     return `${this.getArtistUrl(id)}/tracks`;
   }
 
-  // getAlbumsUrl(id: string): string {
-  //   return `${this.getArtistUrl(id)}/albums`;
-  // }
-
-  getAlbumsUrl(): string {
-    return `${this.baseUrl}/albums`;
+  getAlbumsUrl(id: string): string {
+    return `${this.getArtistUrl(id)}/albums`;
   }
 }

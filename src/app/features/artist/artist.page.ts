@@ -34,26 +34,27 @@ import { DividerModule } from 'primeng/divider';
 })
 export class ArtistPage {
   readonly ENTITY_LABEL = 'Artist';
+  private readonly PREVIEW_TRACKS_COUNT = 10;
 
   readonly artistService = inject(ArtistService);
 
   readonly id = input.required<string>();
 
   readonly artistResource = httpResource<Artist>(() => this.artistService.getArtistUrl(this.id()));
-  readonly allAlbumsResource = httpResource<{ data: Album[] }>(() => `/api/v1/music/albums`); // Заменить на this.artistService.getAlbumsUrl(this.id())
-  readonly allTracksResource = httpResource<{ data: Track[] }>(() => `/api/v1/music/tracks`); // Заменить на this.artistService.getTracksUrl(this.id())
+  readonly allAlbumsResource = httpResource<{ data: Album[] }>(() =>
+    this.artistService.getAlbumsUrl(this.id()),
+  );
+  readonly allTracksResource = httpResource<{ data: Track[] }>(() =>
+    this.artistService.getTracksUrl(this.id()),
+  );
 
   readonly showAll = signal(false);
 
   readonly artist = computed(() => this.artistResource.value() ?? null);
-  private readonly allTracks = computed<Track[]>(
-    () =>
-      this.allTracksResource.value()?.data.filter((track) => track.artist_id === this.id()) ?? [],
-  );
-  // !TODO: временное решение для подсчета загруженных треков
-  // нужно добавить на бэке поле tracks_count или другое поле с количеством треков в альбоме
+  private readonly allTracks = computed<Track[]>(() => this.allTracksResource.value()?.data ?? []);
+
   readonly trackCountByAlbum = computed<Map<string, number>>(() => {
-    const tracks = this.allTracksResource.value()?.data ?? [];
+    const tracks = this.allTracks();
     const map = new Map<string, number>();
 
     for (const track of tracks) {
@@ -64,12 +65,11 @@ export class ArtistPage {
   });
 
   readonly tracks = computed(() =>
-    this.showAll() ? this.allTracks() : this.allTracks().slice(0, 10),
+    this.showAll() ? this.allTracks() : this.allTracks().slice(0, this.PREVIEW_TRACKS_COUNT),
   );
 
   readonly albums = computed(() => {
-    const all = this.allAlbumsResource.value()?.data ?? [];
-    return all.filter((album) => album.artist_id === this.id());
+    return this.allAlbumsResource.value()?.data ?? [];
   });
 
   readonly avatarFallback = computed(() => (this.artist()?.name[0] ?? '').toUpperCase());
@@ -79,6 +79,7 @@ export class ArtistPage {
   readonly isFollowing = signal<boolean>(false);
 
   readonly albumsIcon = ICONS.playlist.icon;
+  readonly retryIcon = ICONS.retry.icon;
   // !TODO: добавить функционал копирования и может еще что то
   // readonly dropDownMenuItems: MenuItem[] = [
   //   {
@@ -88,6 +89,9 @@ export class ArtistPage {
   //     label: 'About artist',
   //   },
   // ];
+
+  readonly isLoading = computed(() => this.artistResource.isLoading());
+  readonly error = computed(() => this.artistResource.error());
 
   toggleMusicPlay(): void {
     this.isPlay.update((v) => !v);

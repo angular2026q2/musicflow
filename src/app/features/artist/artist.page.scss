@@ -1,0 +1,234 @@
+.artist-page {
+  font-family: var(--font-body);
+
+  &__header {
+    isolation: isolate;
+    position: relative;
+
+    overflow: hidden;
+
+    padding: var(--space-xl);
+    border-radius: var(--radius-xl);
+
+    background: var(--cover-url) no-repeat center center / cover;
+
+    &::after {
+      pointer-events: none;
+      content: '';
+
+      position: absolute;
+      z-index: 1;
+      inset: 0;
+
+      border-radius: inherit;
+
+      background: linear-gradient(
+        to top,
+        var(--color-surface) 0%,
+        color-mix(in srgb, var(--color-surface) 45%, transparent) 25%,
+        color-mix(in srgb, var(--color-surface) 0%, transparent) 60%
+      );
+    }
+
+    &--no-cover {
+      background-color: var(--color-on-primary);
+    }
+
+    &-root {
+      position: relative;
+      z-index: 2;
+
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-lg);
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+
+    &-entity-name {
+      margin-bottom: var(--space-sm);
+      font-weight: var(--weight-regular);
+      color: var(--color-secondary);
+      text-transform: uppercase;
+    }
+
+    &-title {
+      margin-bottom: var(--space-md);
+      font-family: var(--font-display);
+      font-size: clamp(var(--text-headline-md), 10vw, var(--text-headline-xl));
+      font-weight: var(--weight-extrabold);
+    }
+  }
+
+  &__left-side {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  &__right-side {
+    display: flex;
+    gap: var(--space-md);
+    align-items: center;
+  }
+
+  &__avatar {
+    --size: clamp(8rem, 15vw, 13rem);
+
+    position: relative;
+    z-index: 2;
+
+    overflow: hidden;
+
+    width: var(--size);
+    height: var(--size);
+    margin-bottom: var(--space-md);
+    border: 6px solid var(--color-outline-variant);
+    border-radius: 50%;
+
+    font-family: var(--font-display);
+    font-size: clamp(var(--text-headline-md), 10vw, var(--text-headline-xl));
+    font-weight: var(--weight-extrabold);
+    color: var(--color-white);
+
+    background-color: var(--color-outline-variant);
+
+    &-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    &-label {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  &__meta {
+    display: flex;
+    gap: var(--space-xs);
+    align-items: center;
+    color: var(--color-on-surface-variant);
+
+    &-icon {
+      display: flex;
+    }
+  }
+
+  &__button {
+    cursor: pointer;
+    transition:
+      color var(--duration-default),
+      border-color var(--duration-default);
+
+    &--play {
+      padding: var(--space-sm);
+      border-radius: 50%;
+      color: var(--color-on-secondary);
+      background-color: var(--color-secondary);
+    }
+
+    &--follow {
+      padding: 11px 24px;
+      border: 1px solid var(--color-on-surface-variant);
+      border-radius: var(--radius-xl);
+
+      font-size: var(--text-body-md);
+      text-transform: uppercase;
+
+      background: transparent;
+
+      &:hover {
+        border-color: var(--color-secondary);
+        color: var(--color-secondary);
+      }
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    padding: var(--space-lg) 0;
+  }
+
+  &__tracklist {
+    flex-grow: 1;
+  }
+
+  &__sidebar-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+
+    width: clamp(280px, 25vw, 25rem);
+    height: fit-content;
+  }
+
+  &__tracks-header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__tracks-title {
+    font-size: var(--text-headline-lg);
+    font-weight: var(--weight-bold);
+    text-transform: capitalize;
+  }
+
+  &__discography-title,
+  &__about-artist-title {
+    margin-bottom: var(--space-md);
+    font-size: var(--leading-body-sm);
+    font-weight: var(--weight-semibold);
+  }
+
+  &__albums {
+    display: flex;
+    gap: var(--space-md);
+  }
+
+  &__album {
+    width: calc(50% - var(--space-sm) / 2);
+    font-family: var(--font-body);
+    font-weight: var(--weight-regular);
+
+    &-cover {
+      overflow: hidden;
+
+      aspect-ratio: 1 / 1;
+      width: 100%;
+      margin-bottom: var(--space-sm);
+      border-radius: var(--radius-md);
+
+      & img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    &-title {
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+
+      text-overflow: ellipsis;
+    }
+
+    &-meta {
+      display: flex;
+      align-items: center;
+    }
+
+    &-release-date,
+    &-track-count {
+      font-size: var(--text-body-sm);
+      color: var(--color-on-surface-variant);
+    }
+  }
+}

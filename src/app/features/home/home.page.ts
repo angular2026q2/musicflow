@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CoverCardComponent } from '@shared/components/cover-card/cover-card.component';
 
 import { SmallCardComponent } from '@shared/components/small-card/small-card.component';
-import { DropdownMenuComponent } from '../../shared/components/dropdown/dropdown-menu.component';
+import { DropdownMenuComponent } from '@shared/components/dropdown/dropdown-menu.component';
 import { MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 

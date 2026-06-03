@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 
 const TOKEN_KEY = 'mf_access_token';
 
@@ -17,6 +17,9 @@ const TOKEN_KEY = 'mf_access_token';
   providedIn: 'root',
 })
 export class TokenService {
+  private readonly _token = signal<string | null>(this.readFromStorage());
+  readonly token = this._token.asReadonly();
+
   /** @description Saves JWT token to storage.
    * @param token - JWT access token
    * @param persistent - if `true` - saves to `localStorage`, otherwise `sessionStorage`
@@ -24,6 +27,11 @@ export class TokenService {
   save(token: string, persistent = false): void {
     const storage = persistent ? localStorage : sessionStorage;
     storage.setItem(TOKEN_KEY, token);
+    this._token.set(token);
+  }
+
+  get(): string | null {
+    return this._token();
   }
 
   /** @description Retrieves JWT token from storage.
@@ -31,7 +39,7 @@ export class TokenService {
    * Checks `sessionStorage` first, then `localStorage`
    * @returns JWT token string or `null` if not found
    */
-  get(): string | null {
+  readFromStorage(): string | null {
     return sessionStorage.getItem(TOKEN_KEY) ?? localStorage.getItem(TOKEN_KEY);
   }
 
@@ -40,6 +48,7 @@ export class TokenService {
   clear(): void {
     sessionStorage.removeItem(TOKEN_KEY);
     localStorage.removeItem(TOKEN_KEY);
+    this._token.set(null);
   }
 
   /** @description Returns true if a token exists in either storage.*/

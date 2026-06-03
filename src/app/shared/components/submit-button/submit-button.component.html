@@ -1,0 +1,7 @@
+<button class="submit-button" type="submit" [disabled]="disabled() || isLoading()">
+  @if (isLoading()) {
+    <p-progressSpinner class="submit-button__spinner" strokeWidth="4" />
+  } @else {
+    {{ label() }}
+  }
+</button>

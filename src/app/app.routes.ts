@@ -27,6 +27,10 @@ export const routes: Routes = [
     loadComponent: () => import('@features/album/album.page').then((m) => m.AlbumPage),
   },
   {
+    path: APP_ROUTES.ARTIST.route,
+    loadComponent: () => import('@features/artist/artist.page').then((m) => m.ArtistPage),
+  },
+  {
     path: APP_ROUTES.ABOUT.route,
     loadComponent: () => import('@features/about/about.page').then((m) => m.AboutPage),
   },

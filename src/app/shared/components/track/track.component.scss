@@ -4,7 +4,7 @@
   gap: var(--space-md);
   align-items: center;
 
-  padding: var(--space-sm) 0;
+  padding: var(--space-sm) var(--space-md);
   border-radius: var(--radius-default);
 
   transition: background-color 0.2s ease;
@@ -71,32 +71,40 @@
     white-space: nowrap;
   }
 
-  &__artist {
+  &__meta {
+    display: flex;
+    gap: var(--space-sm);
+  }
+
+  &__meta-item {
     font-size: var(--text-label);
     color: var(--color-outline);
-    text-decoration: none;
     transition: color 0.15s ease;
 
-    &__plays {
-      min-width: 4rem;
-      font-size: var(--text-body-sm);
-      color: var(--color-outline);
-      text-align: right;
+    &:hover:any-link {
+      color: var(--color-on-surface);
+      text-decoration: underline;
     }
+  }
 
-    &__duration {
-      min-width: 3rem;
-      font-size: var(--text-body-sm);
-      color: var(--color-outline);
-      text-align: right;
-    }
+  &__meta-dot {
+    font-size: var(--text-label);
+    color: var(--color-primary);
+  }
 
-    @media (hover: hover) and (pointer: fine) {
-      &:hover {
-        color: var(--color-on-surface);
-        text-decoration: underline;
-      }
-    }
+  &__plays,
+  &__duration {
+    font-size: var(--text-body-sm);
+    color: var(--color-outline);
+    text-align: right;
+  }
+
+  &__plays {
+    min-width: 4rem;
+  }
+
+  &__duration {
+    min-width: 3rem;
   }
 
   @media (hover: hover) and (pointer: fine) {

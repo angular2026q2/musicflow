@@ -1,9 +1,7 @@
 .app-layout {
-  overflow: hidden;
   display: grid;
   grid-template-columns: 16.5rem 1fr;
   grid-template-rows: 1fr;
-
   height: 100vh;
 
   &__sidebar {
@@ -22,4 +20,23 @@
     overflow: hidden auto;
     padding: 0 var(--space-xl);
   }
+}
+
+.modal-overlay {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: color-mix(in srgb, var(--color-surface), transparent);
+  backdrop-filter: blur(4px);
+}
+
+.modal-container {
+  width: 100%;
+  max-width: 28rem;
+  padding: var(--space-md);
 }

@@ -19,20 +19,20 @@ const REPEAT_NEXT: Record<RepeatMode, RepeatMode> = {
 })
 export class ControlsBarComponent {
   readonly trackDuration = input<number>(225);
-  readonly playToggle = output<boolean>();
+  readonly isPlaying = input<boolean>(false);
 
-  readonly isPlay = signal<boolean>(false);
   readonly isShuffle = signal<boolean>(false);
   readonly repeatMode = signal<RepeatMode>('none');
 
-  readonly iconPlay = computed<IconKey>(() => (this.isPlay() ? 'pause' : 'play'));
+  readonly playToggle = output<void>();
+
+  readonly iconPlay = computed<IconKey>(() => (this.isPlaying() ? 'pause' : 'play'));
   readonly iconRepeat = computed<IconKey>(() =>
     this.repeatMode() === 'one' ? 'repeatOne' : 'repeat',
   );
 
   toggleMusicPlay(): void {
-    this.isPlay.update((v) => !v);
-    this.playToggle.emit(this.isPlay());
+    this.playToggle.emit();
   }
 
   toggleRepeat(): void {

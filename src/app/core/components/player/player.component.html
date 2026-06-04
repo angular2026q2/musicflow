@@ -4,7 +4,7 @@
       <div class="player__info">
         <div class="player__info-card">
           <div class="player__cover-container">
-            <img src="./images/track-cover.webp" alt="Track cover" class="player__cover" />
+            <img src="/images/track-cover.webp" alt="Track cover" class="player__cover" />
           </div>
           <div class="player__description">
             <app-meta [title]="title()" [primaryDesc]="primaryDesc()"></app-meta>
@@ -14,7 +14,7 @@
 
       <div class="player__controls-bar">
         <app-control-button icon="heart" [active]="isFavorite()" (click)="toggleFavorite()" />
-        <app-controls-bar (playToggle)="onPlayToggle($event)"></app-controls-bar>
+        <app-controls-bar [isPlaying]="isActive()" (playToggle)="onPlayToggle()"></app-controls-bar>
       </div>
 
       <div class="player__meta">

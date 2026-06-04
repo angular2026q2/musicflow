@@ -1,5 +1,5 @@
 import { DatePipe, NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LucideDynamicIcon } from '@lucide/angular';
 import { ICONS } from '@shared/constants/icons';
@@ -23,8 +23,14 @@ export class TrackComponent {
   readonly position = input<number | null>(null);
   readonly showImage = input<boolean>(false);
   readonly meta = input<TrackMetaField[]>([]);
+  readonly playTrack = output<Track>();
 
+  protected readonly ICONS = ICONS;
   /** todo: PlayCountPipe будет использоваться когда API начнёт отдавать поле plays */
+
+  onPlayClick(): void {
+    this.playTrack.emit(this.track());
+  }
 
   artistLink(artistId: string): string {
     return buildArtistPath(artistId);
@@ -33,6 +39,4 @@ export class TrackComponent {
   albumLink(albumId: string): string {
     return buildAlbumPath(albumId);
   }
-
-  protected readonly ICONS = ICONS;
 }

@@ -33,7 +33,12 @@
       </div>
 
       <div actions class="album-page__actions">
-        <button class="album-page__play-btn" type="button" aria-label="Play album">
+        <button
+          class="album-page__play-btn"
+          type="button"
+          (click)="onAlbumPlay()"
+          aria-label="Play album"
+        >
           <svg [lucideIcon]="ICONS.play.icon" [size]="18"></svg>
           <span>Play</span>
         </button>
@@ -58,7 +63,12 @@
           <div class="album-page__tracks-divider"></div>
 
           @for (track of tracks(); track track.id) {
-            <app-track [track]="toTrack(track)" [meta]="['artist']" [position]="$index + 1" />
+            <app-track
+              [track]="toTrack(track)"
+              [meta]="['artist']"
+              [position]="$index + 1"
+              (playTrack)="onTrackPlay(track)"
+            />
           }
         </div>
       </div>

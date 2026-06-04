@@ -1,7 +1,8 @@
 import { httpResource } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { MusicPlayerService } from '@core/services/music-player.service';
 import { LucideDynamicIcon } from '@lucide/angular';
 
 import { buildArtistPath } from '@shared/constants/routes';
@@ -37,6 +38,7 @@ import { DurationPipe } from '@shared/pipes/duration.pipe';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AlbumPage {
+  private readonly playerService = inject(MusicPlayerService);
   readonly id = input.required<string>();
 
   readonly albumResource = httpResource<Album>(() =>
@@ -68,25 +70,26 @@ export class AlbumPage {
   });
 
   toTrack(albumTrack: AlbumTrack): Track {
+    const album = this.album();
     return {
       id: albumTrack.id,
       name: albumTrack.name,
       duration: parseInt(albumTrack.duration, 10),
-      artist_id: this.album()?.artist_id ?? '',
-      artist_name: this.album()?.artist_name ?? '',
+      artist_id: album?.artist_id ?? '',
+      artist_name: album?.artist_name ?? '',
       artist_idstr: '',
-      album_name: this.album()?.name ?? '',
+      album_name: album?.name ?? '',
       album_id: this.id(),
       license_ccurl: albumTrack.license_ccurl,
       position: parseInt(albumTrack.position, 10),
-      releasedate: this.album()?.releasedate ?? '',
-      album_image: this.album()?.image ?? '',
+      releasedate: album?.releasedate ?? '',
+      album_image: album?.image ?? '',
       audio: albumTrack.audio,
       audiodownload: albumTrack.audiodownload,
       prourl: '',
       shorturl: '',
       shareurl: '',
-      image: this.album()?.image ?? '',
+      image: album?.image ?? '',
       audiodownload_allowed: albumTrack.audiodownload_allowed,
       content_id_free: false,
     };
@@ -94,6 +97,16 @@ export class AlbumPage {
 
   artistLink(artistId: string): string {
     return buildArtistPath(artistId);
+  }
+
+  onTrackPlay(albumTrack: AlbumTrack): void {
+    const allTracks = this.tracks().map((t) => this.toTrack(t));
+    const index = this.tracks().indexOf(albumTrack);
+    this.playerService.playQueue(allTracks, index);
+  }
+
+  onAlbumPlay(): void {
+    this.playerService.playQueue(this.tracks().map((t) => this.toTrack(t)));
   }
 
   protected readonly ICONS = ICONS;

@@ -14,6 +14,19 @@ export const MusicFlowPreset = definePreset(Aura, {
   },
   components: {
     button: {
+      colorScheme: {
+        dark: {
+          root: {
+            primary: {
+              color: 'var(--color-surface)',
+              hoverColor: 'var(--color-on-primary)',
+              background: 'var(--color-white)',
+              hoverBackground: 'var(--color-white)',
+              hoverBorderColor: 'var(--color-white)',
+            },
+          },
+        },
+      },
       css: () => `
         .p-button.dropdown-menu-button{
           color: var(--color-on-surface-variant);

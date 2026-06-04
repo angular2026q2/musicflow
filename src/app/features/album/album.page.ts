@@ -39,19 +39,22 @@ import { DurationPipe } from '@shared/pipes/duration.pipe';
 })
 export class AlbumPage {
   private readonly playerService = inject(MusicPlayerService);
+
   readonly id = input.required<string>();
 
   readonly albumResource = httpResource<Album>(() =>
     this.id() ? `/api/v1/music/albums/${this.id()}` : undefined,
   );
-
   readonly tracksResource = httpResource<AlbumTrack[]>(() =>
     this.id() ? `/api/v1/music/albums/${this.id()}/tracks` : undefined,
   );
 
   readonly album = computed(() => this.albumResource.value());
   readonly tracks = computed(() => this.tracksResource.value() ?? []);
-
+  readonly isAlbumPlaying = computed(
+    () =>
+      this.playerService.isPlaying() && this.playerService.currentTrack()?.album_id === this.id(),
+  );
   readonly isLoading = computed(
     () => this.albumResource.isLoading() || this.tracksResource.isLoading(),
   );
@@ -106,7 +109,11 @@ export class AlbumPage {
   }
 
   onAlbumPlay(): void {
-    this.playerService.playQueue(this.tracks().map((t) => this.toTrack(t)));
+    if (this.isAlbumPlaying()) {
+      this.playerService.togglePlay();
+    } else {
+      this.playerService.playQueue(this.tracks().map((t) => this.toTrack(t)));
+    }
   }
 
   protected readonly ICONS = ICONS;

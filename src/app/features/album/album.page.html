@@ -39,8 +39,11 @@
           (click)="onAlbumPlay()"
           aria-label="Play album"
         >
-          <svg [lucideIcon]="ICONS.play.icon" [size]="18"></svg>
-          <span>Play</span>
+          <svg
+            [lucideIcon]="isAlbumPlaying() ? ICONS.pause.icon : ICONS.play.icon"
+            [size]="18"
+          ></svg>
+          <span>{{ isAlbumPlaying() ? 'Pause' : 'Play' }}</span>
         </button>
         <app-control-button icon="heart" ariaLabel="Add to favorites" />
         <app-control-button icon="download" ariaLabel="Download" />

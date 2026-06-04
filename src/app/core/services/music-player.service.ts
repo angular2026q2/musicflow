@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, effect } from '@angular/core';
 import type { Track } from '@shared/interfaces/track.interface';
 
 /**
@@ -14,6 +14,7 @@ import type { Track } from '@shared/interfaces/track.interface';
   providedIn: 'root',
 })
 export class MusicPlayerService {
+  private readonly audio = new Audio();
   // * эти приватные – только внутри сервиса
   private readonly _currentTrack = signal<Track | null>(null);
   private readonly _queue = signal<Track[]>([]);
@@ -25,6 +26,21 @@ export class MusicPlayerService {
   readonly queue = this._queue.asReadonly();
   readonly currentIndex = this._currentIndex.asReadonly();
   readonly isPlaying = this._isPlaying.asReadonly();
+
+  constructor() {
+    effect(() => {
+      const track = this._currentTrack();
+      if (track) {
+        this.audio.src = track.audio;
+        this.audio.play().catch(() => {
+          /* empty */
+        });
+      } else {
+        this.audio.pause();
+        this.audio.src = '';
+      }
+    });
+  }
 
   playQueue(tracks: Track[], startIndex = 0): void {
     this._queue.set(tracks);
@@ -38,7 +54,15 @@ export class MusicPlayerService {
   }
 
   togglePlay(): void {
-    this._isPlaying.update((isPlaying) => !isPlaying);
+    if (this.audio.paused) {
+      this.audio.play().catch(() => {
+        /* empty */
+      });
+      this._isPlaying.set(true);
+    } else {
+      this.audio.pause();
+      this._isPlaying.set(false);
+    }
   }
 
   next(): void {
@@ -46,6 +70,7 @@ export class MusicPlayerService {
     if (next < this._queue().length) {
       this._currentIndex.set(next);
       this._currentTrack.set(this._queue()[next]);
+      this._isPlaying.set(true);
     }
   }
 
@@ -54,6 +79,7 @@ export class MusicPlayerService {
     if (prev >= 0) {
       this._currentIndex.set(prev);
       this._currentTrack.set(this._queue()[prev]);
+      this._isPlaying.set(true);
     }
   }
 }

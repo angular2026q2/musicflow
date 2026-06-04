@@ -5,7 +5,7 @@
 ### Задачи и мысли (планы)
 
 Продолжение флоу авторизации: нужно было завершить цикл сброса пароля и реализовать страницу `/reset-password` на фронтенде, куда Supabase редиректит пользователя
-после клика по ссылке из письма, если пользователь запросил "Forgot password". Параллельно обнаружились и были исправлены два серьёзных бага в бэкенде, которые блокировали 
+после клика по ссылке из письма, если пользователь запросил "Forgot password". Параллельно обнаружились и были исправлены два серьёзных бага в бэкенде, которые блокировали
 работу регистрации и смены пароля.
 
 ### Реализация
@@ -22,9 +22,9 @@
 
 **Frontend `AuthService`:**
 
-- Добавил метод `confirmPasswordReset(token, refreshToken, newPassword)`, который отправляет POST запрос на `/v1/auth/update-password` с тремя полями: 
-- `access_token`, 
-  `refresh_token`, 
+- Добавил метод `confirmPasswordReset(token, refreshToken, newPassword)`, который отправляет POST запрос на `/v1/auth/update-password` с тремя полями:
+- `access_token`,
+  `refresh_token`,
   `new_password`
 
 **Backend `UpdatePasswordDto`, `AuthService`, `AuthController`:**
@@ -38,22 +38,22 @@
 - добавил второй Supabase-клиент `userClient` на основе `SUPABASE_ANON_KEY`
 - добавил getter `userAuth` для пользовательских auth-операций
 - теперь существующий `db` (service role key) - только для DB-запросов и `auth.admin.*`
-- в `AuthService` перевёл эти четыре вызова на `userAuth`: 
-  - `signInWithPassword`, 
-  - `resetPasswordForEmail`, 
-  - `setSession`, 
+- в `AuthService` перевёл эти четыре вызова на `userAuth`:
+  - `signInWithPassword`,
+  - `resetPasswordForEmail`,
+  - `setSession`,
   - `updateUser`
 
 **Backend `KeepAliveTask`:**
 
 - добавил проверке `if (this.configService.get('KEEP_ALIVE_ENABLED') !== 'true') return;` в метод `pingRailway()`
-- В Railway Variables выставил `KEEP_ALIVE_ENABLED=false` - эта таска теперь не выполняет пинг к серверу, чтобы поддерживать его awake. (из-за неё была проблема с Railway Free 
+- В Railway Variables выставил `KEEP_ALIVE_ENABLED=false` - эта таска теперь не выполняет пинг к серверу, чтобы поддерживать его awake. (из-за неё была проблема с Railway Free
   Tier limits)
 
 ### Проблемы и решения
 
 **Проблема:** Railway Free Tier перестал работать, сервис отказывался обслуживать запросы.
-**Причина:** `KeepAliveTask` пинговала `/health` каждые 10 минут, не давая серверу засыпать. Итого получалось примерно ~720 часов/месяц при лимите Free Tier лишь в 500 часов. 
+**Причина:** `KeepAliveTask` пинговала `/health` каждые 10 минут, не давая серверу засыпать. Итого получалось примерно ~720 часов/месяц при лимите Free Tier лишь в 500 часов.
 Месячный Лимит кончился бы примерно на 21-й день работы, а дневной и так ушёл в ноль;
 **Решение:** Вместо удаления таски добавил пока `env`-переменную `KEEP_ALIVE_ENABLED` в Railway Variables. Условие `!== 'true'` корректно работает со строковыми значениями `env`-переменных: при
 `KEEP_ALIVE_ENABLED=false` строка `"false"` будет truthy, поэтому наивная проверка `!configService.get(...)` не сработала бы.
@@ -61,22 +61,23 @@
 ---
 
 **Проблема:** `signUp()` возвращал `409 Conflict: "Failed to create user profile"`. Ошибка появлялась только, если перед регистрацией был вызван `signIn()`.
-**Диагностика:** Через Supabase Dashboard → Logs → Postgres нашёл запись: `new row violates row-level security policy for table "profiles"`, `user_name: "authenticator"`. RLS 
+**Диагностика:** Через Supabase Dashboard → Logs → Postgres нашёл запись: `new row violates row-level security policy for table "profiles"`, `user_name: "authenticator"`. RLS
 (безопасность на уровне строк) нарушалась, хотя `SupabaseService` использует service role key.
 **Причина:** `SupabaseService` - синглтон. Вызов `auth.signInWithPassword()` на service role клиенте сохранял пользовательскую сессию в памяти (`persistSession: false` запрещает
 запись в хранилище, но не очищает in-memory состояние). Все последующие `from('profiles').insert()` уходили с JWT пользователя вместо service role key → RLS блокировал INSERT.
 Та же проблема была и у `auth.setSession()` в методе `updatePassword()`.
 **Решение:** Разделил клиент на два:
-- `db` (service role key: для DB-операций, и `auth.admin.*`), и 
+
+- `db` (service role key: для DB-операций, и `auth.admin.*`), и
 - `userAuth` (anon key: для пользовательских auth-операций, которые устанавливают или используют сессию).
 
 ---
 
-**Проблема:** `POST /auth/update-password` возвращал `401 Unauthorized: "Link may have expired"` сразу после перехода по ссылке из письма, даже если использовалась достаточно 
+**Проблема:** `POST /auth/update-password` возвращал `401 Unauthorized: "Link may have expired"` сразу после перехода по ссылке из письма, даже если использовалась достаточно
 быстро.
 **Причина:** Фронтенд извлекал из URL-хэша только `access_token` и не передавал `refresh_token` (выше я описал процесс решения). Бэкенд вызывал `setSession({ access_token, 
 refresh_token: '' })` с пустой строкой. Supabase JSv2 не может устанавливать сессию без валидного refresh token.
-**Решение:** Решил на стороне фронтенд дополнительно извлекать `refresh_token` из хэша, сохранять его в сигнал, и передавать в `confirmPasswordReset`. Получилось, что бэкенд 
+**Решение:** Решил на стороне фронтенд дополнительно извлекать `refresh_token` из хэша, сохранять его в сигнал, и передавать в `confirmPasswordReset`. Получилось, что бэкенд
 получает оба токена и передаёт их в `setSession()`.
 
 ---

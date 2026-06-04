@@ -8,6 +8,7 @@ export const APP_ROUTES = {
   DISCOVER: { label: 'Discover', route: 'discover' },
   ALBUM: { label: 'Album', route: 'album/:id' },
   ARTIST: { label: 'Artist', route: 'artist/:id' },
+  RESET_PASSWORD: { label: 'Reset Password', route: 'reset-password' },
 } as const;
 
 export const buildAlbumPath = (id: string): string => `/album/${id}`;

@@ -1,12 +1,13 @@
 <div class="track-card">
-  <app-item-details
-    [imageUrl]="track().album_image"
-    [title]="track().track_name"
-    [primaryDesc]="track().artist_name"
-    [imageVariant]="'square'"
-    [titleVariant]="'normal'"
-  ></app-item-details>
-
+  <div class="track-card__details">
+    <app-item-details
+      [imageUrl]="track().album_image"
+      [title]="track().track_name"
+      [primaryDesc]="track().artist_name"
+      [imageVariant]="'square'"
+      [titleVariant]="'normal'"
+    ></app-item-details>
+  </div>
   <div class="track-card__meta">
     <app-track-duration [trackDuration]="track().duration"></app-track-duration>
     <app-dropdown-menu [items]="menuItems" />

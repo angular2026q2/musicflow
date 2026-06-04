@@ -1,3 +1,16 @@
 <section class="home-page">
-  <app-recently-played></app-recently-played>
+  <div class="home-page__recently-played">
+    @if (recentTracksLoading()) {
+      <div class="home-page__recently-played__skeleton">
+        <p-skeleton width="10rem" class="mb-2" />
+        <p-skeleton height="5rem" class="mb-2" />
+        <p-skeleton height="5rem" class="mb-2" />
+        <p-skeleton height="5rem" class="mb-2" />
+      </div>
+    } @else if (recentTracksError()) {
+      <p-message severity="error" variant="outlined">{{ recentTracksError() }}</p-message>
+    } @else {
+      <app-recently-played [tracks]="recentTracks()" />
+    }
+  </div>
 </section>

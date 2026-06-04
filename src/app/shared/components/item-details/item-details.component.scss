@@ -4,6 +4,8 @@
   display: flex;
   gap: 18px;
   align-items: center;
+  width: 100%;
+  min-width: 0;
 
   &__image {
     object-fit: cover;
@@ -28,10 +30,12 @@
   }
 
   &__title {
+    display: block;
+    max-width: 100%;
     overflow: hidden;
-    font-size: var(--text-body-md);
     text-overflow: ellipsis;
     white-space: nowrap;
+    font-size: var(--text-body-md);
 
     &-normal {
       font-weight: var(--weight-regular);
@@ -44,6 +48,8 @@
 
   &__textBlock {
     overflow-x: hidden;
+    flex: 1;
+    min-width: 0;
   }
 
   &__description {
@@ -64,8 +70,20 @@
   }
 
   @media (max-width: styles.$bp-sm) {
+    gap: var(--space-sm);
+
     &__description {
       font-size: var(--text-label);
+      display: none;
+    }
+
+    &__secondaryDesc {
+      display: none;
+    }
+
+    &__image-square {
+      width: 48px;
+      height: 48px;
     }
   }
 }

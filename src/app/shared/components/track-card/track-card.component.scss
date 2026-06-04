@@ -1,3 +1,5 @@
+@use 'styles/breakpoints' as styles;
+
 .track-card {
   display: flex;
   align-items: center;
@@ -8,9 +10,27 @@
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   margin-bottom: var(--space-xs);
 
+  &__details {
+    flex: 1;
+    min-width: 0;
+  }
+
   &__meta {
     display: flex;
     align-items: center;
     column-gap: var(--space-container);
+  }
+
+  @media (max-width: styles.$bp-sm) {
+    max-width: 170px;
+    padding: var(--space-xs);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-default);
+    background-color: rgba(207, 194, 215, 0.1);
+    backdrop-filter: blur(20px);
+
+    &__meta {
+      display: none;
+    }
   }
 }

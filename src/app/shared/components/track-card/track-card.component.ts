@@ -4,7 +4,7 @@ import { MenuItem } from 'primeng/api';
 
 import { ItemDetailsComponent } from '../item-details/item-details.component';
 import { TrackDurationComponent } from '../track-duration/track-duration.component';
-import { RecentTrack } from '@shared/interfaces/recent-track.interface';
+import { RecentlyPlayedTrack } from '@shared/interfaces/recently-played-track.interface';
 
 @Component({
   selector: 'app-track-card',
@@ -15,7 +15,7 @@ import { RecentTrack } from '@shared/interfaces/recent-track.interface';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TrackCardComponent {
-  track = input.required<RecentTrack>();
+  track = input.required<RecentlyPlayedTrack>();
   menuItems: MenuItem[] = [
     { label: 'Add to favorites', icon: 'pi pi-heart-fill' },
     { label: 'View artist', icon: 'pi pi-user-plus' },

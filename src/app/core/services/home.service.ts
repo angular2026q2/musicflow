@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { RecentlyPlayedTrack } from '@shared/interfaces/recently-played-track.interface';
-import { catchError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -11,12 +10,7 @@ export class HomeService {
   private http = inject(HttpClient);
 
   getRecentlyPlayed() {
-    return this.http.get<RecentlyPlayedTrack[]>(`${this.baseUrl}/history`).pipe(
-      catchError((error) => {
-        console.log('HomeService:' + error);
-        throw error;
-      }),
-    );
+    return this.http.get<RecentlyPlayedTrack[]>(`${this.baseUrl}/history`);
   }
 }
 

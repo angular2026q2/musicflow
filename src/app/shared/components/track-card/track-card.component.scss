@@ -4,11 +4,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   width: 100%;
   max-width: 936px;
-  padding: var(--space-md);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   margin-bottom: var(--space-xs);
+  padding: var(--space-md);
+  border-bottom: 1px solid rgb(255 255 255 / 5%);
 
   &__details {
     flex: 1;
@@ -17,16 +18,17 @@
 
   &__meta {
     display: flex;
-    align-items: center;
     column-gap: var(--space-container);
+    align-items: center;
   }
 
   @media (max-width: styles.$bp-sm) {
     max-width: 170px;
     padding: var(--space-xs);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid rgb(255 255 255 / 5%);
     border-radius: var(--radius-default);
-    background-color: rgba(207, 194, 215, 0.1);
+
+    background-color: rgb(207 194 215 / 10%);
     backdrop-filter: blur(20px);
 
     &__meta {

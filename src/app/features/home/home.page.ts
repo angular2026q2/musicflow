@@ -1,16 +1,20 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+
+import { catchError, finalize, of } from 'rxjs';
+
 import { CoverCardComponent } from '@shared/components/cover-card/cover-card.component';
-
 import { SmallCardComponent } from '@shared/components/small-card/small-card.component';
-
 import { DropdownMenuComponent } from '@shared/components/dropdown/dropdown-menu.component';
-
-import { ButtonModule } from 'primeng/button';
 import { RecentlyPlayedComponent } from '@features/home/components/recently-played/recently-played.component';
+
 import { HomeService } from '@core/services/home.service';
 import { RecentlyPlayedTrack } from '@shared/interfaces/recently-played-track.interface';
+
+import { ButtonModule } from 'primeng/button';
 import { SkeletonModule } from 'primeng/skeleton';
 import { MessageModule } from 'primeng/message';
+
 @Component({
   selector: 'app-home',
   imports: [
@@ -26,29 +30,24 @@ import { MessageModule } from 'primeng/message';
   styleUrl: './home.page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomePage implements OnInit {
+export class HomePage {
   private homeService = inject(HomeService);
 
-  recentTracks = signal<RecentlyPlayedTrack[]>([]);
-  recentTracksLoading = signal(false);
+  recentTracksLoading = signal(true);
   recentTracksError = signal<string | null>(null);
 
-  ngOnInit() {
-    this.loadRecentTracks();
-  }
-
-  loadRecentTracks() {
-    this.recentTracksLoading.set(true);
-    this.recentTracksError.set(null);
-
-    this.homeService.getRecentlyPlayed().subscribe({
-      next: (data) => {
-        this.recentTracks.set(data);
-      },
-      error: () => {
+  recentTracks = toSignal(
+    this.homeService.getRecentlyPlayed().pipe(
+      catchError(() => {
         this.recentTracksError.set('Failed to load tracks. Please try again later.');
-      },
-      complete: () => this.recentTracksLoading.set(false),
-    });
-  }
+        return of<RecentlyPlayedTrack[]>([]);
+      }),
+      finalize(() => {
+        this.recentTracksLoading.set(false);
+      }),
+    ),
+    {
+      initialValue: [],
+    },
+  );
 }

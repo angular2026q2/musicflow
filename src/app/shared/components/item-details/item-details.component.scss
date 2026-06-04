@@ -4,6 +4,7 @@
   display: flex;
   gap: 18px;
   align-items: center;
+
   width: 100%;
   min-width: 0;
 
@@ -30,12 +31,14 @@
   }
 
   &__title {
-    display: block;
-    max-width: 100%;
     overflow: hidden;
+    display: block;
+
+    max-width: 100%;
+
+    font-size: var(--text-body-md);
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size: var(--text-body-md);
 
     &-normal {
       font-weight: var(--weight-regular);
@@ -73,8 +76,8 @@
     gap: var(--space-sm);
 
     &__description {
-      font-size: var(--text-label);
       display: none;
+      font-size: var(--text-label);
     }
 
     &__secondaryDesc {

@@ -166,3 +166,8 @@ a:active {
   margin-bottom: 0;
   padding: 0;
 }
+
+.albums-page__album .p-card.cover-card .p-card-content {
+  position: relative;
+  z-index: 2;
+}

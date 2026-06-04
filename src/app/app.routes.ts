@@ -23,6 +23,10 @@ export const routes: Routes = [
     loadComponent: () => import('@features/profile/profile.page').then((m) => m.ProfilePage),
   },
   {
+    path: APP_ROUTES.ALBUMS.route,
+    loadComponent: () => import('@features/albums/albums.page').then((m) => m.AlbumsPage),
+  },
+  {
     path: APP_ROUTES.ALBUM.route,
     loadComponent: () => import('@features/album/album.page').then((m) => m.AlbumPage),
   },

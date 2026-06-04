@@ -35,6 +35,11 @@ export const routes: Routes = [
     loadComponent: () => import('@features/about/about.page').then((m) => m.AboutPage),
   },
   {
+    path: APP_ROUTES.RESET_PASSWORD.route,
+    loadComponent: () =>
+      import('@features/reset-password/reset-password.page').then((m) => m.ResetPasswordPage),
+  },
+  {
     path: '**',
     loadComponent: () => import('@features/not-found/not-found.page').then((m) => m.NotFoundPage),
   },

@@ -66,6 +66,25 @@ export class AuthService {
     );
   }
 
+  /** @description Confirms password reset: updates user password
+   * @param {string} token - password reset token
+   * @param {string} refreshToken - password reset token
+   * @param {string} newPassword - new password
+   */
+  async confirmPasswordReset(
+    token: string,
+    refreshToken: string,
+    newPassword: string,
+  ): Promise<void> {
+    await firstValueFrom(
+      this.http.post<void>(`${environment.apiUrl}/v1/auth/update-password`, {
+        access_token: token,
+        refresh_token: refreshToken,
+        new_password: newPassword,
+      }),
+    );
+  }
+
   /** @description Loads current user profile from `/auth/me` endpoint.
    * @note Called on app start, if token exists, and after `sign-in`/`sign-up`.
    */

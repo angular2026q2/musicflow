@@ -8,6 +8,7 @@ export const APP_ROUTES = {
   DISCOVER: { label: 'Discover', route: 'discover' },
   ALBUMS: { label: 'Albums', route: 'albums' },
   ALBUM: { label: 'Album', route: 'album/:id' },
+  ARTISTS: { label: 'Artists', route: 'artists' },
   ARTIST: { label: 'Artist', route: 'artist/:id' },
 } as const;
 

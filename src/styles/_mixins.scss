@@ -10,6 +10,16 @@
   -webkit-text-fill-color: transparent;
 }
 
+@mixin shimmer-background($duration: 6s, $timing: ease-in-out, $iterations: infinite) {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-container) 30%,
+    var(--color-secondary-container) 70%
+  );
+  background-size: 200% 200%;
+  animation: text-shimmer $duration $timing $iterations;
+}
+
 /** --- MODAL -- */
 @mixin modal-close-position {
   position: absolute;

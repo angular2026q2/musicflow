@@ -2,9 +2,10 @@
   <span class="timestep__time">{{ formattedCurrentTime() }}</span>
 
   <p-slider
-    [(ngModel)]="currentTime"
+    [ngModel]="currentTime()"
+    (ngModelChange)="onSeek($event)"
     [min]="0"
-    [max]="trackDuration()"
+    [max]="duration()"
     [step]="0.1"
     class="timestep__slider"
     ariaLabel="Timestep"

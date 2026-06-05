@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SliderModule } from 'primeng/slider';
+import { MusicPlayerService } from '@core/services/music-player.service';
 
 @Component({
   selector: 'app-timestep',
@@ -10,11 +11,17 @@ import { SliderModule } from 'primeng/slider';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TimestepComponent {
-  readonly trackDuration = input<number>(225);
-  readonly currentTime = signal<number>(0);
+  private readonly playerService = inject(MusicPlayerService);
 
-  readonly formattedCurrentTime = computed(() => this.formatTime(this.currentTime()));
-  readonly formattedDuration = computed(() => this.formatTime(this.trackDuration()));
+  protected readonly currentTime = this.playerService.currentTime;
+  protected readonly duration = this.playerService.duration;
+
+  readonly formattedCurrentTime = computed(() => this.formatTime(this.playerService.currentTime()));
+  readonly formattedDuration = computed(() => this.formatTime(this.playerService.duration()));
+
+  onSeek(value: number): void {
+    this.playerService.seekTo(value);
+  }
 
   formatTime(seconds: number): string {
     const m = Math.floor(seconds / 60);

@@ -1,8 +1,16 @@
 <div class="track">
   <div class="track__position">
     <span class="track__num">{{ position() }}</span>
-    <button class="track__play-btn" type="button" [attr.aria-label]="`Play ${track().name}`">
-      <svg [lucideIcon]="ICONS.play.icon" [size]="16"></svg>
+    <button
+      class="track__play-btn"
+      type="button"
+      (click)="onPlayClick()"
+      [attr.aria-label]="`Play ${track().name}`"
+    >
+      <svg
+        [lucideIcon]="isCurrentlyPlaying() ? ICONS.pause.icon : ICONS.play.icon"
+        [size]="16"
+      ></svg>
     </button>
   </div>
 
@@ -11,8 +19,8 @@
       [ngSrc]="track().album_image"
       alt="{{ track().name }} image"
       class="track__image"
-      width="2.5rem"
-      height="2.5rem"
+      width="40"
+      height="40"
     />
   }
 

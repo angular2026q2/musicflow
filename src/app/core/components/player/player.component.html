@@ -14,7 +14,16 @@
 
       <div class="player__controls-bar">
         <app-control-button icon="heart" [active]="isFavorite()" (click)="toggleFavorite()" />
-        <app-controls-bar [isPlaying]="isActive()" (playToggle)="onPlayToggle()"></app-controls-bar>
+        <app-controls-bar
+          [isPlaying]="isActive()"
+          [isShuffle]="isShuffle()"
+          [repeatMode]="repeatMode()"
+          (playToggle)="onPlayToggle()"
+          (prev)="onPrev()"
+          (next)="onNext()"
+          (shuffleToggle)="onShuffleToggle()"
+          (repeatToggle)="onRepeatToggle()"
+        ></app-controls-bar>
       </div>
 
       <div class="player__meta">

@@ -23,12 +23,30 @@ export class PlayerComponent {
     () => this.playerService.currentTrack()?.artist_name ?? 'Unknown artist',
   );
   protected readonly isActive = computed(() => this.playerService.isPlaying());
+  protected readonly isShuffle = computed(() => this.playerService.isShuffle());
+  protected readonly repeatMode = computed(() => this.playerService.repeatMode());
 
   // * описание ниже!
   protected readonly isFavorite = signal<boolean>(false);
 
   onPlayToggle(): void {
     this.playerService.togglePlay();
+  }
+
+  onPrev(): void {
+    this.playerService.previous();
+  }
+
+  onNext(): void {
+    this.playerService.next();
+  }
+
+  onShuffleToggle(): void {
+    this.playerService.toggleShuffle();
+  }
+
+  onRepeatToggle(): void {
+    this.playerService.toggleRepeat();
   }
 
   /** todo: `isFavorite` и `toggleFavorite` - Это временная заглушка. нужно будет перенести в MusicPlayerService

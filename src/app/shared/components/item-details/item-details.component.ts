@@ -37,7 +37,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
  *   [imageVariant]="'rounded'"
  *   [titleVariant]="'normal'"
  * />
- * ```
+ * ```4
  *
  * @usage
  * Компонент может использоваться в различных UI-сценариях:
@@ -46,7 +46,8 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
  * - player bar / full player
  * - страницы артиста и discovery
  */
-
+type ImageVariant = 'rounded' | 'square' | 'squareXl';
+type TitleVariant = 'normal' | 'bold';
 @Component({
   selector: 'app-item-details',
   imports: [NgClass],
@@ -56,9 +57,9 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 })
 export class ItemDetailsComponent {
   imageUrl = input<string>('');
-  imageVariant = input<'rounded' | 'square' | 'squareXl'>('square');
   title = input.required<string>();
-  titleVariant = input<'bold' | 'normal'>('bold');
+  imageVariant = input<ImageVariant>('square');
+  titleVariant = input<TitleVariant>('bold');
   primaryDesc = input<string>('');
   secondaryDesc = input<string>('');
 }

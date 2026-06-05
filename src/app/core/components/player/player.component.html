@@ -29,6 +29,15 @@
       <div class="player__meta">
         <app-volume></app-volume>
       </div>
+
+      <!-- только для мобильных -->
+      <app-control-button
+        class="player__play-mobile"
+        [icon]="isActive() ? 'pause' : 'play'"
+        [active]="isActive()"
+        [size]="28"
+        (click)="onPlayToggle()"
+      />
     </div>
   </div>
 </section>

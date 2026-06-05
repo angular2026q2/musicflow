@@ -1,3 +1,5 @@
+@use 'styles/breakpoints' as bp;
+
 .player {
   user-select: none;
 
@@ -57,5 +59,36 @@
 
   &__meta {
     justify-self: self-end;
+  }
+
+  // -- тут скрываю мобильную кнопку на десктопе
+  &__play-mobile {
+    display: none;
+  }
+
+  @media (max-width: bp.$bp-md) {
+    &__wrapper {
+      display: flex;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+
+    &__info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    &__controls-bar {
+      display: none;
+    }
+
+    &__meta {
+      display: none;
+    }
+
+    &__play-mobile {
+      display: flex;
+      flex-shrink: 0;
+    }
   }
 }

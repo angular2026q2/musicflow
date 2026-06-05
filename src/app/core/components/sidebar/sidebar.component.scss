@@ -18,6 +18,20 @@
     gap: 2px;
     padding: var(--space-sm) var(--space-md);
 
+    &-icon {
+      position: relative;
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+
+      & img {
+        overflow: hidden;
+        opacity: 0;
+        clip-path: circle(0% at 50% 50%);
+        animation: logo-reveal 1s ease-in-out forwards;
+      }
+    }
+
     &-title {
       font-family: var(--font-display), serif;
       font-size: var(--text-headline-md);
@@ -116,5 +130,22 @@
 
     background: rgb(18 18 18 / 82%);
     backdrop-filter: blur(5px) saturate(180%);
+  }
+}
+
+@keyframes logo-reveal {
+  0% {
+    opacity: 0;
+    clip-path: circle(0% at 50% 50%);
+  }
+
+  70% {
+    opacity: 1;
+    clip-path: circle(60% at 50% 50%);
+  }
+
+  100% {
+    opacity: 1;
+    clip-path: circle(75% at 50% 50%);
   }
 }

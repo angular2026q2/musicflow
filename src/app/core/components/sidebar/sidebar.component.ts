@@ -1,4 +1,4 @@
-import { TitleCasePipe } from '@angular/common';
+import { NgOptimizedImage, TitleCasePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@angular/core';
 import { isActive, Router } from '@angular/router';
 import { DividerModule } from 'primeng/divider';
@@ -8,7 +8,7 @@ import { APP_ROUTES } from '@shared/constants/routes';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [NavItemComponent, DividerModule, TitleCasePipe],
+  imports: [NavItemComponent, DividerModule, TitleCasePipe, NgOptimizedImage],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

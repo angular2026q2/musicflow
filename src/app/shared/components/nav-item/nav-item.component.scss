@@ -1,3 +1,5 @@
+@use 'styles/breakpoints' as bp;
+
 .nav-item {
   cursor: pointer;
 
@@ -31,6 +33,15 @@
       cursor: pointer;
       color: var(--color-on-surface);
       background-color: var(--color-surface-container);
+    }
+  }
+
+  @media (max-width: bp.$bp-lg) {
+    justify-content: center;
+    padding: var(--space-sm);
+
+    span {
+      display: none;
     }
   }
 }

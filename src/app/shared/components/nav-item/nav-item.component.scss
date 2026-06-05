@@ -26,6 +26,11 @@
     & svg {
       color: var(--color-secondary);
     }
+
+    @media (max-width: bp.$bp-md) {
+      border-radius: var(--radius-md);
+      background: color-mix(in srgb, var(--color-secondary) 12%, transparent);
+    }
   }
 
   @media (hover: hover) and (pointer: fine) {
@@ -37,11 +42,26 @@
   }
 
   @media (max-width: bp.$bp-lg) {
-    justify-content: center;
-    padding: var(--space-sm);
-
     span {
       display: none;
+    }
+  }
+
+  @media (max-width: bp.$bp-md) {
+    flex-direction: column;
+    gap: var(--space-xs);
+    align-items: center;
+    justify-content: center;
+
+    padding: var(--space-xs) var(--space-sm);
+
+    span {
+      display: block;
+
+      font-size: var(--text-label);
+      font-weight: var(--weight-thin);
+      line-height: 1;
+      text-align: center;
     }
   }
 }

@@ -11,11 +11,15 @@
 
     @let contextItems = contextNavItems();
     @if (contextItems.length > 0) {
-      <p-divider class="sidebar__divider" />
-      @for (item of contextItems; track item.route) {
-        <app-nav-item [item]="item" />
-      }
+      <div class="sidebar__context-nav">
+        <p-divider class="sidebar__divider" />
+        @for (item of contextItems; track item.route) {
+          <app-nav-item [item]="item" />
+        }
+      </div>
     }
+
+    <app-nav-item class="sidebar__player-tab" [item]="playerNavItem" />
   </nav>
 
   <div class="sidebar__footer">

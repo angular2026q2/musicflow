@@ -16,7 +16,7 @@
     border-radius: var(--space-gutter);
 
     background: color-mix(in srgb, var(--color-player-background) 60%, transparent);
-    backdrop-filter: blur(12px);
+    backdrop-filter: blur(5px) saturate(180%);
 
     &--active {
       box-shadow: 0 0 15px color-mix(in srgb, var(--color-secondary) 30%, transparent);

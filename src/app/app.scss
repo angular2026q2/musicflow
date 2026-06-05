@@ -27,7 +27,7 @@
     padding: 0 var(--space-xl);
 
     @media (max-width: bp.$bp-md) {
-      padding: 0 var(--space-sm) var(--bottom-nav-height);
+      padding-bottom: calc(var(--bottom-nav-height) + var(--space-lg));
     }
   }
 
@@ -55,7 +55,7 @@
   justify-content: center;
 
   background-color: color-mix(in srgb, var(--color-surface), transparent);
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(5px) saturate(180%);
 }
 
 .modal-container {

@@ -18,6 +18,12 @@ export class SidebarComponent {
   readonly title = 'music flow';
   readonly subtitle = 'free music';
 
+  readonly playerNavItem: NavItem = {
+    route: 'player',
+    label: 'Player',
+    icon: ICONS.play.icon,
+  };
+
   readonly mainNavItems: NavItem[] = [
     { ...APP_ROUTES.HOME, icon: ICONS.house.icon },
     { ...APP_ROUTES.SEARCH, icon: ICONS.search.icon },

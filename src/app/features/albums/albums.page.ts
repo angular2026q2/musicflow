@@ -1,6 +1,6 @@
 import { httpResource } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, computed, effect, signal } from '@angular/core';
-import { CatalogComponent } from '@shared/components/catalog/catalog.component';
+import { CatalogComponent } from '@core/components/catalog/catalog.component';
 import { ICONS } from '@shared/constants/icons';
 import { Album } from '@shared/interfaces/album.interface';
 import { CatalogResponse } from '@shared/interfaces/catalog.interface';

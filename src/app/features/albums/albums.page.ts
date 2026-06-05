@@ -1,18 +1,14 @@
-import { DatePipe } from '@angular/common';
 import { httpResource } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, computed, effect, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { LucideDynamicIcon } from '@lucide/angular';
-import { CoverCardComponent } from '@shared/components/cover-card/cover-card.component';
+import { CatalogComponent } from '@shared/components/catalog/catalog.component';
 import { ICONS } from '@shared/constants/icons';
 import { Album } from '@shared/interfaces/album.interface';
-import { Albums } from '@shared/interfaces/albums.interface';
-import { Button } from 'primeng/button';
-import { MessageModule } from 'primeng/message';
+import { CatalogResponse } from '@shared/interfaces/catalog.interface';
+import { CatalogData } from '@shared/types/catalog-data.types';
 
 @Component({
   selector: 'app-albums',
-  imports: [CoverCardComponent, DatePipe, RouterLink, LucideDynamicIcon, MessageModule, Button],
+  imports: [CatalogComponent],
   templateUrl: './albums.page.html',
   styleUrl: './albums.page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -20,12 +16,12 @@ import { MessageModule } from 'primeng/message';
 export class AlbumsPage {
   readonly PAGE_TITLE = 'Albums';
 
-  readonly limit = signal(5);
+  readonly limit = signal(10);
   readonly offset = signal(0);
-  readonly accumulatedAlbums = signal<Album[]>([]);
-  readonly albums = this.accumulatedAlbums.asReadonly();
+  readonly accumulated = signal<CatalogData[]>([]);
+  readonly albums = this.accumulated.asReadonly();
 
-  readonly albumsResource = httpResource<Albums>(() => ({
+  readonly albumsResource = httpResource<CatalogResponse<Album>>(() => ({
     url: '/api/v1/music/albums',
     params: {
       limit: this.limit(),
@@ -42,10 +38,12 @@ export class AlbumsPage {
 
   constructor() {
     effect(() => {
-      const data = this.albumsResource.value()?.data;
+      const data = this.albumsResource
+        .value()
+        ?.data.map((item) => ({ ...item, type: 'album' as const }));
 
       if (data) {
-        this.accumulatedAlbums.update((albums) => [...albums, ...data]);
+        this.accumulated.update((albums) => [...albums, ...data]);
       }
     });
   }

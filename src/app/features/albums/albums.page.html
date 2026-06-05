@@ -1,51 +1,13 @@
-@let albums = accumulatedAlbums();
+@let albums = accumulated();
 
-<section class="albums-page">
-  <div class="albums-page__banner">
-    <h2 class="albums-page__title">{{ PAGE_TITLE }}</h2>
-  </div>
-
-  @if (isInitialLoading()) {
-    <div class="albums-page__loading">
-      <p-message severity="secondary">Loading albums...</p-message>
-    </div>
-  } @else if (error()) {
-    <div class="albums-page__error">
-      <p-message severity="error">Failed to load. Please try again later.</p-message>
-      <p-button
-        label="Retry"
-        type="text"
-        (click)="albumsResource.reload()"
-        class="albums-page__retry-btn"
-        severity="primary"
-      >
-        <svg [lucideIcon]="retryIcon"></svg>
-      </p-button>
-    </div>
-  } @else if (albums) {
-    <div class="albums-page__album-list">
-      @for (a of albums; track a.id) {
-        <a [routerLink]="['/album', a.id]" class="albums-page__album">
-          <app-cover-card [backgroundImage]="a.image">
-            <div class="albums-page__album-title">{{ a.name }}</div>
-            <div class="albums-page__album-meta">
-              <div class="albums-page__album-artist">{{ a.artist_name }}</div>
-              <span class="albums-page__meta-dot" aria-hidden="true">•</span>
-              <div class="albums-page__album-releasedate">{{ a.releasedate | date: 'yyyy' }}</div>
-            </div>
-          </app-cover-card>
-        </a>
-      }
-    </div>
-    <p-button
-      label="Load more"
-      [loading]="isLoading()"
-      (click)="loadMore()"
-      class="albums-page__loadmore-btn"
-    ></p-button>
-  } @else {
-    <div class="albums-page__empty">
-      <p-message severity="secondary">No albums found</p-message>
-    </div>
-  }
-</section>
+<app-catalog
+  [title]="PAGE_TITLE"
+  [items]="albums"
+  [route]="'/album'"
+  [isLoading]="isLoading()"
+  [isInitialLoading]="isInitialLoading()"
+  [error]="error()"
+  (loadMore)="loadMore()"
+  (reload)="albumsResource.reload()"
+>
+</app-catalog>

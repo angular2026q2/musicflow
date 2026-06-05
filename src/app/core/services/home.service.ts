@@ -1,6 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { RecentlyPlayedTrack } from '@shared/interfaces/recently-played-track.interface';
+import { Track } from '@shared/interfaces/track.interface';
+import { Genre } from '@shared/types/genre.type';
+import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -8,6 +11,40 @@ import { RecentlyPlayedTrack } from '@shared/interfaces/recently-played-track.in
 export class HomeService {
   private readonly baseUrl = '/api/v1';
   private http = inject(HttpClient);
+
+  getTrendingTracks() {
+    return this.http.get<Track[]>(`${this.baseUrl}/music/tracks`, {
+      params: {
+        search: `?order=popularity_total`,
+        limit: '15',
+        offset: '0',
+      },
+    });
+  }
+
+  getNewReleases() {
+    return this.http.get<Track[]>(`${this.baseUrl}/music/tracks`, {
+      params: {
+        search: `?order=releasedate_desc`,
+        limit: '10',
+        offset: '0',
+      },
+    });
+  }
+
+  getGenres() {
+    return of<Genre[]>([
+      'Rock',
+      'Electronic',
+      'Classical',
+      'Ambient/New Age',
+      'Filmscore',
+      'Advertising',
+      'Pop',
+      'Corporate',
+      'Alternative',
+    ]);
+  }
 
   getRecentlyPlayed() {
     return this.http.get<RecentlyPlayedTrack[]>(`${this.baseUrl}/history`);

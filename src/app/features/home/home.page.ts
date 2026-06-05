@@ -14,6 +14,8 @@ import { RecentlyPlayedTrack } from '@shared/interfaces/recently-played-track.in
 import { ButtonModule } from 'primeng/button';
 import { SkeletonModule } from 'primeng/skeleton';
 import { MessageModule } from 'primeng/message';
+import { Track } from '@shared/interfaces/track.interface';
+import { Genre } from '@shared/types/genre.type';
 
 @Component({
   selector: 'app-home',
@@ -35,6 +37,51 @@ export class HomePage {
 
   recentTracksLoading = signal(true);
   recentTracksError = signal<string | null>(null);
+
+  trendingTracks = toSignal(
+    this.homeService.getTrendingTracks().pipe(
+      catchError((e) => {
+        console.log(e);
+        return of<Track[]>([]);
+      }),
+      finalize(() => {
+        this.recentTracksLoading.set(false);
+      }),
+    ),
+    {
+      initialValue: [],
+    },
+  );
+
+  newReleases = toSignal(
+    this.homeService.getNewReleases().pipe(
+      catchError((e) => {
+        console.log(e);
+        return of<Track[]>([]);
+      }),
+      finalize(() => {
+        this.recentTracksLoading.set(false);
+      }),
+    ),
+    {
+      initialValue: [],
+    },
+  );
+
+  genres = toSignal(
+    this.homeService.getGenres().pipe(
+      catchError((e) => {
+        console.log(e);
+        return of<Genre[]>([]);
+      }),
+      finalize(() => {
+        this.recentTracksLoading.set(false);
+      }),
+    ),
+    {
+      initialValue: [],
+    },
+  );
 
   recentTracks = toSignal(
     this.homeService.getRecentlyPlayed().pipe(

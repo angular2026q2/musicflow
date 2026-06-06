@@ -34,15 +34,15 @@ export class HomeService {
 
   getGenres() {
     return of<Genre[]>([
-      'Rock',
-      'Electronic',
-      'Classical',
-      'Ambient/New Age',
-      'Filmscore',
-      'Advertising',
-      'Pop',
-      'Corporate',
-      'Alternative',
+      Genre.Rock,
+      Genre.Electronic,
+      Genre.Classical,
+      Genre.AmbientNewAge,
+      Genre.Filmscore,
+      Genre.Advertising,
+      Genre.Pop,
+      Genre.Corporate,
+      Genre.Alternative,
     ]);
   }
 

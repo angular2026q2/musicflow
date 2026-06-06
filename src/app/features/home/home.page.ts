@@ -16,6 +16,9 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { MessageModule } from 'primeng/message';
 import { Track } from '@shared/interfaces/track.interface';
 import { Genre } from '@shared/types/genre.type';
+import { GenresComponent } from './components/genres/genres.component';
+import { NewRealeseComponent } from './components/new-releases/new-releases.component';
+import { TrendingComponent } from './components/trending/trending.component';
 
 @Component({
   selector: 'app-home',
@@ -25,6 +28,9 @@ import { Genre } from '@shared/types/genre.type';
     CoverCardComponent,
     ButtonModule,
     RecentlyPlayedComponent,
+    GenresComponent,
+    NewRealeseComponent,
+    TrendingComponent,
     SkeletonModule,
     MessageModule,
   ],

@@ -4,6 +4,7 @@ import {
   LucideClock,
   LucideDownload,
   LucideEllipsis,
+  LucideHandMetal,
   LucideHeart,
   LucideHouse,
   LucideInfo,
@@ -27,6 +28,15 @@ import {
   LucideVolume2,
   LucideVolumeX,
   LucideX,
+  LucideMusic,
+  LucideZap,
+  LucideGuitar,
+  LucidePiano,
+  LucideDisc3,
+  LucideKeyboardMusic,
+  LucideDrum,
+  LucideCrown,
+  LucideMegaphone,
 } from '@lucide/angular';
 import { IconConfig } from '@shared/interfaces/icon-config';
 
@@ -59,6 +69,16 @@ export const ICONS = {
   volumeDown: { icon: LucideVolume1, label: 'Volume down' },
   volumeOff: { icon: LucideVolumeX, label: 'Volume off' },
   volumeUp: { icon: LucideVolume2, label: 'Volume up' },
+  rock: { icon: LucideHandMetal, label: 'Rock' },
+  electronic: { icon: LucideZap, label: 'Electronic' },
+  classical: { icon: LucidePiano, label: 'Classical' },
+  ambientNewAge: { icon: LucideDrum, label: 'Ambient/New Age' },
+  filmscore: { icon: LucideKeyboardMusic, label: 'Filmscore' },
+  advertising: { icon: LucideMegaphone, label: 'Advertising' },
+  pop: { icon: LucideDisc3, label: 'Pop' },
+  corporate: { icon: LucideCrown, label: 'Corporate' },
+  alternative: { icon: LucideGuitar, label: 'Alternative' },
+  music: { icon: LucideMusic, label: 'Music' },
 } as const satisfies Record<string, IconConfig>;
 
 export type IconKey = keyof typeof ICONS;

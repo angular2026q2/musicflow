@@ -1,0 +1,28 @@
+@use 'styles/breakpoints' as styles;
+
+.genres {
+  width: 100%;
+
+  &__title {
+    margin-bottom: var(--space-lg);
+  }
+
+  &__content {
+    display: flex;
+    overflow-x: scroll;
+    gap: var(--space-lg);
+    margin-bottom: var(--space-xl);
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  @media (max-width: styles.$bp-sm) {
+    &__title {
+      margin-bottom: var(--space-md);
+    }
+  }
+}

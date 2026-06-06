@@ -6,7 +6,9 @@ export const APP_ROUTES = {
   SETTINGS: { label: 'Settings', route: 'settings' },
   PROFILE: { label: 'Profile', route: 'profile' },
   DISCOVER: { label: 'Discover', route: 'discover' },
+  ALBUMS: { label: 'Albums', route: 'albums' },
   ALBUM: { label: 'Album', route: 'album/:id' },
+  ARTISTS: { label: 'Artists', route: 'artists' },
   ARTIST: { label: 'Artist', route: 'artist/:id' },
   RESET_PASSWORD: { label: 'Reset Password', route: 'reset-password' },
 } as const;

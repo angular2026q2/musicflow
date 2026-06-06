@@ -1,0 +1,13 @@
+@let albums = accumulated();
+
+<app-catalog
+  [title]="PAGE_TITLE"
+  [items]="albums"
+  [route]="'/album'"
+  [isLoading]="isLoading()"
+  [isInitialLoading]="isInitialLoading()"
+  [error]="error()"
+  (loadMore)="loadMore()"
+  (reload)="albumsResource.reload()"
+>
+</app-catalog>

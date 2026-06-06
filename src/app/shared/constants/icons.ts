@@ -2,6 +2,7 @@ import {
   LucideArrowBigLeft,
   LucideBell,
   LucideClock,
+  LucideDisc3,
   LucideDownload,
   LucideEllipsis,
   LucideHeart,
@@ -11,6 +12,7 @@ import {
   LucideListMusic,
   LucideLock,
   LucideMail,
+  LucideMicVocal,
   LucidePause,
   LucidePlay,
   LucideRefreshCcw,
@@ -59,6 +61,8 @@ export const ICONS = {
   volumeDown: { icon: LucideVolume1, label: 'Volume down' },
   volumeOff: { icon: LucideVolumeX, label: 'Volume off' },
   volumeUp: { icon: LucideVolume2, label: 'Volume up' },
+  albums: { icon: LucideDisc3, label: 'Albums' },
+  artists: { icon: LucideMicVocal, label: 'Artists' },
 } as const satisfies Record<string, IconConfig>;
 
 export type IconKey = keyof typeof ICONS;

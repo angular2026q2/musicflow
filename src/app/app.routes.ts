@@ -23,12 +23,20 @@ export const routes: Routes = [
     loadComponent: () => import('@features/profile/profile.page').then((m) => m.ProfilePage),
   },
   {
+    path: APP_ROUTES.ALBUMS.route,
+    loadComponent: () => import('@features/albums/albums.page').then((m) => m.AlbumsPage),
+  },
+  {
     path: APP_ROUTES.ALBUM.route,
     loadComponent: () => import('@features/album/album.page').then((m) => m.AlbumPage),
   },
   {
     path: APP_ROUTES.ARTIST.route,
     loadComponent: () => import('@features/artist/artist.page').then((m) => m.ArtistPage),
+  },
+  {
+    path: APP_ROUTES.ARTISTS.route,
+    loadComponent: () => import('@features/artists/artists.page').then((m) => m.ArtistsPage),
   },
   {
     path: APP_ROUTES.ABOUT.route,

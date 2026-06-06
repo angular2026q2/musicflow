@@ -1,25 +1,18 @@
 <section class="home-page">
-  <div style="width: 400px; height: 225px; margin-bottom: 1rem">
-    <app-cover-card
-      [backgroundImage]="'https://images.unsplash.com/photo-1541701494587-cb58502866ab'"
-    >
-      <p class="discovery-trending__label">hot release</p>
-      <h3 class="discovery-trending__title">Boom!</h3>
-      <div class="discovery-trending__description">
-        <span>Description</span>
-        ·
-        <span>Description 2</span>
+  <div class="home-page__recently-played">
+    @if (recentTracksLoading()) {
+      <div class="home-page__recently-played__skeleton">
+        <p-skeleton width="10rem" class="mb-2" />
+        <p-skeleton height="5rem" class="mb-2" />
+        <p-skeleton height="5rem" class="mb-2" />
+        <p-skeleton height="5rem" class="mb-2" />
       </div>
-    </app-cover-card>
+    } @else if (recentTracksError(); as error) {
+      <p-message severity="error">
+        {{ error }}
+      </p-message>
+    } @else {
+      <app-recently-played [tracks]="recentTracks()" />
+    }
   </div>
-
-  <app-small-card
-    icon="heart"
-    [title]="'Liked Songs'"
-    [description]="'256 songs'"
-    [iconBackgroundColor]="'violet'"
-    [iconColor]="'white'"
-  ></app-small-card>
-
-  <app-dropdown-menu [items]="menuItems" [dir]="'vertical'" [withBorder]="true" />
 </section>

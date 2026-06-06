@@ -161,6 +161,7 @@
 
   &__sidebar-info {
     display: flex;
+    flex: 1 1 140px;
     flex-direction: column;
     gap: var(--space-md);
 
@@ -187,12 +188,12 @@
   }
 
   &__albums {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: var(--space-md);
   }
 
   &__album {
-    width: calc(50% - var(--space-sm) / 2);
     font-family: var(--font-body);
     font-weight: var(--weight-regular);
 

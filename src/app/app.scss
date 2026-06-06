@@ -1,3 +1,5 @@
+@use 'styles/breakpoints' as bp;
+
 .app-layout {
   display: grid;
   grid-template-columns: 16.5rem 1fr;
@@ -10,15 +12,36 @@
   }
 
   &__content {
-    overflow: hidden;
+    overflow: clip;
     display: grid;
-    grid-template-rows: auto 1fr;
+    grid-template-rows: auto 1fr auto;
+
+    height: 100%;
+    min-height: 0;
   }
 
   &__main {
     position: relative;
     overflow: hidden auto;
+    min-height: 0;
     padding: 0 var(--space-xl);
+
+    @media (max-width: bp.$bp-md) {
+      padding-bottom: calc(var(--bottom-nav-height) + var(--space-lg));
+    }
+  }
+
+  @media (max-width: bp.$bp-lg) {
+    grid-template-columns: var(--sidebar-width-collapsed) 1fr;
+  }
+
+  @media (max-width: bp.$bp-md) {
+    grid-template-columns: 1fr;
+
+    &__content {
+      grid-column: 1;
+      grid-row: 1;
+    }
   }
 }
 
@@ -32,7 +55,7 @@
   justify-content: center;
 
   background-color: color-mix(in srgb, var(--color-surface), transparent);
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(5px) saturate(180%);
 }
 
 .modal-container {

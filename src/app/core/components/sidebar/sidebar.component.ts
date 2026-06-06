@@ -1,4 +1,4 @@
-import { TitleCasePipe } from '@angular/common';
+import { NgOptimizedImage, TitleCasePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@angular/core';
 import { isActive, Router } from '@angular/router';
 import { DividerModule } from 'primeng/divider';
@@ -8,7 +8,7 @@ import { APP_ROUTES } from '@shared/constants/routes';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [NavItemComponent, DividerModule, TitleCasePipe],
+  imports: [NavItemComponent, DividerModule, TitleCasePipe, NgOptimizedImage],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -17,6 +17,12 @@ export class SidebarComponent {
   private readonly router = inject(Router);
   readonly title = 'music flow';
   readonly subtitle = 'free music';
+
+  readonly playerNavItem: NavItem = {
+    route: 'player',
+    label: 'Player',
+    icon: ICONS.play.icon,
+  };
 
   readonly mainNavItems: NavItem[] = [
     { ...APP_ROUTES.HOME, icon: ICONS.house.icon },

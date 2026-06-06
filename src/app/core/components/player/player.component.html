@@ -1,6 +1,6 @@
 <section class="player">
   <div class="player__bar" [class.player__bar--active]="isActive()">
-    <div class="player__player">
+    <div class="player__wrapper">
       <div class="player__info">
         <div class="player__info-card">
           <div class="player__cover-container">
@@ -29,6 +29,15 @@
       <div class="player__meta">
         <app-volume></app-volume>
       </div>
+
+      <!-- только для мобильных -->
+      <app-control-button
+        class="player__play-mobile"
+        [icon]="isActive() ? 'pause' : 'play'"
+        [active]="isActive()"
+        [size]="28"
+        (click)="onPlayToggle()"
+      />
     </div>
   </div>
 </section>

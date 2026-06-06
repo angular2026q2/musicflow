@@ -1,3 +1,5 @@
+@use 'styles/breakpoints' as bp;
+
 .header {
   position: sticky;
   z-index: 100;
@@ -8,7 +10,7 @@
   align-items: center;
   justify-content: space-between;
 
-  padding: 1rem 2rem;
+  padding: var(--space-md) var(--space-xl);
 
   &__search {
     display: flex;
@@ -54,5 +56,9 @@
         }
       }
     }
+  }
+
+  @media (max-width: bp.$bp-md) {
+    padding: var(--space-sm) var(--space-md);
   }
 }

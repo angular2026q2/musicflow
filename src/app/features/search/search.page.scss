@@ -1,5 +1,6 @@
 .search {
   &__title {
+    margin-bottom: var(--space-lg);
     &-query {
       font-style: italic;
     }
@@ -10,9 +11,10 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+
       width: 100%;
       max-width: 936px;
-      margin-bottom: 1rem;
+      margin-bottom: var(--space-md);
     }
   }
 }

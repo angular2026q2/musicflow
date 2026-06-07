@@ -4,7 +4,7 @@
   </h2>
 
   <div class="search__items">
-    @for (track of results(); track track.id) {
+    @for (track of tracks(); track track.id) {
       <div class="search__items-card">
         <div class="track-card__details">
           <app-item-details
@@ -17,9 +17,10 @@
         </div>
         <div class="track-card__meta">
           <app-track-duration [trackDuration]="track.duration"></app-track-duration>
-          <!-- <app-dropdown-menu [items]="menuItems" /> -->
         </div>
       </div>
     }
   </div>
+
+  <button (click)="loadMore()">Показать еще</button>
 </div>

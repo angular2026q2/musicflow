@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal, OnInit } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute } from '@angular/router';
 import { SearchService } from '@core/services/search.service';
@@ -17,36 +17,51 @@ import { TrackDurationComponent } from '@shared/components/track-duration/track-
   styleUrl: './search.page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SearchPage {
+export class SearchPage implements OnInit {
   private route = inject(ActivatedRoute);
   private searchService = inject(SearchService);
+  private limit = 10;
+
+  tracks = signal<Track[]>([]); // public
+  offset = signal(0);
 
   query = toSignal(this.route.queryParamMap.pipe(map((params) => params.get('q') || '')), {
     initialValue: '',
   });
 
-  results = toSignal(
-    this.route.queryParamMap.pipe(
-      map((params) => params.get('q') || ''),
-      switchMap((q) => {
-        if (!q.trim()) {
-          return of<Track[]>([]);
-        }
-        return this.searchService.searchTracks(q).pipe(
-          map((response) =>
-            // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            response.data.map((t: any) => ({
-              ...t,
-              track_name: t.name,
-            })),
-          ),
-          catchError((e) => {
-            console.log(e);
+  ngOnInit() {
+    this.route.queryParamMap
+      .pipe(
+        map((params) => params.get('q') || ''),
+        switchMap((q) => {
+          if (!q.trim()) {
+            this.tracks.set([]);
+            this.offset.set(0);
             return of<Track[]>([]);
-          }),
-        );
-      }),
-    ),
-    { initialValue: [] },
-  );
+          }
+          return this.searchService.searchTracks(q, this.limit, 0).pipe(
+            map((response) => {
+              this.tracks.set(response.data);
+              this.offset.set(this.limit);
+              return response.data;
+            }),
+            catchError((e) => {
+              console.log(e);
+              return of<Track[]>([]);
+            }),
+          );
+        }),
+      )
+      .subscribe();
+  }
+  loadMore() {
+    const currentOffset = this.offset();
+
+    this.searchService
+      .searchTracks(this.query(), this.limit, currentOffset)
+      .subscribe((response) => {
+        this.tracks.update((tracks) => [...tracks, ...response.data]);
+        this.offset.update((offset) => offset + this.limit);
+      });
+  }
 }

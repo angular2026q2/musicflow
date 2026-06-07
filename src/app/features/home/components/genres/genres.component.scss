@@ -9,15 +9,17 @@
   }
 
   &__content {
+    scrollbar-width: none;
+
+    overflow: auto hidden;
     display: flex;
     gap: var(--space-lg);
-    overflow-x: auto;
-    overflow-y: hidden;
+    align-items: stretch;
+
     height: 232px;
     max-height: 232px;
-    scrollbar-width: none;
+
     -ms-overflow-style: none;
-    align-items: stretch;
 
     &::-webkit-scrollbar {
       display: none;

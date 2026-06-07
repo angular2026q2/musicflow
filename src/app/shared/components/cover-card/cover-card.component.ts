@@ -53,7 +53,6 @@ import { CardModule } from 'primeng/card';
         width: 100%;
         height: 100%;
       }
-      ,
       .cover-card {
         width: 100%;
         height: 100%;

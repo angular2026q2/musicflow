@@ -1,7 +1,7 @@
 @layer primeng;
 
 @import 'primeicons/primeicons.css';
-@import 'https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Inter:wght@400;500;700&display=swap';
+@import 'https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;700;800&family=Inter:wght@400;500;700&display=swap';
 
 :root {
   /* Colors */
@@ -43,6 +43,7 @@
   --text-body-md: 1rem;
   --text-body-sm: 0.875rem;
   --text-label: 0.75rem;
+  --weight-thin: 300;
   --weight-regular: 400;
   --weight-medium: 500;
   --weight-semibold: 600;
@@ -76,6 +77,9 @@
 
   /* Widths */
   --sidebar-width-default: 16.5rem;
+  --sidebar-width-collapsed: 4rem;
+  --sidebar-width-expanded: 18rem;
+  --bottom-nav-height: 4.5rem;
   --duration-default: 0.3s;
 }
 
@@ -85,6 +89,28 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+* {
+  scrollbar-color: var(--color-surface-highest) transparent;
+  scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+  width: 4px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: var(--radius-full);
+  background: var(--color-surface-highest);
+
+  &:hover {
+    background: var(--color-outline);
+  }
 }
 
 html,
@@ -165,4 +191,9 @@ a:active {
   margin-top: 0;
   margin-bottom: 0;
   padding: 0;
+}
+
+.albums-page__album .p-card.cover-card .p-card-content {
+  position: relative;
+  z-index: 2;
 }

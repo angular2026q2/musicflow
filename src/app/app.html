@@ -6,6 +6,9 @@
     <app-header class="app-layout__header" />
     <main class="app-layout__main">
       <router-outlet />
+      @if (hasActiveTrack()) {
+        <app-player class="app-layout__player" />
+      }
     </main>
   </div>
 </div>

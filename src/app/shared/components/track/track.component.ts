@@ -1,6 +1,7 @@
 import { DatePipe, NgOptimizedImage } from '@angular/common';
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input, output } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { MusicPlayerService } from '@core/services/music-player.service';
 import { LucideDynamicIcon } from '@lucide/angular';
 import { ICONS } from '@shared/constants/icons';
 
@@ -19,12 +20,28 @@ type TrackMetaField = 'album' | 'artist' | 'releasedate';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TrackComponent {
+  private readonly playerService = inject(MusicPlayerService);
+
   readonly track = input.required<Track>();
   readonly position = input<number | null>(null);
   readonly showImage = input<boolean>(false);
   readonly meta = input<TrackMetaField[]>([]);
+  readonly playTrack = output<Track>();
+  readonly isCurrentlyPlaying = computed(
+    () =>
+      this.playerService.isPlaying() && this.playerService.currentTrack()?.id === this.track().id,
+  );
 
+  protected readonly ICONS = ICONS;
   /** todo: PlayCountPipe будет использоваться когда API начнёт отдавать поле plays */
+
+  onPlayClick(): void {
+    if (this.isCurrentlyPlaying()) {
+      this.playerService.togglePlay();
+    } else {
+      this.playTrack.emit(this.track());
+    }
+  }
 
   artistLink(artistId: string): string {
     return buildArtistPath(artistId);
@@ -33,6 +50,4 @@ export class TrackComponent {
   albumLink(albumId: string): string {
     return buildAlbumPath(albumId);
   }
-
-  protected readonly ICONS = ICONS;
 }

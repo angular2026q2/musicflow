@@ -1,10 +1,9 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { DropdownMenuComponent } from '../dropdown/dropdown-menu.component';
+import { DropdownMenuComponent } from '@shared/components/dropdown/dropdown-menu.component';
 import { MenuItem } from 'primeng/api';
-
-import { ItemDetailsComponent } from '../item-details/item-details.component';
-import { TrackDurationComponent } from '../track-duration/track-duration.component';
+import { ItemDetailsComponent } from '@shared/components/item-details/item-details.component';
 import { RecentlyPlayedTrack } from '@shared/interfaces/recently-played-track.interface';
+import { TrackDurationComponent } from '@shared/components/track-duration/track-duration.component';
 
 @Component({
   selector: 'app-track-card',

@@ -1,3 +1,5 @@
+@use 'styles/breakpoints' as bp;
+
 .album-page {
   padding: 0 var(--space-xl) var(--space-xl);
 
@@ -159,5 +161,9 @@
         background-color: var(--color-surface-highest);
       }
     }
+  }
+
+  @media (max-width: bp.$bp-md) {
+    padding: 0 var(--space-sm) var(--space-sm);
   }
 }

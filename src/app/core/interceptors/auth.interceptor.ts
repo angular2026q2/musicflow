@@ -3,13 +3,6 @@ import { inject } from '@angular/core';
 import { TokenService } from '@core/services/token.service';
 import { environment } from '@environments/environment';
 
-/**
- * todo: Sprint 2 — replace DEV_BEARER_TOKEN with real token from AuthService/TokenService (when implemented).
- * Inject AuthService, read token signal, attach to request.
- */
-// const DEV_BEARER_TOKEN =
-//   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1NWE1MTcwYi1mZjhlLTQ4MGItYmNhMS02M2U2M2YwZGM4ZDQiLCJlbWFpbCI6InRlc3RfdXNlcl83NzdAZ21haWwuY29tIiwiaWF0IjoxNzgwMzkxMTIzLCJleHAiOjE3ODA5OTU5MjN9.m4pOnEUNKWludGar5oGZ-nZ0NKue7X124MgJnkIo0mQ';
-
 export const authInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
   next: HttpHandlerFn,

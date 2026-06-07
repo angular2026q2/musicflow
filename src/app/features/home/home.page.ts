@@ -1,13 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-
 import { catchError, finalize, map, of } from 'rxjs';
-
 import { RecentlyPlayedComponent } from '@features/home/components/recently-played/recently-played.component';
-
 import { HomeService } from '@core/services/home.service';
 import { RecentlyPlayedTrack } from '@shared/interfaces/recently-played-track.interface';
-
 import { ButtonModule } from 'primeng/button';
 import { SkeletonModule } from 'primeng/skeleton';
 import { MessageModule } from 'primeng/message';

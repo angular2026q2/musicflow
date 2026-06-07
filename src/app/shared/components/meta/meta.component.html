@@ -1,5 +1,12 @@
 <div class="meta">
-  <div class="meta__title">{{ title() }}</div>
+  <div class="meta__title-wrapper" #marqueeContainer>
+    <div class="meta__title-inner" [class.is-scrolling]="isScrolling()">
+      <span class="meta__title-text">{{ title() }}</span>
+      @if (isScrolling()) {
+        <span class="meta__title-text" aria-hidden="true">{{ title() }}</span>
+      }
+    </div>
+  </div>
 
   <div class="meta__artist">
     <!-- !TODO: Название артиста в будущем должно быть сделано ссылкой с переходом на артиста -->

@@ -1,1 +1,25 @@
-<p>search works!</p>
+<div class="search">
+  <h2 class="search__title">
+    Results for <span class="search__title-query">{{ query() }} </span>
+  </h2>
+
+  <div class="search__items">
+    @for (track of results(); track track.id) {
+      <div class="search__items-card">
+        <div class="track-card__details">
+          <app-item-details
+            [imageUrl]="track.album_image"
+            [title]="track.name"
+            [primaryDesc]="track.artist_name"
+            [imageVariant]="'square'"
+            [titleVariant]="'normal'"
+          ></app-item-details>
+        </div>
+        <div class="track-card__meta">
+          <app-track-duration [trackDuration]="track.duration"></app-track-duration>
+          <!-- <app-dropdown-menu [items]="menuItems" /> -->
+        </div>
+      </div>
+    }
+  </div>
+</div>

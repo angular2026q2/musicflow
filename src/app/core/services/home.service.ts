@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { RecentlyPlayedTrack } from '@shared/interfaces/recently-played-track.interface';
+import { TracksResponce } from '@shared/interfaces/tracks-responce.interface';
 import { TrackResponse } from '@shared/interfaces/track-responce.interface';
 import { Track } from '@shared/interfaces/track.interface';
 import { Genre } from '@shared/types/genre.type';
@@ -48,6 +48,6 @@ export class HomeService {
   }
 
   getRecentlyPlayed() {
-    return this.http.get<RecentlyPlayedTrack[]>(`${this.baseUrl}/history`);
+    return this.http.get<TracksResponce[]>(`${this.baseUrl}/history`);
   }
 }

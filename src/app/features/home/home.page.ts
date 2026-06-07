@@ -1,22 +1,22 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { catchError, finalize, map, of } from 'rxjs';
-import { RecentlyPlayedComponent } from '@features/home/components/recently-played/recently-played.component';
+import { TrackListComponent } from '@shared/components/track-list/track-list.component';
 import { HomeService } from '@core/services/home.service';
-import { RecentlyPlayedTrack } from '@shared/interfaces/recently-played-track.interface';
+import { TracksResponce } from '@shared/interfaces/tracks-responce.interface';
 import { ButtonModule } from 'primeng/button';
 import { SkeletonModule } from 'primeng/skeleton';
 import { MessageModule } from 'primeng/message';
 import { Track } from '@shared/interfaces/track.interface';
 import { Genre } from '@shared/types/genre.type';
 import { GenresComponent } from './components/genres/genres.component';
-import { TrackCardsComponent } from './components/track-cards/track-cards.component';
+import { TrackCardsComponent } from '@shared/components/track-cards/track-cards.component';
 
 @Component({
   selector: 'app-home',
   imports: [
     ButtonModule,
-    RecentlyPlayedComponent,
+    TrackListComponent,
     GenresComponent,
     TrackCardsComponent,
     SkeletonModule,
@@ -83,7 +83,7 @@ export class HomePage {
     this.homeService.getRecentlyPlayed().pipe(
       catchError(() => {
         this.recentTracksError.set('Failed to load tracks. Please try again later.');
-        return of<RecentlyPlayedTrack[]>([]);
+        return of<TracksResponce[]>([]);
       }),
       finalize(() => {
         this.recentTracksLoading.set(false);

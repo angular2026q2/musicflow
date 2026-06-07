@@ -34,7 +34,6 @@ import {
   LucideZap,
   LucideGuitar,
   LucidePiano,
-  LucideDisc3,
   LucideKeyboardMusic,
   LucideDrum,
   LucideCrown,

@@ -78,28 +78,30 @@
               <div class="artist-page__albums">
                 @for (album of albums(); track album.id) {
                   <div class="artist-page__album">
-                    <div class="artist-page__album-cover">
-                      <img [src]="album.image" [alt]="album.name" />
-                    </div>
+                    <a [routerLink]="albumLink(album.id)" class="artist-page__album-link">
+                      <div class="artist-page__album-cover">
+                        <img [src]="album.image" [alt]="album.name" />
+                      </div>
 
-                    <div class="artist-page__album-info">
-                      <a [routerLink]="albumLink(album.id)" class="artist-page__album-title">
-                        {{ album.name }}
-                      </a>
-                      <div class="artist-page__album-meta">
-                        <div class="artist-page__album-release-date">
-                          {{ album.releasedate | date: 'yyyy' }}
+                      <div class="artist-page__album-info">
+                        <div class="artist-page__album-title">
+                          {{ album.name }}
                         </div>
+                        <div class="artist-page__album-meta">
+                          <div class="artist-page__album-release-date">
+                            {{ album.releasedate | date: 'yyyy' }}
+                          </div>
 
-                        <p-divider layout="vertical"></p-divider>
+                          <p-divider layout="vertical"></p-divider>
 
-                        <div class="artist-page__album-track-count">
-                          @let count = trackCountByAlbum().get(album.id) ?? 0;
+                          <div class="artist-page__album-track-count">
+                            @let count = trackCountByAlbum().get(album.id) ?? 0;
 
-                          {{ count }} {{ count === 1 ? 'track' : 'tracks' }}
+                            {{ count }} {{ count === 1 ? 'track' : 'tracks' }}
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    </a>
                   </div>
                 }
               </div>

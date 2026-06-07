@@ -1,11 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 
-import { catchError, finalize, of } from 'rxjs';
+import { catchError, finalize, map, of } from 'rxjs';
 
-import { CoverCardComponent } from '@shared/components/cover-card/cover-card.component';
-import { SmallCardComponent } from '@shared/components/small-card/small-card.component';
-import { DropdownMenuComponent } from '@shared/components/dropdown/dropdown-menu.component';
 import { RecentlyPlayedComponent } from '@features/home/components/recently-played/recently-played.component';
 
 import { HomeService } from '@core/services/home.service';
@@ -17,20 +14,15 @@ import { MessageModule } from 'primeng/message';
 import { Track } from '@shared/interfaces/track.interface';
 import { Genre } from '@shared/types/genre.type';
 import { GenresComponent } from './components/genres/genres.component';
-import { NewRealeseComponent } from './components/new-releases/new-releases.component';
-import { TrendingComponent } from './components/trending/trending.component';
+import { TrackCardsComponent } from './components/track-cards/track-cards.component';
 
 @Component({
   selector: 'app-home',
   imports: [
-    SmallCardComponent,
-    DropdownMenuComponent,
-    CoverCardComponent,
     ButtonModule,
     RecentlyPlayedComponent,
     GenresComponent,
-    NewRealeseComponent,
-    TrendingComponent,
+    TrackCardsComponent,
     SkeletonModule,
     MessageModule,
   ],
@@ -46,6 +38,7 @@ export class HomePage {
 
   trendingTracks = toSignal(
     this.homeService.getTrendingTracks().pipe(
+      map((response) => response.data),
       catchError((e) => {
         console.log(e);
         return of<Track[]>([]);
@@ -61,6 +54,7 @@ export class HomePage {
 
   newReleases = toSignal(
     this.homeService.getNewReleases().pipe(
+      map((response) => response.data),
       catchError((e) => {
         console.log(e);
         return of<Track[]>([]);

@@ -2,6 +2,7 @@
 
 .genres {
   width: 100%;
+  margin-bottom: var(--space-xl);
 
   &__title {
     margin-bottom: var(--space-lg);
@@ -9,20 +10,39 @@
 
   &__content {
     display: flex;
-    overflow-x: scroll;
     gap: var(--space-lg);
-    margin-bottom: var(--space-xl);
+    overflow-x: auto;
+    overflow-y: hidden;
+    height: 232px;
+    max-height: 232px;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    align-items: stretch;
 
     &::-webkit-scrollbar {
       display: none;
     }
   }
 
+  &__content-card {
+    flex: 0 0 222px;
+    width: 222px;
+    height: 100%;
+  }
+
   @media (max-width: styles.$bp-sm) {
     &__title {
       margin-bottom: var(--space-md);
+    }
+
+    &__content {
+      height: 220px;
+      max-height: 220px;
+    }
+
+    &__content-card {
+      flex-basis: 200px;
+      width: 200px;
     }
   }
 }

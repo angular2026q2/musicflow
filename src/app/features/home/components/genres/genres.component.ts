@@ -4,6 +4,7 @@ import { SmallCardComponent } from '@shared/components/small-card/small-card.com
 import { Genre } from '@shared/types/genre.type';
 import { findKeyByValue } from '@shared/utils/findKeyByValue';
 import { IconKey, ICONS } from '@shared/constants/icons';
+import { getRandomColor } from '@shared/utils/getRandomColor';
 
 @Component({
   selector: 'app-genres',
@@ -22,12 +23,5 @@ export class GenresComponent {
     return (key ?? 'music') as IconKey;
   }
 
-  getRandomColor() {
-    return (
-      '#' +
-      Math.floor(Math.random() * 0xffffff)
-        .toString(16)
-        .padStart(6, '0')
-    );
-  }
+  getRandomColor = getRandomColor;
 }

@@ -36,7 +36,11 @@ import { CardModule } from 'primeng/card';
   selector: 'app-cover-card',
   imports: [CardModule],
   template: `
-    <p-card [style.background-image]="'url(' + backgroundImage() + ')'" styleClass="cover-card">
+    <p-card
+      styleClass="cover-card"
+      [style.background-image]="'url(' + backgroundImage() + ')'"
+      styleClass="cover-card"
+    >
       <ng-content> </ng-content>
     </p-card>
   `,
@@ -48,6 +52,14 @@ import { CardModule } from 'primeng/card';
         display: block;
         width: 100%;
         height: 100%;
+      }
+      ,
+      .cover-card {
+        width: 100%;
+        height: 100%;
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
       }
     `,
   ],

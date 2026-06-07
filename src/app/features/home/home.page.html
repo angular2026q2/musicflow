@@ -1,8 +1,10 @@
 <section class="home-page">
-  <div home-page__tranding>
-    <app-trending></app-trending>
+  <div home-page__trending>
+    <app-track-cards [title]="'Trending Now'" [tracks]="trendingTracks()" />
   </div>
-  <div home-page__new-relases><app-new-releases></app-new-releases></div>
+  <div home-page__new-relases>
+    <app-track-cards [title]="'Release Radar'" [tracks]="newReleases()" />
+  </div>
   <div home-page__genres>
     <app-genres [genres]="genres()"></app-genres>
   </div>

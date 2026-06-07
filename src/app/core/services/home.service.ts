@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { RecentlyPlayedTrack } from '@shared/interfaces/recently-played-track.interface';
+import { TrackResponse } from '@shared/interfaces/track-responce.interface';
 import { Track } from '@shared/interfaces/track.interface';
 import { Genre } from '@shared/types/genre.type';
 import { of } from 'rxjs';
@@ -13,9 +14,9 @@ export class HomeService {
   private http = inject(HttpClient);
 
   getTrendingTracks() {
-    return this.http.get<Track[]>(`${this.baseUrl}/music/tracks`, {
+    return this.http.get<TrackResponse<Track>>(`${this.baseUrl}/music/tracks`, {
       params: {
-        search: `?order=popularity_total`,
+        search: '?order=popularity_total',
         limit: '15',
         offset: '0',
       },
@@ -23,7 +24,7 @@ export class HomeService {
   }
 
   getNewReleases() {
-    return this.http.get<Track[]>(`${this.baseUrl}/music/tracks`, {
+    return this.http.get<TrackResponse<Track>>(`${this.baseUrl}/music/tracks`, {
       params: {
         search: `?order=releasedate_desc`,
         limit: '10',
@@ -50,17 +51,3 @@ export class HomeService {
     return this.http.get<RecentlyPlayedTrack[]>(`${this.baseUrl}/history`);
   }
 }
-
-// Popular Tracks
-// 10–15 tracks sorted by popularity GET /v3.0/tracks?order=popularity_total
-// album cover, title, artist name, duration (in mm:ss format).
-// no playcount
-// Play
-// If a track is already playing — visual indication
-
-//A "New Releases" section — a list of 10 tracks sorted by date (GET /v3.0/tracks?order=releasedate_desc).
-//Card format is the same as Popular Tracks.
-
-//genres
-
-//recently

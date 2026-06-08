@@ -1,10 +1,96 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { catchError, finalize, map, of } from 'rxjs';
+import { RecentlyPlayedComponent } from '@features/home/components/recently-played/recently-played.component';
+import { HomeService } from '@core/services/home.service';
+import { RecentlyPlayedTrack } from '@shared/interfaces/recently-played-track.interface';
+import { ButtonModule } from 'primeng/button';
+import { SkeletonModule } from 'primeng/skeleton';
+import { MessageModule } from 'primeng/message';
+import { Track } from '@shared/interfaces/track.interface';
+import { Genre } from '@shared/types/genre.type';
+import { GenresComponent } from './components/genres/genres.component';
+import { TrackCardsComponent } from './components/track-cards/track-cards.component';
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [
+    ButtonModule,
+    RecentlyPlayedComponent,
+    GenresComponent,
+    TrackCardsComponent,
+    SkeletonModule,
+    MessageModule,
+  ],
   templateUrl: './home.page.html',
   styleUrl: './home.page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomePage {}
+export class HomePage {
+  private homeService = inject(HomeService);
+
+  recentTracksLoading = signal(true);
+  recentTracksError = signal<string | null>(null);
+
+  trendingTracks = toSignal(
+    this.homeService.getTrendingTracks().pipe(
+      map((response) => response.data),
+      catchError((e) => {
+        console.log(e);
+        return of<Track[]>([]);
+      }),
+      finalize(() => {
+        this.recentTracksLoading.set(false);
+      }),
+    ),
+    {
+      initialValue: [],
+    },
+  );
+
+  newReleases = toSignal(
+    this.homeService.getNewReleases().pipe(
+      map((response) => response.data),
+      catchError((e) => {
+        console.log(e);
+        return of<Track[]>([]);
+      }),
+      finalize(() => {
+        this.recentTracksLoading.set(false);
+      }),
+    ),
+    {
+      initialValue: [],
+    },
+  );
+
+  genres = toSignal(
+    this.homeService.getGenres().pipe(
+      catchError((e) => {
+        console.log(e);
+        return of<Genre[]>([]);
+      }),
+      finalize(() => {
+        this.recentTracksLoading.set(false);
+      }),
+    ),
+    {
+      initialValue: [],
+    },
+  );
+
+  recentTracks = toSignal(
+    this.homeService.getRecentlyPlayed().pipe(
+      catchError(() => {
+        this.recentTracksError.set('Failed to load tracks. Please try again later.');
+        return of<RecentlyPlayedTrack[]>([]);
+      }),
+      finalize(() => {
+        this.recentTracksLoading.set(false);
+      }),
+    ),
+    {
+      initialValue: [],
+    },
+  );
+}

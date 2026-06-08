@@ -1,0 +1,22 @@
+@let item = data();
+
+<a [routerLink]="[route(), item.id]" class="catalog-card">
+  <app-cover-card [backgroundImage]="item.image">
+    <div class="catalog-card__content">
+      <div class="catalog-card__title">{{ item.name }}</div>
+
+      <div class="catalog-card__meta">
+        <ng-content />
+        @if (item.type === 'album') {
+          <div class="catalog-card__artist">{{ item.artist_name }}</div>
+          <span class="catalog-card__meta-dot" aria-hidden="true">•</span>
+          <div class="catalog-card__releasedate">{{ item.releasedate | date: 'yyyy' }}</div>
+        }
+
+        @if (item.type === 'artist') {
+          <div class="catalog-card__joindate">Join in {{ item.joindate | date: 'yyyy' }}</div>
+        }
+      </div>
+    </div>
+  </app-cover-card>
+</a>

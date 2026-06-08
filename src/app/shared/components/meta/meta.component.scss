@@ -1,10 +1,55 @@
+@use 'styles/breakpoints' as bp;
+
+:host {
+  overflow: hidden;
+  display: block;
+  min-width: 0;
+}
+
 .meta {
-  &__title {
-    font-size: 16px;
+  overflow: hidden;
+  min-width: 0;
+
+  &__title-wrapper {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  &__title-inner {
+    display: inline-flex;
+
+    &.is-scrolling {
+      animation: marquee 14s linear infinite;
+    }
+  }
+
+  &__title-text {
+    flex-shrink: 0;
+    padding-right: var(--space-xxl);
+    font-size: var(--text-body-md);
     color: var(--color-white);
+
+    @media (max-width: bp.$bp-md) {
+      font-size: var(--text-body-sm);
+    }
   }
 
   &__artist {
+    overflow: hidden;
     font-size: var(--text-label);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+@keyframes marquee {
+  0%,
+  10% {
+    transform: translateX(0);
+  }
+
+  90%,
+  100% {
+    transform: translateX(-50%);
   }
 }

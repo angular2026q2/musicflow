@@ -1,0 +1,50 @@
+@use 'styles/breakpoints' as styles;
+
+.genres {
+  width: 100%;
+  margin-bottom: var(--space-xl);
+
+  &__title {
+    margin-bottom: var(--space-lg);
+  }
+
+  &__content {
+    scrollbar-width: none;
+
+    overflow: auto hidden;
+    display: flex;
+    gap: var(--space-lg);
+    align-items: stretch;
+
+    height: 232px;
+    max-height: 232px;
+
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &__content-card {
+    flex: 0 0 222px;
+    width: 222px;
+    height: 100%;
+  }
+
+  @media (max-width: styles.$bp-sm) {
+    &__title {
+      margin-bottom: var(--space-md);
+    }
+
+    &__content {
+      height: 220px;
+      max-height: 220px;
+    }
+
+    &__content-card {
+      flex-basis: 200px;
+      width: 200px;
+    }
+  }
+}

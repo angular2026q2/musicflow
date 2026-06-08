@@ -23,6 +23,31 @@ export const routes: Routes = [
     loadComponent: () => import('@features/profile/profile.page').then((m) => m.ProfilePage),
   },
   {
+    path: APP_ROUTES.ALBUMS.route,
+    loadComponent: () => import('@features/albums/albums.page').then((m) => m.AlbumsPage),
+  },
+  {
+    path: APP_ROUTES.ALBUM.route,
+    loadComponent: () => import('@features/album/album.page').then((m) => m.AlbumPage),
+  },
+  {
+    path: APP_ROUTES.ARTIST.route,
+    loadComponent: () => import('@features/artist/artist.page').then((m) => m.ArtistPage),
+  },
+  {
+    path: APP_ROUTES.ARTISTS.route,
+    loadComponent: () => import('@features/artists/artists.page').then((m) => m.ArtistsPage),
+  },
+  {
+    path: APP_ROUTES.ABOUT.route,
+    loadComponent: () => import('@features/about/about.page').then((m) => m.AboutPage),
+  },
+  {
+    path: APP_ROUTES.RESET_PASSWORD.route,
+    loadComponent: () =>
+      import('@features/reset-password/reset-password.page').then((m) => m.ResetPasswordPage),
+  },
+  {
     path: '**',
     loadComponent: () => import('@features/not-found/not-found.page').then((m) => m.NotFoundPage),
   },

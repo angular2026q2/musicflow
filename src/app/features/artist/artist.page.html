@@ -1,0 +1,126 @@
+@let albumCount = albums().length;
+
+<section class="artist-page">
+  @if (artist(); as artist) {
+    <div
+      class="artist-page__header"
+      [class.artist-page__header--no-cover]="!artist.image"
+      [style.--cover-url]="artist.image ? 'url(' + artist.image + ')' : null"
+    >
+      <div class="artist-page__avatar">
+        @if (artist.image) {
+          <img [src]="artist.image" [alt]="artist.name" class="artist-page__avatar-img" />
+        } @else {
+          <span class="artist-page__avatar-label">{{ avatarFallback() }}</span>
+        }
+      </div>
+
+      <div class="artist-page__header-root">
+        <div class="artist-page__left-side">
+          <div class="artist-page__header-entity-name">{{ ENTITY_LABEL }}</div>
+          <h1 class="artist-page__header-title">{{ artist.name }}</h1>
+
+          @if (albumCount) {
+            <div class="artist-page__meta">
+              <span class="artist-page__meta-icon">
+                <svg [lucideIcon]="albumsIcon" size="20"></svg>
+              </span>
+              <span class="artist-page__meta-label"
+                >{{ albumCount }} {{ albumCount === 1 ? 'album' : 'albums' }}
+              </span>
+            </div>
+          }
+        </div>
+        <div class="artist-page__right-side">
+          <app-control-button
+            [icon]="iconPlay()"
+            [active]="isPlay()"
+            (click)="toggleMusicPlay()"
+            class="artist-page__button artist-page__button--play"
+          />
+
+          <button
+            type="button"
+            class="artist-page__button artist-page__button--follow"
+            (click)="toggleFollow()"
+          >
+            {{ isFollowing() ? 'unfollow' : 'follow' }}
+          </button>
+
+          <!-- <app-dropdown-menu [items]="dropDownMenuItems"></app-dropdown-menu> -->
+        </div>
+      </div>
+    </div>
+
+    <div class="artist-page__content">
+      <div class="artist-page__tracklist">
+        <div class="artist-page__tracks">
+          <div class="artist-page__tracks-header">
+            <span class="artist-page__tracks-title">Top tracks</span>
+            <p-button text="true" class="artist-page__button--show-all" (click)="toggleShowAll()">{{
+              showAll() ? 'Show less' : 'Show all'
+            }}</p-button>
+          </div>
+
+          <div class="artist-page__tracks-divider"></div>
+
+          @for (track of tracks(); track track.id) {
+            <app-track [track]="track" [meta]="['album', 'releasedate']" [position]="$index + 1" />
+          }
+        </div>
+      </div>
+
+      <div class="artist-page__sidebar-info">
+        @if (albums().length) {
+          <app-cover-card>
+            <div class="artist-page__discography">
+              <div class="artist-page__discography-title">Discography</div>
+              <div class="artist-page__albums">
+                @for (album of albums(); track album.id) {
+                  <div class="artist-page__album">
+                    <a [routerLink]="albumLink(album.id)" class="artist-page__album-link">
+                      <div class="artist-page__album-cover">
+                        <img [src]="album.image" [alt]="album.name" />
+                      </div>
+
+                      <div class="artist-page__album-info">
+                        <div class="artist-page__album-title">
+                          {{ album.name }}
+                        </div>
+                        <div class="artist-page__album-meta">
+                          <div class="artist-page__album-release-date">
+                            {{ album.releasedate | date: 'yyyy' }}
+                          </div>
+
+                          <p-divider layout="vertical"></p-divider>
+
+                          <div class="artist-page__album-track-count">
+                            @let count = trackCountByAlbum().get(album.id) ?? 0;
+
+                            {{ count }} {{ count === 1 ? 'track' : 'tracks' }}
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                }
+              </div>
+            </div>
+          </app-cover-card>
+        }
+
+        <!-- @if (artist.bio) {
+          <app-cover-card>
+            <div class="artist-page__about-artist">
+              <h2 class="artist-page__about-artist-title">About the Artist</h2>
+
+              <div>
+                {{ artist.bio }}
+              </div>
+            </div>
+          </app-cover-card>
+        } -->
+      </div>
+    </div>
+  }
+</section>

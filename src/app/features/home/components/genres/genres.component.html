@@ -1,0 +1,15 @@
+<div class="genres">
+  <h2 class="genres__title">Genres</h2>
+  <div class="genres__content">
+    @for (genre of genres(); track genre) {
+      <div class="genres__content-card">
+        <app-small-card
+          [title]="genre"
+          [icon]="getIcon(genre)"
+          [iconColor]="getRandomColor()"
+          [iconBackgroundColor]="getRandomColor()"
+        ></app-small-card>
+      </div>
+    }
+  </div>
+</div>

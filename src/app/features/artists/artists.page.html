@@ -1,0 +1,12 @@
+@let artists = accumulated();
+
+<app-catalog
+  [title]="PAGE_TITLE"
+  [items]="artists"
+  [route]="'/artist'"
+  [isLoading]="isLoading()"
+  [isInitialLoading]="isInitialLoading()"
+  [error]="error()"
+  (loadMore)="loadMore()"
+  (reload)="artistsResource.reload()"
+></app-catalog>

@@ -3,6 +3,7 @@
 [![Angular](https://img.shields.io/badge/Angular-21+-DD0031?logo=angular&logoColor=white)](https://angular.dev/)
 [![NestJS](https://img.shields.io/badge/NestJS-11-E0234E?logo=nestjs&logoColor=white)](https://nestjs.com/)
 [![RS School](https://img.shields.io/badge/RS%20School-Angular-ffce00)](https://rs.school/courses/angular)
+![Static Badge](https://img.shields.io/badge/status-in_progress-blue)
 
 **MusicFlow** is a music streaming service clone where users can:
 
@@ -16,9 +17,14 @@ The music catalog is powered by the **[Jamendo API v3.0](https://developer.jamen
 
 User-specific data (accounts, playlists, uploaded tracks) is stored on a custom backend built with **NestJS**.
 
+## Demo
+
+[Live Demo Link](https://angular2026q2.github.io/musicflow/)
+
 ## Table of Contents
 
 - [MusicFlow — Music Streaming Service](#musicflow--music-streaming-service)
+  - [Demo](#demo)
   - [Table of Contents](#table-of-contents)
   - [Technology Stack](#technology-stack)
     - [Frontend](#frontend)
@@ -61,7 +67,7 @@ User-specific data (accounts, playlists, uploaded tracks) is stored on a custom 
 
 - **ESLint** + **angular-eslint** — code linting
 - **Prettier** — code formatting
-- **Stylelint** + **stylelint-config-clean-order** — CSS linting & property ordering
+- **Stylelint** + **stylelint-config-clean-order** — SCSS linting & property ordering
 - **Husky** + **lint-staged** — git hooks
 - **commitlint** — conventional commits enforcement
 
@@ -116,6 +122,7 @@ npm run test
 | `npm run stylelint:fix` | Lint CSS with auto-fix                         |
 | `npm run check`         | Run **all** checks (lint + format + stylelint) |
 | `npm run check:fix`     | Auto-fix everything                            |
+| `npm run g:page`        | Generate page                                  |
 
 ## Git Workflow
 
@@ -124,23 +131,23 @@ npm run test
 Commits **must** follow [Conventional Commits](https://www.conventionalcommits.org/) format:
 
 ```
-<type>: <description>
+<type>(<optional scope>): <description>
 
 [optional body]
 ```
 
 **Allowed types:**
 
-| Type       | Purpose                        |
-| ---------- | ------------------------------ |
-| `feat`     | New feature                    |
-| `fix`      | Bug fix                        |
-| `docs`     | Documentation changes          |
-| `style`    | Code style (formatting, etc.)  |
-| `refactor` | Code refactoring               |
-| `test`     | Tests                          |
-| `chore`    | Tooling, configs, dependencies |
-| `ci`       | CI/CD pipeline changes         |
+| Type             | Purpose                        |
+| ---------------- | ------------------------------ |
+| `feat`/`feature` | New feature                    |
+| `fix`            | Bug fix                        |
+| `docs`           | Documentation changes          |
+| `style`          | Code style (formatting, etc.)  |
+| `refactor`       | Code refactoring               |
+| `test`           | Tests                          |
+| `chore`          | Tooling, configs, dependencies |
+| `ci`             | CI/CD pipeline changes         |
 
 **Rules:**
 
@@ -176,7 +183,7 @@ ng g p pipe-name # or pipeName
 | ---------------------- | -------------------- | ---------------------------------------------- |
 | **Alina Cherkasova**   | Team Lead / Frontend | [@cherkasovaa](https://github.com/cherkasovaa) |
 | **Ivan Shvets**        | Frontend Developer   | [@shvetsby](https://github.com/shvetsby)       |
-| **Pavel Konyakhin**    | Backend (NestJS)     | [@solidados](https://github.com/solidados)     |
+| **Pavel Konyakhin**    | Fullstack Developer  | [@solidados](https://github.com/solidados)     |
 | **Karina Kupryianava** | Mentor               | [@karina2409](https://github.com/karina2409)   |
 
 > Full team info is available on the **About Us** page inside the app.

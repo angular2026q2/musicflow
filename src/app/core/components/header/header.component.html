@@ -14,26 +14,12 @@
   </div>
 
   <div class="header__actions">
-    <button class="header__actions-btn" type="button" aria-label="Notifications">
-      <svg lucideBell></svg>
-    </button>
+    <app-control-button class="header__actions-btn" icon="bell" ariaLabel="Notifications" />
 
     <a [routerLink]="APP_ROUTES.SETTINGS.route" class="header__actions-btn" aria-label="Settings">
-      <svg lucideSettings></svg>
+      <svg [lucideIcon]="ICONS.settings.icon"></svg>
     </a>
 
-    <p-icon-field>
-      <a
-        [routerLink]="APP_ROUTES.PROFILE.route"
-        class="header__actions-btn"
-        aria-label="User profile"
-      >
-        @if (avatarUrl()) {
-          <p-avatar [image]="avatarUrl()" size="normal" shape="circle" />
-        } @else {
-          <p-avatar icon="pi pi-user" size="normal" shape="circle" />
-        }
-      </a>
-    </p-icon-field>
+    <app-user-avatar class="header__actions-btn" ariaLabel="User profile" size="normal" />
   </div>
 </header>

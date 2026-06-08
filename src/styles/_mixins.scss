@@ -1,0 +1,124 @@
+@mixin glow-pulse($duration: 4s, $timing: ease-in-out, $iterations: infinite) {
+  animation: glow-pulse $duration $timing $iterations;
+}
+
+@mixin shimmer-text($duration: 6s, $timing: ease-in-out, $iterations: infinite) {
+  background-clip: text;
+  background-size: 300% 300%;
+  animation: text-shimmer $duration $timing $iterations;
+
+  -webkit-text-fill-color: transparent;
+}
+
+@mixin shimmer-background($duration: 6s, $timing: ease-in-out, $iterations: infinite) {
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-container) 30%,
+    var(--color-secondary-container) 70%
+  );
+  background-size: 200% 200%;
+  animation: text-shimmer $duration $timing $iterations;
+}
+
+/** --- MODAL -- */
+@mixin modal-close-position {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+}
+
+@mixin modal-container {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+
+  width: 100%;
+  max-width: 26rem;
+  padding: var(--space-xl);
+  border-radius: var(--radius-md);
+
+  background-color: var(--color-surface-low);
+
+  @include glow-pulse(4s, ease-in-out, infinite);
+}
+
+@mixin modal-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  align-items: center;
+
+  text-align: center;
+}
+
+@mixin modal-title {
+  margin: 0;
+
+  font-family: var(--font-display), serif;
+  font-size: var(--text-headline-md);
+  font-weight: var(--weight-bold);
+  color: var(--color-primary);
+}
+
+@mixin modal-heading {
+  margin: 0;
+
+  font-family: var(--font-display), serif;
+  font-size: var(--text-headline-md);
+  font-weight: var(--weight-extrabold);
+  color: var(--color-on-surface);
+}
+
+@mixin modal-subtitle {
+  margin: 0;
+  font-size: var(--text-body-sm);
+  color: var(--color-outline);
+}
+
+@mixin modal-form($gap: var(--space-xs)) {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+}
+
+@mixin modal-error-text($min-height: 1.5rem) {
+  display: block;
+  min-height: $min-height;
+  font-size: var(--text-label);
+  color: var(--color-error);
+}
+
+@mixin modal-footer($gap: var(--space-md)) {
+  display: flex;
+  gap: $gap;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin modal-footer-link {
+  cursor: pointer;
+
+  border: none;
+
+  font-size: var(--text-body-sm);
+  font-weight: var(--weight-semibold);
+  color: var(--color-secondary);
+
+  background: none;
+
+  transition: opacity 0.2s ease;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+}
+
+@mixin modal-switch-text {
+  margin: 0;
+  font-size: var(--text-body-sm);
+  color: var(--color-outline);
+}

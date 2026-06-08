@@ -1,14 +1,8 @@
-import { ChangeDetectionStrategy, Component, computed, input, output, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 import { IconKey } from '@shared/constants/icons';
 import { ControlButtonComponent } from '../control-button/control-button.component';
 import { TimestepComponent } from '../timestep/timestep.component';
-
-type RepeatMode = 'none' | 'all' | 'one';
-const REPEAT_NEXT: Record<RepeatMode, RepeatMode> = {
-  none: 'all',
-  all: 'one',
-  one: 'none',
-};
+import type { RepeatMode } from '@core/services/music-player.service';
 
 @Component({
   selector: 'app-controls-bar',
@@ -18,36 +12,38 @@ const REPEAT_NEXT: Record<RepeatMode, RepeatMode> = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ControlsBarComponent {
-  readonly trackDuration = input<number>(225);
-  readonly playToggle = output<boolean>();
+  readonly isPlaying = input<boolean>(false);
+  readonly isShuffle = input<boolean>(false);
+  readonly repeatMode = input<RepeatMode>('none');
 
-  readonly isPlay = signal<boolean>(false);
-  readonly isShuffle = signal<boolean>(false);
-  readonly repeatMode = signal<RepeatMode>('none');
+  readonly prev = output<void>();
+  readonly next = output<void>();
+  readonly shuffleToggle = output<void>();
+  readonly repeatToggle = output<void>();
 
-  readonly iconPlay = computed<IconKey>(() => (this.isPlay() ? 'pause' : 'play'));
+  readonly playToggle = output<void>();
+
+  readonly iconPlay = computed<IconKey>(() => (this.isPlaying() ? 'pause' : 'play'));
   readonly iconRepeat = computed<IconKey>(() =>
     this.repeatMode() === 'one' ? 'repeatOne' : 'repeat',
   );
 
   toggleMusicPlay(): void {
-    this.isPlay.update((v) => !v);
-    this.playToggle.emit(this.isPlay());
+    this.playToggle.emit();
+  }
+
+  onPrev(): void {
+    this.prev.emit();
+  }
+  onNext(): void {
+    this.next.emit();
   }
 
   toggleRepeat(): void {
-    this.repeatMode.update((s) => REPEAT_NEXT[s]);
+    this.repeatToggle.emit();
   }
 
   toggleShuffle(): void {
-    this.isShuffle.update((v) => !v);
-  }
-
-  previousTrack(): void {
-    // !TODO: написать функционал
-  }
-
-  nextTrack(): void {
-    // !TODO: написать функционал
+    this.shuffleToggle.emit();
   }
 }

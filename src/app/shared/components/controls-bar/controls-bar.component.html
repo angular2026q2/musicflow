@@ -2,14 +2,14 @@
   <div class="controls-bar__root-container">
     <app-control-button icon="shuffle" [active]="isShuffle()" (click)="toggleShuffle()" />
 
-    <app-control-button icon="previousTrack" (click)="previousTrack()" />
+    <app-control-button icon="previousTrack" (click)="onPrev()" />
     <app-control-button
       [icon]="iconPlay()"
-      [active]="isPlay()"
+      [active]="isPlaying()"
       [size]="30"
       (click)="toggleMusicPlay()"
     />
-    <app-control-button icon="nextTrack" (click)="nextTrack()" />
+    <app-control-button icon="nextTrack" (click)="onNext()" />
 
     <app-control-button
       [icon]="iconRepeat()"
@@ -18,5 +18,5 @@
     />
   </div>
 
-  <app-timestep [trackDuration]="trackDuration()" />
+  <app-timestep />
 </div>

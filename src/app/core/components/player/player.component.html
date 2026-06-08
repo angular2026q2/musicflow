@@ -1,10 +1,10 @@
 <section class="player">
   <div class="player__bar" [class.player__bar--active]="isActive()">
-    <div class="player__player">
+    <div class="player__wrapper">
       <div class="player__info">
         <div class="player__info-card">
           <div class="player__cover-container">
-            <img src="./images/track-cover.png" alt="Track cover" class="player__cover" />
+            <img src="/images/track-cover.webp" alt="Track cover" class="player__cover" />
           </div>
           <div class="player__description">
             <app-meta [title]="title()" [primaryDesc]="primaryDesc()"></app-meta>
@@ -14,12 +14,30 @@
 
       <div class="player__controls-bar">
         <app-control-button icon="heart" [active]="isFavorite()" (click)="toggleFavorite()" />
-        <app-controls-bar (playToggle)="onPlayToggle($event)"></app-controls-bar>
+        <app-controls-bar
+          [isPlaying]="isActive()"
+          [isShuffle]="isShuffle()"
+          [repeatMode]="repeatMode()"
+          (playToggle)="onPlayToggle()"
+          (prev)="onPrev()"
+          (next)="onNext()"
+          (shuffleToggle)="onShuffleToggle()"
+          (repeatToggle)="onRepeatToggle()"
+        ></app-controls-bar>
       </div>
 
       <div class="player__meta">
         <app-volume></app-volume>
       </div>
+
+      <!-- только для мобильных -->
+      <app-control-button
+        class="player__play-mobile"
+        [icon]="isActive() ? 'pause' : 'play'"
+        [active]="isActive()"
+        [size]="28"
+        (click)="onPlayToggle()"
+      />
     </div>
   </div>
 </section>

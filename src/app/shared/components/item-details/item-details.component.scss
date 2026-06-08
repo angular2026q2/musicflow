@@ -1,0 +1,92 @@
+@use 'styles/breakpoints' as styles;
+
+.item-details {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+
+  width: 100%;
+  min-width: 0;
+
+  &__image {
+    object-fit: cover;
+
+    &-rounded {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+    }
+
+    &-square {
+      width: 54px;
+      height: 54px;
+      border-radius: var(--radius-default);
+    }
+
+    &-squareXl {
+      width: 80px;
+      height: 80px;
+      border-radius: var(--radius-default);
+    }
+  }
+
+  &__title {
+    overflow: hidden;
+    display: block;
+
+    max-width: 100%;
+
+    font-size: var(--text-body-md);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &-normal {
+      font-weight: var(--weight-regular);
+    }
+
+    &-bold {
+      font-weight: var(--weight-bold);
+    }
+  }
+
+  &__textBlock {
+    overflow-x: hidden;
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__description {
+    overflow: hidden;
+
+    font-size: var(--text-body-sm);
+    color: var(--color-on-surface-variant);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__secondaryDesc {
+    &::before {
+      content: '·';
+      margin: 0 var(--space-sm);
+      color: #999;
+    }
+  }
+
+  @media (max-width: styles.$bp-sm) {
+    gap: var(--space-sm);
+
+    &__description {
+      display: none;
+      font-size: var(--text-label);
+    }
+
+    &__secondaryDesc {
+      display: none;
+    }
+
+    &__image-square {
+      width: 48px;
+      height: 48px;
+    }
+  }
+}

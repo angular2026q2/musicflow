@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 import { TrackCardComponent } from '@shared/components/track-card/track-card.component';
-import { RecentlyPlayedTrack } from '@shared/interfaces/recently-played-track.interface';
+
+import type { RecentlyPlayedTrack } from '@shared/interfaces/recently-played-track.interface';
 
 @Component({
   selector: 'app-recently-played',
@@ -11,5 +12,5 @@ import { RecentlyPlayedTrack } from '@shared/interfaces/recently-played-track.in
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RecentlyPlayedComponent {
-  tracks = input.required<RecentlyPlayedTrack[]>();
+  readonly tracks = input.required<RecentlyPlayedTrack[]>();
 }

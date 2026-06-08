@@ -36,15 +36,10 @@ import { CardModule } from 'primeng/card';
   selector: 'app-cover-card',
   imports: [CardModule],
   template: `
-    <p-card
-      styleClass="cover-card"
-      [style.background-image]="'url(' + backgroundImage() + ')'"
-      styleClass="cover-card"
-    >
-      <ng-content> </ng-content>
+    <p-card class="cover-card" [style.background-image]="'url(' + backgroundImage() + ')'">
+      <ng-content></ng-content>
     </p-card>
   `,
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   styles: [
     `
@@ -64,5 +59,5 @@ import { CardModule } from 'primeng/card';
   ],
 })
 export class CoverCardComponent {
-  backgroundImage = input<string>('');
+  readonly backgroundImage = input<string>('');
 }

@@ -1,27 +1,28 @@
-import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+
 import { SmallCardComponent } from '@shared/components/small-card/small-card.component';
-import { Genre } from '@shared/types/genre.type';
+
+import { ICONS } from '@shared/constants/icons';
 import { findKeyByValue } from '@shared/utils/findKeyByValue';
-import { IconKey, ICONS } from '@shared/constants/icons';
 import { getRandomColor } from '@shared/utils/getRandomColor';
+
+import type { IconKey } from '@shared/constants/icons';
+import type { Genre } from '@shared/types/genre.type';
 
 @Component({
   selector: 'app-genres',
-  imports: [SmallCardComponent, CommonModule],
+  imports: [SmallCardComponent],
   templateUrl: './genres.component.html',
   styleUrl: './genres.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GenresComponent {
-  genres = input.required<Genre[]>();
-  icons = ICONS;
-  findKeyByValueFn = findKeyByValue;
+  readonly genres = input.required<Genre[]>();
 
-  getIcon(genre: string): IconKey {
-    const key = findKeyByValue(this.icons, genre, 'label');
+  protected readonly getRandomColor = getRandomColor;
+
+  protected getIcon(genre: string): IconKey {
+    const key = findKeyByValue(ICONS, genre, 'label');
     return (key ?? 'music') as IconKey;
   }
-
-  getRandomColor = getRandomColor;
 }

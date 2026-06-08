@@ -1,25 +1,21 @@
 <section class="home-page">
-  <div home-page__trending>
+  <div class="home-page__trending">
     <app-track-cards [title]="'Trending Now'" [tracks]="trendingTracks()" />
   </div>
-  <div home-page__new-relases>
+  <div class="home-page__new-relases">
     <app-track-cards [title]="'Release Radar'" [tracks]="newReleases()" />
   </div>
-  <div home-page__genres>
+  <div class="home-page__genres">
     <app-genres [genres]="genres()"></app-genres>
   </div>
   <div class="home-page__recently-played">
-    @if (recentTracksLoading()) {
+    @if (isLoading()) {
       <div class="home-page__recently-played__skeleton">
-        <p-skeleton width="10rem" class="mb-2" />
-        <p-skeleton height="5rem" class="mb-2" />
-        <p-skeleton height="5rem" class="mb-2" />
-        <p-skeleton height="5rem" class="mb-2" />
+        <p-skeleton width="10rem" class="mb-2"></p-skeleton>
+        <p-skeleton height="5rem" class="mb-2"></p-skeleton>
+        <p-skeleton height="5rem" class="mb-2"></p-skeleton>
+        <p-skeleton height="5rem" class="mb-2"></p-skeleton>
       </div>
-    } @else if (recentTracksError(); as error) {
-      <p-message severity="error">
-        {{ error }}
-      </p-message>
     } @else {
       <app-recently-played [tracks]="recentTracks()" />
     }

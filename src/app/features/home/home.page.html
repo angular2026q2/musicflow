@@ -1,4 +1,13 @@
 <section class="home-page">
+  <div home-page__trending>
+    <app-track-cards [title]="'Trending Now'" [tracks]="trendingTracks()" />
+  </div>
+  <div home-page__new-relases>
+    <app-track-cards [title]="'Release Radar'" [tracks]="newReleases()" />
+  </div>
+  <div home-page__genres>
+    <app-genres [genres]="genres()"></app-genres>
+  </div>
   <div class="home-page__recently-played">
     @if (recentTracksLoading()) {
       <div class="home-page__recently-played__skeleton">

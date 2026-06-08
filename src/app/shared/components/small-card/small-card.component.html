@@ -1,12 +1,7 @@
 <p-card class="small-card">
   <div class="small-card__content">
     <div class="small-card__icon-wrapper" [style.background-color]="iconBackgroundColor()">
-      <svg
-        [lucideIcon]="config().icon"
-        size="30"
-        color="iconColor()"
-        [attr.fill]="iconColor()"
-      ></svg>
+      <svg [lucideIcon]="config().icon" size="30" [color]="iconColor()"></svg>
     </div>
 
     <h4 class="small-card__title">{{ title() }}</h4>

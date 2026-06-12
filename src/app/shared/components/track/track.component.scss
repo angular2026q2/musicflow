@@ -54,6 +54,12 @@
     // width: 2.5rem;
   }
 
+  &__content {
+    display: flex;
+    gap: var(--space-sm);
+    align-items: center;
+  }
+
   &__info {
     display: flex;
     flex-direction: column;

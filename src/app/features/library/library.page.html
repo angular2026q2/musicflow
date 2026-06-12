@@ -1,1 +1,68 @@
-<p>library works!</p>
+<section class="library-page">
+  <div class="library-page__header">
+    <h1 class="library-page__title">{{ PAGE_TITLE }}</h1>
+  </div>
+
+  <section class="library-page__playlists">
+    <div class="library-page__playlist-header">
+      <h2 class="library-page__playlist-title">{{ PLAYLIST_SECTION_TITLE }}</h2>
+
+      <p-button
+        class="library-page__create-button"
+        label="Create playlist"
+        icon="pi pi-plus"
+        severity="secondary"
+      ></p-button>
+    </div>
+  </section>
+
+  <section class="library-page__history">
+    <div class="library-page__history-header">
+      <h2 class="library-page__history-title">{{ HISTORY_SECTION_TITLE }}</h2>
+    </div>
+
+    @if (history.isLoading()) {
+      <p>Loading...</p>
+    } @else if (history.error()) {
+      <div class="library-page__error">
+        <p-message severity="error">Failed to load. Please try again later.</p-message>
+        <p-button
+          label="Retry"
+          type="text"
+          (click)="reload()"
+          class="library-page__retry-btn"
+          severity="primary"
+        >
+          <svg [lucideIcon]="retryIcon"></svg>
+        </p-button>
+      </div>
+    } @else if (history.value()?.length === 0) {
+      <p class="library-page__history-empty">Your history is empty</p>
+    } @else {
+      <div class="library-page__dates-slider">
+        @for (chip of dateChips(); track chip.date) {
+          <p-chip
+            [label]="chip.label"
+            (click)="scrollToDate(chip.date)"
+            class="library-page__date-chip"
+          />
+        }
+      </div>
+      @for (group of groups(); track group.date) {
+        <section class="library-page__history-group" [id]="'date-' + group.date">
+          <div class="library-page__history-group-title">{{ group.label }}</div>
+
+          @for (track of group.tracks; track track.id) {
+            <app-track
+              [track]="track"
+              [meta]="['artist', 'album']"
+              [position]="$index + 1"
+              [showImage]="true"
+              (playTrack)="onTrackPlay(track)"
+            />
+          }
+        </section>
+      }
+    }
+  </section>
+</section>

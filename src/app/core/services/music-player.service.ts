@@ -1,5 +1,6 @@
-import { Injectable, signal, effect } from '@angular/core';
+import { effect, inject, Injectable, signal } from '@angular/core';
 import type { Track } from '@shared/interfaces/track.interface';
+import { LibraryService } from './library.service';
 
 export type RepeatMode = 'none' | 'one' | 'all';
 
@@ -22,6 +23,8 @@ const REPEAT_NEXT: Record<RepeatMode, RepeatMode> = {
   providedIn: 'root',
 })
 export class MusicPlayerService {
+  private readonly libraryService = inject(LibraryService);
+
   private readonly audio = new Audio();
   // * эти приватные – только внутри сервиса
   private readonly _currentTrack = signal<Track | null>(null);
@@ -73,6 +76,7 @@ export class MusicPlayerService {
     this._currentIndex.set(startIndex);
     this._currentTrack.set(tracks[startIndex] ?? null);
     this._isPlaying.set(true);
+    this.libraryService.addToHistory(tracks[startIndex]);
   }
 
   playTrack(track: Track): void {

@@ -22,7 +22,10 @@
     </div>
 
     @if (history.isLoading()) {
-      <p>Loading...</p>
+      <app-dates-slider-skeleton></app-dates-slider-skeleton>
+
+      <app-history-group-skeleton></app-history-group-skeleton>
+      <app-history-group-skeleton></app-history-group-skeleton>
     } @else if (history.error()) {
       <div class="library-page__error">
         <p-message severity="error">Failed to load. Please try again later.</p-message>

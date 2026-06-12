@@ -11,10 +11,20 @@ import { toLocalDateKey } from '@shared/utils/toLocalDateKey';
 import { ButtonModule } from 'primeng/button';
 import { ChipModule } from 'primeng/chip';
 import { MessageModule } from 'primeng/message';
+import { DatesSliderSkeletonComponent } from './skeleton/dates-slider.skeleton';
+import { HistoryGroupSkeletonComponent } from './skeleton/history-group.skeleton';
 
 @Component({
   selector: 'app-library',
-  imports: [ButtonModule, MessageModule, LucideDynamicIcon, TrackComponent, ChipModule],
+  imports: [
+    ButtonModule,
+    MessageModule,
+    LucideDynamicIcon,
+    TrackComponent,
+    ChipModule,
+    HistoryGroupSkeletonComponent,
+    DatesSliderSkeletonComponent,
+  ],
   templateUrl: './library.page.html',
   styleUrl: './library.page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

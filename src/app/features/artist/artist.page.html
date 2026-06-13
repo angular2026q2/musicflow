@@ -32,17 +32,20 @@
           }
         </div>
         <div class="artist-page__right-side">
-          <app-control-button
-            [icon]="iconPlay()"
-            [active]="isPlay()"
-            (click)="toggleMusicPlay()"
+          <button
             class="artist-page__button artist-page__button--play"
-          />
+            type="button"
+            (click)="onAllTracksPlay()"
+            aria-label="Play all tracks"
+          >
+            {{ isPlay() ? 'Pause' : 'Play all' }}
+          </button>
 
           <button
             type="button"
             class="artist-page__button artist-page__button--follow"
             (click)="toggleFollow()"
+            aria-label="Follow the artist"
           >
             {{ isFollowing() ? 'unfollow' : 'follow' }}
           </button>
@@ -65,7 +68,12 @@
           <div class="artist-page__tracks-divider"></div>
 
           @for (track of tracks(); track track.id) {
-            <app-track [track]="track" [meta]="['album', 'releasedate']" [position]="$index + 1" />
+            <app-track
+              [track]="track"
+              [meta]="['album', 'releasedate']"
+              [position]="$index + 1"
+              (click)="onTrackPlay(track)"
+            />
           }
         </div>
       </div>

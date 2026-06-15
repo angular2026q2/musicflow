@@ -1,21 +1,15 @@
 <header class="header">
   <div class="header__search">
-    <form (ngSubmit)="onSearchSubmit($event)" class="header__search-form">
-      <p-iconfield>
-        <p-inputicon class="pi pi-search"></p-inputicon>
-        <input
-          pInputText
-          pSize="small"
-          type="text"
-          placeholder="Search artists, songs..."
-          class="header__search-input"
-          [formControl]="searchControl"
-        />
-      </p-iconfield>
-      <button pButton type="submit" class="header__search-btn" (click)="onSearchSubmit($event)">
-        Go
-      </button>
-    </form>
+    <p-iconfield>
+      <p-inputicon class="pi pi-search"></p-inputicon>
+      <input
+        pInputText
+        type="text"
+        placeholder="Search artists, songs..."
+        class="header__search-input"
+        [formControl]="searchControl"
+      />
+    </p-iconfield>
   </div>
 
   <div class="header__actions">

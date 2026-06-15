@@ -3,6 +3,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { catchError, finalize, map, of } from 'rxjs';
 import { TrackListComponent } from '@shared/components/track-list/track-list.component';
 import { HomeService } from '@core/services/home.service';
+
 import { TracksResponce } from '@shared/interfaces/tracks-responce.interface';
 import { ButtonModule } from 'primeng/button';
 import { SkeletonModule } from 'primeng/skeleton';
@@ -11,6 +12,7 @@ import { Track } from '@shared/interfaces/track.interface';
 import { Genre } from '@shared/types/genre.type';
 import { GenresComponent } from './components/genres/genres.component';
 import { TrackCardsComponent } from '@shared/components/track-cards/track-cards.component';
+import { GenreService } from '@core/services/genre.service';
 
 @Component({
   selector: 'app-home',
@@ -28,6 +30,7 @@ import { TrackCardsComponent } from '@shared/components/track-cards/track-cards.
 })
 export class HomePage {
   private homeService = inject(HomeService);
+  private genreService = inject(GenreService);
 
   recentTracksLoading = signal(true);
   recentTracksError = signal<string | null>(null);
@@ -65,7 +68,7 @@ export class HomePage {
   );
 
   genres = toSignal(
-    this.homeService.getGenres().pipe(
+    this.genreService.getGenres().pipe(
       catchError((e) => {
         console.log(e);
         return of<Genre[]>([]);

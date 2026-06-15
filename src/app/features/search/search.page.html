@@ -2,7 +2,33 @@
   <h2 class="search__title">
     Results for <span class="search__title-query">{{ query() }} </span>
   </h2>
+  <div class="card flex justify-center">
+    <p-slider
+      [ngModel]="maxDurationModel"
+      (ngModelChange)="setMaxDuration($event)"
+      [min]="0"
+      [max]="maxDuration()"
+    />
+  </div>
+  <div class="card flex justify-center">
+    <p-select
+      [options]="sortOptions"
+      optionLabel="label"
+      optionValue="value"
+      [ngModel]="sortBy()"
+      (ngModelChange)="setSort($event)"
+      placeholder="Sort by ..."
+    />
+  </div>
 
+  <div class="card flex justify-center">
+    <p-selectbutton
+      [options]="genres()"
+      [ngModel]="selectedGenres()"
+      [multiple]="true"
+      (ngModelChange)="onGenresChange($event)"
+    />
+  </div>
   <div class="search__items">
     @for (track of tracks(); track track.id) {
       <div class="search__items-card">
@@ -22,5 +48,7 @@
     }
   </div>
 
-  <button (click)="loadMore()">Показать еще</button>
+  @if (hasMoreTracks()) {
+    <app-submit-button [label]="'Load more'" (click)="loadMore()"></app-submit-button>
+  }
 </div>

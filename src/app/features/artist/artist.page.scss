@@ -124,13 +124,7 @@
       color var(--duration-default),
       border-color var(--duration-default);
 
-    &--play {
-      padding: var(--space-sm);
-      border-radius: 50%;
-      color: var(--color-on-secondary);
-      background-color: var(--color-secondary);
-    }
-
+    &--play,
     &--follow {
       padding: 11px 24px;
       border: 1px solid var(--color-on-surface-variant);
@@ -141,9 +135,27 @@
 
       background: transparent;
 
+      transition: all var(--duration-default);
+
       &:hover {
         border-color: var(--color-secondary);
         color: var(--color-secondary);
+      }
+    }
+
+    &--play {
+      border-color: var(--color-secondary);
+      font-weight: var(--weight-bold);
+      color: var(--color-white);
+      background-color: var(--color-secondary);
+
+      svg {
+        fill: #fff;
+      }
+
+      &:hover {
+        color: var(--color-white);
+        background-color: var(--color-secondary-container);
       }
     }
   }

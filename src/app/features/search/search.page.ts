@@ -26,7 +26,12 @@ import { GenreService } from '@core/services/genre.service';
 import { catchError, of } from 'rxjs';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Genre } from '@shared/types/genre.type';
-
+import { TrackComponent } from '@shared/components/track/track.component';
+import { MusicPlayerService } from '@core/services/music-player.service';
+import { FieldsetModule } from 'primeng/fieldset';
+import { MenubarModule } from 'primeng/menubar';
+import { ICONS } from '@shared/constants/icons';
+import { LucideDynamicIcon } from '@lucide/angular';
 @Component({
   selector: 'app-search',
   imports: [
@@ -39,50 +44,51 @@ import { Genre } from '@shared/types/genre.type';
     SelectButtonModule,
     SliderModule,
     FormsModule,
+    TrackComponent,
+    FieldsetModule,
+    MenubarModule,
+    LucideDynamicIcon,
   ],
   templateUrl: './search.page.html',
   styleUrl: './search.page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SearchPage implements OnInit {
-  private route = inject(ActivatedRoute);
-  private searchService = inject(SearchService);
-  private genreService = inject(GenreService);
-  private readonly limit = 20;
+  private readonly route = inject(ActivatedRoute);
+  private readonly playerService = inject(MusicPlayerService);
+  private readonly searchService = inject(SearchService);
+  private readonly genreService = inject(GenreService);
+  private readonly LIMIT = 20;
+
+  readonly ICONS = ICONS;
+  readonly sortOptions = [...TRACK_SORT_OPTIONS];
+  private readonly SORT_CONFIG = new Map(TRACK_SORT_OPTIONS.map((o) => [o.value, o]));
 
   readonly query = signal('');
-
   readonly rawTracks = signal<Track[]>([]);
   readonly loading = signal(false);
   readonly hasMoreTracks = signal(true);
-
   readonly filters = signal<{ category?: string }>({});
-
   readonly sortBy = signal<TrackSort | null>(null);
-
-  readonly sortOptions = [...TRACK_SORT_OPTIONS];
-
+  readonly selectedGenres = signal<Genre[]>([]);
+  readonly maxDurationFilter = signal<number>(600);
   readonly genres = toSignal(
     this.genreService.getGenres().pipe(catchError(() => of<Genre[]>([]))),
     { initialValue: [] },
   );
-
-  readonly selectedGenres = signal<Genre[]>([]);
 
   readonly maxDuration = computed(() => {
     const items = this.rawTracks();
 
     return items.length ? Math.max(...items.map((t) => t.duration ?? 0)) : 600;
   });
-  readonly maxDurationFilter = signal<number>(600);
+
   maxDurationModel = this.maxDurationFilter();
 
   setMaxDuration(value: number): void {
     this.maxDurationFilter.set(value);
     this.maxDurationModel = value;
   }
-
-  SORT_CONFIG = new Map(TRACK_SORT_OPTIONS.map((o) => [o.value, o]));
 
   private isServerSort(sort: TrackSort): boolean {
     return this.SORT_CONFIG.get(sort)?.mode === 'server';
@@ -130,6 +136,18 @@ export class SearchPage implements OnInit {
     this.initFromUrl();
   }
 
+  toTrack(track: Track): Track {
+    return {
+      ...track,
+    };
+  }
+  onTrackPlay(track: Track): void {
+    const index = this.tracks().indexOf(track);
+    this.playerService.playQueue(
+      this.tracks().map((t) => this.toTrack(t)),
+      index,
+    );
+  }
   onGenresChange(value: Genre[]) {
     this.selectedGenres.set(value);
 
@@ -194,13 +212,13 @@ export class SearchPage implements OnInit {
       .searchTracks({
         search: search,
         offset,
-        limit: this.limit,
+        limit: this.LIMIT,
         tags: this.selectedGenres(),
       })
       .subscribe({
         next: (res: TrackResponse<Track>) => {
           this.rawTracks.update((prev) => [...prev, ...res.data]);
-          this.hasMoreTracks.set(res.data.length === this.limit);
+          this.hasMoreTracks.set(res.data.length === this.LIMIT);
         },
         complete: () => this.loading.set(false),
         error: () => this.loading.set(false),
@@ -213,10 +231,6 @@ export class SearchPage implements OnInit {
     const q = this.query();
 
     this.search(q, false);
-  }
-
-  setCategory(category?: string): void {
-    this.filters.set({ category });
   }
 
   setSort(sort: TrackSort): void {

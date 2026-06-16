@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { TrackResponse } from '@shared/interfaces/track-responce.interface';
 import { Track } from '@shared/interfaces/track.interface';
-import { SearchTracksRequest } from '@core/services/dto/search-track-request.dto';
+import { SearchTracksRequest } from '@core/services/dto/search-track-request';
 
 @Injectable({
   providedIn: 'root',

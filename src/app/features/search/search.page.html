@@ -1,54 +1,96 @@
 <div class="search">
-  <h2 class="search__title">
-    Results for <span class="search__title-query">{{ query() }} </span>
-  </h2>
-  <div class="card flex justify-center">
-    <p-slider
-      [ngModel]="maxDurationModel"
-      (ngModelChange)="setMaxDuration($event)"
-      [min]="0"
-      [max]="maxDuration()"
-    />
-  </div>
-  <div class="card flex justify-center">
-    <p-select
-      [options]="sortOptions"
-      optionLabel="label"
-      optionValue="value"
-      [ngModel]="sortBy()"
-      (ngModelChange)="setSort($event)"
-      placeholder="Sort by ..."
-    />
-  </div>
+  @if (loading()) {
+    <div class="search__empty">
+      <div class="search__empty-wrapper">
+        <p class="search__empty-title">Searching...</p>
+        <p class="search__empty-description">Please wait while we find your music.</p>
+      </div>
+    </div>
+  } @else if (!query()) {
+    <div class="search__empty">
+      <div class="search__empty-wrapper">
+        <p class="search__empty-title">Find your music</p>
+        <p class="search__empty-description">Search for artists, tracks, or albums.</p>
+      </div>
+    </div>
+  } @else if (tracks().length) {
+    <h2 class="search__title">
+      Results for
+      <span class="search__title-query">
+        {{ query() }}
+      </span>
+    </h2>
 
-  <div class="card flex justify-center">
-    <p-selectbutton
-      [options]="genres()"
-      [ngModel]="selectedGenres()"
-      [multiple]="true"
-      (ngModelChange)="onGenresChange($event)"
-    />
-  </div>
-  <div class="search__items">
-    @for (track of tracks(); track track.id) {
-      <div class="search__items-card">
-        <div class="track-card__details">
-          <app-item-details
-            [imageUrl]="track.album_image"
-            [title]="track.name"
-            [primaryDesc]="track.artist_name"
-            [imageVariant]="'square'"
-            [titleVariant]="'normal'"
-          ></app-item-details>
-        </div>
-        <div class="track-card__meta">
-          <app-track-duration [trackDuration]="track.duration"></app-track-duration>
+    <div class="search__controls">
+      <h4>Genres</h4>
+
+      <div class="search__controls-genres">
+        <p-selectbutton
+          [options]="genres()"
+          [ngModel]="selectedGenres()"
+          [multiple]="true"
+          (ngModelChange)="onGenresChange($event)"
+          class="search__select-button"
+        />
+      </div>
+
+      <div class="search__controls-filters">
+        <h4>Sort & filter</h4>
+
+        <div class="search__control">
+          <div class="card">
+            <p-select
+              [options]="sortOptions"
+              optionLabel="label"
+              optionValue="value"
+              [ngModel]="sortBy()"
+              (ngModelChange)="setSort($event)"
+              placeholder="Sort by ..."
+              class="search__select"
+            />
+          </div>
+
+          <div class="search__duration-wrapper">
+            <div class="search__duration">
+              <svg [lucideIcon]="ICONS.clock.icon" [size]="16"></svg>
+
+              <p>Duration filter</p>
+            </div>
+
+            <p-slider
+              [ngModel]="maxDurationModel"
+              (ngModelChange)="setMaxDuration($event)"
+              [min]="0"
+              [max]="maxDuration()"
+              class="search__slider"
+            />
+          </div>
         </div>
       </div>
-    }
-  </div>
+    </div>
 
-  @if (hasMoreTracks()) {
-    <app-submit-button [label]="'Load more'" (click)="loadMore()"></app-submit-button>
+    <div class="search__items">
+      @for (track of tracks(); track track.id) {
+        <app-track
+          [track]="toTrack(track)"
+          [meta]="['artist']"
+          [position]="$index + 1"
+          (playTrack)="onTrackPlay(track)"
+        />
+      }
+    </div>
+
+    @if (hasMoreTracks()) {
+      <div class="search__more">
+        <app-submit-button [label]="'Load more'" (click)="loadMore()" />
+      </div>
+    }
+  } @else {
+    <div class="search__empty">
+      <div class="search__empty-wrapper">
+        <p class="search__empty-title">No results found</p>
+        <p class="search__empty-description">Try searching for another artist, track, or album.</p>
+      </div>
+    </div>
   }
 </div>

@@ -9,10 +9,7 @@ import { APP_ROUTES } from '@shared/constants/routes';
 })
 export class SearchQueryService {
   private readonly router = inject(Router);
-
-  private readonly querySignal = signal('');
-
-  readonly query = this.querySignal.asReadonly();
+  readonly query = signal('');
 
   private readonly navigationEnd = toSignal(
     this.router.events.pipe(
@@ -27,19 +24,17 @@ export class SearchQueryService {
   constructor() {
     effect(() => {
       const url = this.navigationEnd();
-
       if (!url.startsWith(`/${APP_ROUTES.SEARCH.route}`)) {
-        this.querySignal.set('');
+        this.query.set('');
         return;
       }
 
       const q = this.router.parseUrl(url).queryParams['q'] ?? '';
-
-      this.querySignal.set(q);
+      this.query.set(q);
     });
 
     effect(() => {
-      const query = this.querySignal().trim();
+      const query = this.query().trim();
 
       const isSearchPage = this.router.url.startsWith(`/${APP_ROUTES.SEARCH.route}`);
 
@@ -65,6 +60,6 @@ export class SearchQueryService {
   }
 
   setQuery(query: string) {
-    this.querySignal.set(query ?? '');
+    this.query.set(query ?? '');
   }
 }

@@ -31,9 +31,11 @@
     &-input {
       width: 100%;
       border: none;
+
+      color: var(--color-on-surface-variant);
+
       opacity: 0.9;
       background: var(--color-surface-high);
-      color: var(--color-on-surface-variant);
     }
   }
 

@@ -9,12 +9,9 @@ import {
 
 import { ActivatedRoute } from '@angular/router';
 import { SearchService } from '@core/services/search.service';
-import { TrackListComponent } from '@shared/components/track-list/track-list.component';
+
 import { Track } from '@shared/interfaces/track.interface';
 
-import { TrackCardsComponent } from '@shared/components/track-cards/track-cards.component';
-import { ItemDetailsComponent } from '@shared/components/item-details/item-details.component';
-import { TrackDurationComponent } from '@shared/components/track-duration/track-duration.component';
 import { SubmitButtonComponent } from '@shared/components/submit-button/submit-button.component';
 import { TrackResponse } from '@shared/interfaces/track-responce.interface';
 import { SelectModule } from 'primeng/select';
@@ -35,10 +32,6 @@ import { LucideDynamicIcon } from '@lucide/angular';
 @Component({
   selector: 'app-search',
   imports: [
-    TrackListComponent,
-    TrackCardsComponent,
-    ItemDetailsComponent,
-    TrackDurationComponent,
     SubmitButtonComponent,
     SelectModule,
     SelectButtonModule,

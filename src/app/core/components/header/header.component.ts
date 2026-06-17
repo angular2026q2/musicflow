@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { LucideDynamicIcon } from '@lucide/angular';
 import { APP_ROUTES } from '@shared/constants/routes';
@@ -29,16 +29,20 @@ import { SearchQueryService } from '@core/services/search-query-service';
   styleUrl: './header.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
   protected readonly APP_ROUTES = APP_ROUTES;
   protected readonly ICONS = ICONS;
 
   searchControl = new FormControl('');
   private readonly searchQueryService = inject(SearchQueryService);
 
-  ngOnInit() {
-    this.searchQueryService.query$.subscribe((value) => {
-      this.searchControl.setValue(value, { emitEvent: false });
+  constructor() {
+    effect(() => {
+      const query = this.searchQueryService.query();
+
+      this.searchControl.setValue(query, {
+        emitEvent: false,
+      });
     });
 
     this.searchControl.valueChanges.subscribe((value) => {

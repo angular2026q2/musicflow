@@ -4,8 +4,8 @@
   </div>
 
   <section class="library-page__playlists">
-    <div class="library-page__playlist-header">
-      <h2 class="library-page__playlist-title">{{ PLAYLIST_SECTION_TITLE }}</h2>
+    <div class="library-page__playlist-section-header">
+      <h2 class="library-page__playlist-section-title">{{ PLAYLIST_SECTION_TITLE }}</h2>
 
       <p-button
         class="library-page__create-button"
@@ -13,6 +13,20 @@
         icon="pi pi-plus"
         severity="secondary"
       ></p-button>
+    </div>
+
+    <div class="library-page__playlist-content">
+      @if (playlistIsLoading()) {
+        <p>Loading...</p>
+      } @else if (playlistError()) {
+        <app-error-message (retry)="reload('playlist')"></app-error-message>
+      } @else if (playlists().length === 0) {
+        <p class="library-page__playlist-empty">You have no playlists</p>
+      } @else {
+        @for (playlist of playlists(); track playlist.id) {
+          <app-playlist-card [data]="playlist"></app-playlist-card>
+        }
+      }
     </div>
   </section>
 
@@ -27,18 +41,7 @@
       <app-history-group-skeleton></app-history-group-skeleton>
       <app-history-group-skeleton></app-history-group-skeleton>
     } @else if (history.error()) {
-      <div class="library-page__error">
-        <p-message severity="error">Failed to load. Please try again later.</p-message>
-        <p-button
-          label="Retry"
-          type="text"
-          (click)="reload()"
-          class="library-page__retry-btn"
-          severity="primary"
-        >
-          <svg [lucideIcon]="retryIcon"></svg>
-        </p-button>
-      </div>
+      <app-error-message (retry)="reload('history')"></app-error-message>
     } @else if (history.value()?.length === 0) {
       <p class="library-page__history-empty">Your history is empty</p>
     } @else {

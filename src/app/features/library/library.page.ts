@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { LibraryService } from '@core/services/library.service';
 import { MusicPlayerService } from '@core/services/music-player.service';
-import { LucideDynamicIcon } from '@lucide/angular';
+import { ErrorMessageComponent } from '@shared/components/error-message/error-message.component';
+import { PlaylistCardComponent } from '@shared/components/playlist-card/playlist-card.component';
 import { TrackComponent } from '@shared/components/track/track.component';
-import { ICONS } from '@shared/constants/icons';
 import { HistoryGroup, HistoryRequest, HistoryResponse } from '@shared/interfaces/history';
 import { Track } from '@shared/interfaces/track.interface';
 import { formatDate } from '@shared/utils/formatDate';
@@ -19,11 +19,12 @@ import { HistoryGroupSkeletonComponent } from './skeleton/history-group.skeleton
   imports: [
     ButtonModule,
     MessageModule,
-    LucideDynamicIcon,
     TrackComponent,
     ChipModule,
     HistoryGroupSkeletonComponent,
     DatesSliderSkeletonComponent,
+    PlaylistCardComponent,
+    ErrorMessageComponent,
   ],
   templateUrl: './library.page.html',
   styleUrl: './library.page.scss',
@@ -33,12 +34,13 @@ export class LibraryPage {
   readonly PAGE_TITLE = 'Your Library';
   readonly PLAYLIST_SECTION_TITLE = 'Playlists';
   readonly HISTORY_SECTION_TITLE = 'Recently Played';
-  readonly retryIcon = ICONS.retry.icon;
 
   private readonly playerService = inject(MusicPlayerService);
   private readonly libraryService = inject(LibraryService);
 
   readonly history = this.libraryService.history;
+  readonly playlistsResource = this.libraryService.playlists;
+
   readonly groups = computed(() => {
     const entries = this.history.value() ?? [];
     const map = new Map<string, HistoryResponse[]>();
@@ -68,8 +70,26 @@ export class LibraryPage {
 
   readonly dateChips = computed(() => this.groups().map((g) => ({ date: g.date, label: g.label })));
 
-  reload(): void {
-    this.history.reload();
+  readonly playlistIsLoading = computed(() => this.libraryService.playlists.isLoading());
+  readonly playlistError = computed(() => this.libraryService.playlists.error());
+
+  readonly playlists = computed(
+    () =>
+      this.libraryService.playlists.value()?.map((playlist) => ({
+        ...playlist,
+        duration: playlist.tracks.reduce((acc, track) => acc + track.duration, 0),
+      })) ?? [],
+  );
+
+  reload(type: 'history' | 'playlist'): void {
+    switch (type) {
+      case 'history':
+        this.history.reload();
+        break;
+      case 'playlist':
+        this.playlistsResource.reload();
+        break;
+    }
   }
 
   toTrack(track: HistoryRequest): Track {

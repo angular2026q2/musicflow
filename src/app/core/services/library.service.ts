@@ -1,6 +1,7 @@
 import { HttpClient, httpResource } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { HistoryRequest, HistoryResponse } from '@shared/interfaces/history';
+import { PlaylistResponse } from '@shared/interfaces/playlist.interface';
 import { Track } from '@shared/interfaces/track.interface';
 import { firstValueFrom } from 'rxjs';
 
@@ -8,10 +9,13 @@ import { firstValueFrom } from 'rxjs';
   providedIn: 'root',
 })
 export class LibraryService {
-  private readonly apiUrl = '/api/v1/history';
+  private readonly apiUrl = '/api/v1/';
+  private readonly historyUrl = this.apiUrl + 'history';
+  private readonly playlistsUrl = this.apiUrl + 'playlists';
   private readonly http = inject(HttpClient);
 
-  readonly history = httpResource<HistoryResponse[]>(() => this.apiUrl);
+  readonly history = httpResource<HistoryResponse[]>(() => this.historyUrl);
+  readonly playlists = httpResource<PlaylistResponse[]>(() => this.playlistsUrl);
 
   async addToHistory(track: Track) {
     const body: HistoryRequest = {
@@ -24,6 +28,18 @@ export class LibraryService {
       duration: track.duration,
     };
 
-    await firstValueFrom(this.http.post(this.apiUrl, body));
+    await firstValueFrom(this.http.post(this.historyUrl, body));
+  }
+
+  async createPlaylist(playlist: { name: string; description: string }) {
+    await firstValueFrom(this.http.post(this.playlistsUrl, playlist));
+  }
+
+  async updatePlaylist() {
+    //
+  }
+
+  async deletePlaylist(id: string) {
+    await firstValueFrom(this.http.delete(this.playlistsUrl + '/' + id));
   }
 }

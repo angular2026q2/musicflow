@@ -8,6 +8,12 @@
   background: var(--color-surface-bright);
   box-shadow: 0 0 15px rgb(0 0 0 / 30%);
 
+  &__header {
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: space-between;
+  }
+
   &__title {
     margin-bottom: var(--space-lg);
     font-weight: var(--weight-bold);

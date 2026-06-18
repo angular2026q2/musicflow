@@ -1,4 +1,7 @@
 <section class="library-page">
+  <p-toast />
+  <p-confirmdialog />
+
   <div class="library-page__header">
     <h1 class="library-page__title">{{ PAGE_TITLE }}</h1>
   </div>
@@ -15,7 +18,7 @@
       ></p-button>
     </div>
 
-    <div class="library-page__playlist-content">
+    <div class="library-page__content">
       @if (playlistIsLoading()) {
         <p>Loading...</p>
       } @else if (playlistError()) {
@@ -23,9 +26,14 @@
       } @else if (playlists().length === 0) {
         <p class="library-page__playlist-empty">You have no playlists</p>
       } @else {
-        @for (playlist of playlists(); track playlist.id) {
-          <app-playlist-card [data]="playlist"></app-playlist-card>
-        }
+        <div class="library-page__playlist-content">
+          @for (playlist of playlists(); track playlist.id) {
+            <app-playlist-card
+              [data]="playlist"
+              (delete)="confirmDelete(playlist)"
+            ></app-playlist-card>
+          }
+        </div>
       }
     </div>
   </section>

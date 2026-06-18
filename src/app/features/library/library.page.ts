@@ -5,12 +5,16 @@ import { ErrorMessageComponent } from '@shared/components/error-message/error-me
 import { PlaylistCardComponent } from '@shared/components/playlist-card/playlist-card.component';
 import { TrackComponent } from '@shared/components/track/track.component';
 import { HistoryGroup, HistoryRequest, HistoryResponse } from '@shared/interfaces/history';
+import { PlaylistResponse } from '@shared/interfaces/playlist.interface';
 import { Track } from '@shared/interfaces/track.interface';
 import { formatDate } from '@shared/utils/formatDate';
 import { toLocalDateKey } from '@shared/utils/toLocalDateKey';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ChipModule } from 'primeng/chip';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
 import { DatesSliderSkeletonComponent } from './skeleton/dates-slider.skeleton';
 import { HistoryGroupSkeletonComponent } from './skeleton/history-group.skeleton';
 
@@ -25,7 +29,10 @@ import { HistoryGroupSkeletonComponent } from './skeleton/history-group.skeleton
     DatesSliderSkeletonComponent,
     PlaylistCardComponent,
     ErrorMessageComponent,
+    ConfirmDialogModule,
+    ToastModule,
   ],
+  providers: [ConfirmationService, MessageService],
   templateUrl: './library.page.html',
   styleUrl: './library.page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -37,6 +44,8 @@ export class LibraryPage {
 
   private readonly playerService = inject(MusicPlayerService);
   private readonly libraryService = inject(LibraryService);
+  private readonly messageService = inject(MessageService);
+  private readonly confirmationService = inject(ConfirmationService);
 
   readonly history = this.libraryService.history;
   readonly playlistsResource = this.libraryService.playlists;
@@ -128,5 +137,51 @@ export class LibraryPage {
     const element = document.getElementById('date-' + date);
 
     element?.scrollIntoView({ behavior: 'smooth' });
+  }
+
+  confirmDelete(playlist: PlaylistResponse) {
+    this.confirmationService.confirm({
+      message: `Do you want to delete playlist '${playlist.name}'?`,
+      header: 'Delete playlist',
+      icon: 'pi pi-info-circle',
+      rejectLabel: 'Cancel',
+      rejectButtonProps: {
+        label: 'Cancel',
+        severity: 'secondary',
+        outlined: true,
+      },
+      acceptButtonProps: {
+        label: 'Delete',
+        severity: 'danger',
+      },
+
+      accept: async () => {
+        try {
+          await this.libraryService.deletePlaylist(playlist.id);
+          this.playlistsResource.value.update((list) =>
+            list?.filter((item) => item.id !== playlist.id),
+          );
+
+          this.messageService.add({
+            severity: 'success',
+            summary: 'Deleted',
+            detail: 'Playlist deleted',
+          });
+        } catch {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Failed to delete playlist',
+          });
+        }
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Rejected',
+          detail: 'You have rejected',
+        });
+      },
+    });
   }
 }

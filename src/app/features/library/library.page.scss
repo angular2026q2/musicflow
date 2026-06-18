@@ -48,11 +48,14 @@
     }
   }
 
+  &__content {
+    padding-block: var(--space-lg);
+  }
+
   &__playlist-content {
     display: grid;
     grid-template-columns: repeat(auto-fill, min(100%, 280px));
     gap: var(--space-md);
-    padding-block: var(--space-md);
   }
 
   &__playlist-empty {

@@ -1,8 +1,12 @@
 @let playlist = data();
 
 <div class="playlist-card">
-  <div class="playlist-card__title">
-    {{ playlist.name }}
+  <div class="playlist-card__header">
+    <div class="playlist-card__title">
+      {{ playlist.name }}
+    </div>
+
+    <app-dropdown-menu [items]="dropdownList"></app-dropdown-menu>
   </div>
   <div class="playlist-card__meta">
     <div class="playlist-card__track-count">
@@ -13,8 +17,10 @@
 
     <span class="playlist-card__meta-dot" aria-hidden="true">•</span>
 
-    <div class="playlist-card__duration">
-      {{ playlist.duration | duration: 'total' }}
-    </div>
+    @if (playlist.duration !== undefined) {
+      <div class="playlist-card__duration">
+        {{ playlist.duration | duration: 'total' }}
+      </div>
+    }
   </div>
 </div>

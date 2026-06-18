@@ -6,7 +6,7 @@
     <app-track-cards [title]="'Release Radar'" [tracks]="newReleases()" />
   </div>
   <div home-page__genres>
-    <app-genres [genres]="genres()"></app-genres>
+    <app-genres [genres]="genres()" (genreSelected)="searchByGenre($event)"></app-genres>
   </div>
   <div class="home-page__recently-played">
     @if (recentTracksLoading()) {

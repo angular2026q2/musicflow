@@ -151,8 +151,17 @@ export class SearchPage implements OnInit {
   private initFromUrl(): void {
     this.route.queryParamMap.subscribe((params) => {
       const q = params.get('q') ?? '';
+      const tag = params.get('tags');
 
       this.query.set(q);
+
+      if (tag) {
+        const genre = this.genres().find((g) => g === tag);
+
+        if (genre) {
+          this.selectedGenres.set([genre]);
+        }
+      }
 
       this.reset();
       this.search(q, true);
@@ -190,7 +199,7 @@ export class SearchPage implements OnInit {
   }
 
   search(query: string, reset = false): void {
-    if (!query) return;
+    if (!query && !this.selectedGenres().length) return;
 
     if (reset) {
       this.reset();

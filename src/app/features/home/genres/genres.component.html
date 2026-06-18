@@ -2,14 +2,14 @@
   <h2 class="genres__title">Genres</h2>
   <div class="genres__content">
     @for (genre of genres(); track genre) {
-      <div class="genres__content-card">
+      <button class="genres__content-card" (click)="selectGenre(genre)">
         <app-small-card
           [title]="genre"
           [icon]="getIcon(genre)"
           [iconColor]="getRandomColor()"
           [iconBackgroundColor]="getRandomColor()"
         ></app-small-card>
-      </div>
+      </button>
     }
   </div>
 </div>

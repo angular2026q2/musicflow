@@ -10,9 +10,10 @@ import { SkeletonModule } from 'primeng/skeleton';
 import { MessageModule } from 'primeng/message';
 import { Track } from '@shared/interfaces/track.interface';
 import { Genre } from '@shared/types/genre.type';
-import { GenresComponent } from './components/genres/genres.component';
+import { GenresComponent } from './genres/genres.component';
 import { TrackCardsComponent } from '@shared/components/track-cards/track-cards.component';
 import { GenreService } from '@core/services/genre.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -31,6 +32,7 @@ import { GenreService } from '@core/services/genre.service';
 export class HomePage {
   private homeService = inject(HomeService);
   private genreService = inject(GenreService);
+  private router = inject(Router);
 
   recentTracksLoading = signal(true);
   recentTracksError = signal<string | null>(null);
@@ -96,4 +98,12 @@ export class HomePage {
       initialValue: [],
     },
   );
+
+  searchByGenre(genre: Genre): void {
+    this.router.navigate(['/search'], {
+      queryParams: {
+        tags: genre,
+      },
+    });
+  }
 }

@@ -1,6 +1,5 @@
 <div class="playlist-form">
-  <!-- <p-toast /> -->
-  <form [formGroup]="creationForm" (ngSubmit)="onSubmit()" class="playlist-form__form">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="playlist-form__form">
     <div class="playlist-form__wrapper">
       <p-floatlabel variant="in">
         <input
@@ -44,8 +43,11 @@
       }
     </div>
 
-    <button pButton severity="secondary" type="submit" [disabled]="creationForm.invalid">
-      <span pButtonLabel>Submit</span>
-    </button>
+    <p-button
+      type="submit"
+      label="Submit"
+      [loading]="isLoading()"
+      [disabled]="form.invalid"
+    ></p-button>
   </form>
 </div>

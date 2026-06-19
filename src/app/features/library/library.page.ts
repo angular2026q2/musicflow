@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { LibraryService } from '@core/services/library.service';
 import { MusicPlayerService } from '@core/services/music-player.service';
 import { ErrorMessageComponent } from '@shared/components/error-message/error-message.component';
@@ -6,6 +6,7 @@ import { PlaylistCardComponent } from '@shared/components/playlist-card/playlist
 import { PlaylistFormComponent } from '@shared/components/playlist-form/playlist-form.component';
 import { TrackComponent } from '@shared/components/track/track.component';
 import { HistoryGroup, HistoryRequest, HistoryResponse } from '@shared/interfaces/history';
+import { Message } from '@shared/interfaces/message';
 import { PlaylistResponse } from '@shared/interfaces/playlist.interface';
 import { Track } from '@shared/interfaces/track.interface';
 import { formatDate } from '@shared/utils/formatDate';
@@ -95,6 +96,7 @@ export class LibraryPage {
         duration: (playlist.tracks ?? []).reduce((acc, track) => acc + track.duration, 0),
       })) ?? [],
   );
+  readonly editingPlaylist = signal<PlaylistResponse | null>(null);
 
   reload(type: 'history' | 'playlist'): void {
     switch (type) {
@@ -105,10 +107,6 @@ export class LibraryPage {
         this.playlistsResource.reload();
         break;
     }
-  }
-
-  onPlaylistCreated(playlist: PlaylistResponse) {
-    this.playlistsResource.value.update((list) => [...(list ?? []), playlist]);
   }
 
   toTrack(track: HistoryRequest): Track {
@@ -149,7 +147,7 @@ export class LibraryPage {
     element?.scrollIntoView({ behavior: 'smooth' });
   }
 
-  confirmDelete(playlist: PlaylistResponse) {
+  confirmDelete(playlist: PlaylistResponse): void {
     this.confirmationService.confirm({
       message: `Do you want to delete playlist '${playlist.name}'?`,
       header: 'Delete playlist',
@@ -172,13 +170,13 @@ export class LibraryPage {
             list?.filter((item) => item.id !== playlist.id),
           );
 
-          this.messageService.add({
+          this.showToast({
             severity: 'success',
             summary: 'Deleted',
             detail: 'Playlist deleted',
           });
         } catch {
-          this.messageService.add({
+          this.showToast({
             severity: 'error',
             summary: 'Error',
             detail: 'Failed to delete playlist',
@@ -186,7 +184,7 @@ export class LibraryPage {
         }
       },
       reject: () => {
-        this.messageService.add({
+        this.showToast({
           severity: 'info',
           summary: 'Rejected',
           detail: 'You have rejected',
@@ -195,7 +193,27 @@ export class LibraryPage {
     });
   }
 
-  showCreationForm(value = true) {
+  editPlaylist(playlist: PlaylistResponse): void {
+    this.editingPlaylist.set(playlist);
+    this.visible = true;
+  }
+
+  showCreationForm(value = true): void {
+    this.editingPlaylist.set(null);
     this.visible = value;
+  }
+
+  onPlaylistCreated(playlist: PlaylistResponse) {
+    this.playlistsResource.value.update((list) => [...(list ?? []), playlist]);
+  }
+
+  onPlaylistUpdated(playlist: PlaylistResponse) {
+    this.playlistsResource.value.update((list) =>
+      list?.map((p) => (p.id === playlist.id ? { ...p, ...playlist } : p)),
+    );
+  }
+
+  showToast(msg: Message): void {
+    this.messageService.add(msg);
   }
 }

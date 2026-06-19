@@ -35,8 +35,13 @@ export class LibraryService {
     return await firstValueFrom(this.http.post<PlaylistResponse>(this.playlistsUrl, playlist));
   }
 
-  async updatePlaylist() {
-    //
+  async updatePlaylist(
+    id: string,
+    playlist: { name: string; description: string },
+  ): Promise<PlaylistResponse> {
+    return await firstValueFrom(
+      this.http.put<PlaylistResponse>(this.playlistsUrl + '/' + id, playlist),
+    );
   }
 
   async deletePlaylist(id: string) {

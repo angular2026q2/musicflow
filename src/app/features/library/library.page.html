@@ -19,14 +19,17 @@
       ></p-button>
 
       <p-dialog
-        header="Create playlist"
+        [header]="editingPlaylist() ? 'Edit playlist' : 'Create playlist'"
         [modal]="true"
         [(visible)]="visible"
         class="library-page__dialog"
       >
         <app-playlist-form
+          [playlist]="editingPlaylist()"
           [(visible)]="visible"
           (created)="onPlaylistCreated($event)"
+          (updated)="onPlaylistUpdated($event)"
+          (toast)="showToast($event)"
         ></app-playlist-form>
       </p-dialog>
     </div>
@@ -44,6 +47,7 @@
             <app-playlist-card
               [data]="playlist"
               (delete)="confirmDelete(playlist)"
+              (edit)="editPlaylist(playlist)"
             ></app-playlist-card>
           }
         </div>

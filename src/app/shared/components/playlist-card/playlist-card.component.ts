@@ -13,9 +13,15 @@ import { DropdownMenuComponent } from '../dropdown/dropdown-menu.component';
 })
 export class PlaylistCardComponent {
   readonly data = input.required<Playlist>();
+  readonly edit = output<Playlist>();
   readonly delete = output<Playlist>();
 
   readonly dropdownList: MenuItem[] = [
+    {
+      label: 'Edit',
+      icon: 'pi pi-pencil',
+      command: () => this.edit.emit(this.data()),
+    },
     {
       label: 'Delete',
       icon: 'pi pi-trash',

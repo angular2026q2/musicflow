@@ -20,6 +20,8 @@ If a track is already playing — visual indication (e.g., equalizer bars animat
 [x] A block with genre tags (rock, electronic, jazz, pop, etc.).
 [x] Clicking a tag navigates to the Search page with a filter for that tag.
 
+## Genres
+
 Начинаем с тегов, самая простая часть. Поиск уже готов, реализация понятная.
 Но, как оказалось, не все так просто.
 
@@ -39,3 +41,9 @@ If a track is already playing — visual indication (e.g., equalizer bars animat
 В методе с запросом в сервис, меняем логику, чтобы он отключался, если нет запроса, и поиск с жанром запускался.
 
 Поменял html шаблон, чтобы компоненты в обратывались с новой логикой.
+
+## Play button
+
+Сейчас у нас есть компонент который по списку рисует карточки треков. Карточки треков — отдельный компонент.
+
+Решаю, что кнопку play/pause буду накладывать не на карточке трека, а компоненте где они рендерятся. Посути разделяю отображение инфу и взаимодействие. Кроме того минус уровень в коммуникацуии между компонентами.

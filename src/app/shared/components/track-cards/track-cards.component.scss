@@ -9,7 +9,6 @@
 
   &__content {
     scrollbar-width: none;
-
     overflow-x: scroll;
     display: flex;
     gap: var(--space-lg);
@@ -27,7 +26,25 @@
       width: 400px;
       height: 225px;
       border-radius: var(--radius-md);
+      position: relative;
+
+      &:hover {
+        .track-cards__play-button {
+          cursor: pointer;
+          opacity: 1;
+        }
+      }
     }
+  }
+
+  &__play-button {
+    background: var(--color-tertiary);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: default;
+    opacity: 0;
   }
 
   @media (max-width: styles.$bp-sm) {

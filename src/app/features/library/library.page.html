@@ -15,7 +15,20 @@
         label="Create playlist"
         icon="pi pi-plus"
         severity="secondary"
+        (click)="showCreationForm()"
       ></p-button>
+
+      <p-dialog
+        header="Create playlist"
+        [modal]="true"
+        [(visible)]="visible"
+        class="library-page__dialog"
+      >
+        <app-playlist-form
+          [(visible)]="visible"
+          (created)="onPlaylistCreated($event)"
+        ></app-playlist-form>
+      </p-dialog>
     </div>
 
     <div class="library-page__content">

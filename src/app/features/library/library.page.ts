@@ -3,6 +3,7 @@ import { LibraryService } from '@core/services/library.service';
 import { MusicPlayerService } from '@core/services/music-player.service';
 import { ErrorMessageComponent } from '@shared/components/error-message/error-message.component';
 import { PlaylistCardComponent } from '@shared/components/playlist-card/playlist-card.component';
+import { PlaylistFormComponent } from '@shared/components/playlist-form/playlist-form.component';
 import { TrackComponent } from '@shared/components/track/track.component';
 import { HistoryGroup, HistoryRequest, HistoryResponse } from '@shared/interfaces/history';
 import { PlaylistResponse } from '@shared/interfaces/playlist.interface';
@@ -13,6 +14,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ChipModule } from 'primeng/chip';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DialogModule } from 'primeng/dialog';
 import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
 import { DatesSliderSkeletonComponent } from './skeleton/dates-slider.skeleton';
@@ -31,6 +33,8 @@ import { HistoryGroupSkeletonComponent } from './skeleton/history-group.skeleton
     ErrorMessageComponent,
     ConfirmDialogModule,
     ToastModule,
+    PlaylistFormComponent,
+    DialogModule,
   ],
   providers: [ConfirmationService, MessageService],
   templateUrl: './library.page.html',
@@ -41,6 +45,8 @@ export class LibraryPage {
   readonly PAGE_TITLE = 'Your Library';
   readonly PLAYLIST_SECTION_TITLE = 'Playlists';
   readonly HISTORY_SECTION_TITLE = 'Recently Played';
+
+  visible = false;
 
   private readonly playerService = inject(MusicPlayerService);
   private readonly libraryService = inject(LibraryService);
@@ -86,7 +92,7 @@ export class LibraryPage {
     () =>
       this.libraryService.playlists.value()?.map((playlist) => ({
         ...playlist,
-        duration: playlist.tracks.reduce((acc, track) => acc + track.duration, 0),
+        duration: (playlist.tracks ?? []).reduce((acc, track) => acc + track.duration, 0),
       })) ?? [],
   );
 
@@ -99,6 +105,10 @@ export class LibraryPage {
         this.playlistsResource.reload();
         break;
     }
+  }
+
+  onPlaylistCreated(playlist: PlaylistResponse) {
+    this.playlistsResource.value.update((list) => [...(list ?? []), playlist]);
   }
 
   toTrack(track: HistoryRequest): Track {
@@ -183,5 +193,9 @@ export class LibraryPage {
         });
       },
     });
+  }
+
+  showCreationForm(value = true) {
+    this.visible = value;
   }
 }

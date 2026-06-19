@@ -31,8 +31,8 @@ export class LibraryService {
     await firstValueFrom(this.http.post(this.historyUrl, body));
   }
 
-  async createPlaylist(playlist: { name: string; description: string }) {
-    await firstValueFrom(this.http.post(this.playlistsUrl, playlist));
+  async createPlaylist(playlist: { name: string; description: string }): Promise<PlaylistResponse> {
+    return await firstValueFrom(this.http.post<PlaylistResponse>(this.playlistsUrl, playlist));
   }
 
   async updatePlaylist() {

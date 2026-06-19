@@ -61,4 +61,9 @@
   &__playlist-empty {
     text-align: center;
   }
+
+  &__dialog {
+    position: absolute;
+    width: 25rem;
+  }
 }

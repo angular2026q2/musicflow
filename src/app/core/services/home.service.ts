@@ -11,6 +11,10 @@ export class HomeService {
   private readonly baseUrl = '/api/v1';
   private http = inject(HttpClient);
 
+  getTracksUrl() {
+    return `${this.baseUrl}/music/tracks`;
+  }
+
   getTrendingTracks() {
     return this.http.get<TrackResponse<Track>>(`${this.baseUrl}/music/tracks`, {
       params: {

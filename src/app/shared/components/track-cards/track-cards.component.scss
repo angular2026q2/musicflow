@@ -9,6 +9,7 @@
 
   &__content {
     scrollbar-width: none;
+
     overflow-x: scroll;
     display: flex;
     gap: var(--space-lg);
@@ -22,11 +23,13 @@
     }
 
     &-card {
+      position: relative;
+
       flex: 0 0 400px;
+
       width: 400px;
       height: 225px;
       border-radius: var(--radius-md);
-      position: relative;
 
       &:hover {
         .track-cards__play-button {
@@ -38,13 +41,15 @@
   }
 
   &__play-button {
-    background: var(--color-tertiary);
+    cursor: default;
+
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    cursor: default;
+
     opacity: 0;
+    background: var(--color-tertiary);
   }
 
   @media (max-width: styles.$bp-sm) {

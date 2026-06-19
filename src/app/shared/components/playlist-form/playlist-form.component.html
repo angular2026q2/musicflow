@@ -1,0 +1,51 @@
+<div class="playlist-form">
+  <!-- <p-toast /> -->
+  <form [formGroup]="creationForm" (ngSubmit)="onSubmit()" class="playlist-form__form">
+    <div class="playlist-form__wrapper">
+      <p-floatlabel variant="in">
+        <input
+          pInputText
+          id="playlist-name"
+          formControlName="name"
+          [invalid]="name.touched && name.invalid"
+          autocomplete="off"
+          class="playlist-form__input"
+        />
+        <label for="playlist-name">Playlist title</label>
+      </p-floatlabel>
+      @if (name.touched && name.invalid) {
+        @if (name.hasError('required')) {
+          <small class="playlist-form__text--required">Title is required</small>
+        }
+        @if (name.hasError('minlength')) {
+          <small class="playlist-form__text--required">Title must be at least 3 characters</small>
+        }
+      }
+
+      <p-floatlabel variant="in">
+        <textarea
+          pTextarea
+          id="playlist-description"
+          formControlName="description"
+          rows="5"
+          cols="30"
+          style="resize: none"
+          class="playlist-form__textarea"
+        ></textarea>
+        <label for="playlist-description">Description</label>
+      </p-floatlabel>
+
+      @if (description.touched && description.invalid) {
+        @if (description.hasError('maxlength')) {
+          <small class="playlist-form__text--required"
+            >Description must be at most 200 characters</small
+          >
+        }
+      }
+    </div>
+
+    <button pButton severity="secondary" type="submit" [disabled]="creationForm.invalid">
+      <span pButtonLabel>Submit</span>
+    </button>
+  </form>
+</div>

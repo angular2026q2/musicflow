@@ -48,6 +48,7 @@
               [data]="playlist"
               (delete)="confirmDelete(playlist)"
               (edit)="editPlaylist(playlist)"
+              (cardClick)="routeToPlaylist(playlist.id)"
             ></app-playlist-card>
           }
         </div>

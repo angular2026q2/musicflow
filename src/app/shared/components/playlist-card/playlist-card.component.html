@@ -1,12 +1,20 @@
 @let playlist = data();
 
-<div class="playlist-card">
+<div
+  class="playlist-card"
+  tabindex="0"
+  (click)="cardClick.emit(playlist.id)"
+  (keydown.enter)="cardClick.emit(playlist.id)"
+>
   <div class="playlist-card__header">
     <div class="playlist-card__title">
       {{ playlist.name }}
     </div>
 
-    <app-dropdown-menu [items]="dropdownList"></app-dropdown-menu>
+    <app-dropdown-menu
+      [items]="dropdownList"
+      (click)="$event.stopPropagation()"
+    ></app-dropdown-menu>
   </div>
   <div class="playlist-card__meta">
     <div class="playlist-card__track-count">

@@ -1,10 +1,12 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { LibraryService } from '@core/services/library.service';
 import { MusicPlayerService } from '@core/services/music-player.service';
 import { ErrorMessageComponent } from '@shared/components/error-message/error-message.component';
 import { PlaylistCardComponent } from '@shared/components/playlist-card/playlist-card.component';
 import { PlaylistFormComponent } from '@shared/components/playlist-form/playlist-form.component';
 import { TrackComponent } from '@shared/components/track/track.component';
+import { APP_ROUTES } from '@shared/constants/routes';
 import { HistoryGroup, HistoryRequest, HistoryResponse } from '@shared/interfaces/history';
 import { Message } from '@shared/interfaces/message';
 import { PlaylistResponse } from '@shared/interfaces/playlist.interface';
@@ -49,6 +51,7 @@ export class LibraryPage {
 
   visible = false;
 
+  private readonly router = inject(Router);
   private readonly playerService = inject(MusicPlayerService);
   private readonly libraryService = inject(LibraryService);
   private readonly messageService = inject(MessageService);
@@ -215,5 +218,9 @@ export class LibraryPage {
 
   showToast(msg: Message): void {
     this.messageService.add(msg);
+  }
+
+  routeToPlaylist(id: string): void {
+    this.router.navigate([APP_ROUTES.LIBRARY.route, 'playlist', id]);
   }
 }

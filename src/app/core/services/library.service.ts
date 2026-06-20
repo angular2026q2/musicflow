@@ -1,6 +1,7 @@
 import { HttpClient, httpResource } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { HistoryRequest, HistoryResponse } from '@shared/interfaces/history';
+import { Payload } from '@shared/interfaces/payload';
 import { PlaylistResponse } from '@shared/interfaces/playlist.interface';
 import { Track } from '@shared/interfaces/track.interface';
 import { firstValueFrom } from 'rxjs';
@@ -35,13 +36,20 @@ export class LibraryService {
     return await firstValueFrom(this.http.post<PlaylistResponse>(this.playlistsUrl, playlist));
   }
 
-  async updatePlaylist(
-    id: string,
-    playlist: { name: string; description: string },
-  ): Promise<PlaylistResponse> {
-    return await firstValueFrom(
-      this.http.put<PlaylistResponse>(this.playlistsUrl + '/' + id, playlist),
-    );
+  async updatePlaylist(id: string, payload: Payload): Promise<PlaylistResponse> {
+    return firstValueFrom(this.http.put<PlaylistResponse>(`${this.playlistsUrl}/${id}`, payload));
+  }
+
+  async createPlaylistWithTracks(payload: Payload): Promise<PlaylistResponse> {
+    const created = await this.createPlaylist({
+      name: payload.name,
+      description: payload.description,
+    });
+    return this.updatePlaylist(created.id, {
+      name: created.name,
+      description: created.description ?? '',
+      tracks: payload.tracks,
+    });
   }
 
   async deletePlaylist(id: string) {

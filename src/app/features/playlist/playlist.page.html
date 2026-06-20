@@ -1,0 +1,24 @@
+@let p = playlist();
+
+<section class="playlist">
+  <p-button label="Back" (click)="goBack()"></p-button>
+
+  @if (p !== null) {
+    <h1 class="playlist__title">{{ p.name }}</h1>
+
+    @if (p.description) {
+      <div class="playlist__decription">{{ p.description }}</div>
+    }
+
+    <div class="playlist__content">
+      @for (track of tracks(); track track.id) {
+        <app-track
+          [track]="track"
+          [meta]="['artist', 'album']"
+          [position]="$index + 1"
+          (playTrack)="onTrackPlay(track)"
+        />
+      }
+    </div>
+  }
+</section>

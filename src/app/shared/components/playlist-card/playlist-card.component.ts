@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { Playlist } from '@shared/interfaces/playlist.interface';
+import { Playlist, PlaylistResponse } from '@shared/interfaces/playlist.interface';
 import { DurationPipe } from '@shared/pipes/duration.pipe';
 import { MenuItem } from 'primeng/api';
 import { DropdownMenuComponent } from '../dropdown/dropdown-menu.component';
@@ -12,9 +12,10 @@ import { DropdownMenuComponent } from '../dropdown/dropdown-menu.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PlaylistCardComponent {
-  readonly data = input.required<Playlist>();
+  readonly data = input.required<PlaylistResponse>();
   readonly edit = output<Playlist>();
   readonly delete = output<Playlist>();
+  readonly cardClick = output<string>();
 
   readonly dropdownList: MenuItem[] = [
     {

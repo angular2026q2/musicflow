@@ -21,13 +21,15 @@
     }
   </div>
 
-  <div class="home-page__recently-played">
-    @if (recentTracksResource.isLoading()) {
-      <p>Loading</p>
-    } @else if (recentTracksResource.error(); as error) {
-      <app-error [message]="error.message" (retry)="recentTracksResource.reload()" />
-    } @else {
-      <app-track-list [tracks]="recentTracks()" />
-    }
-  </div>
+  @if (isAuthenticated()) {
+    <div class="home-page__recently-played">
+      @if (recentTracksResource.isLoading()) {
+        <p>Loading...</p>
+      } @else if (recentTracksResource.error(); as error) {
+        <app-error [message]="error.message" (retry)="recentTracksResource.reload()" />
+      } @else {
+        <app-track-list [tracks]="recentTracks()" />
+      }
+    </div>
+  }
 </section>

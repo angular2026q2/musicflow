@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 import { httpResource } from '@angular/common/http';
 import { CatalogResponse } from '@shared/interfaces/catalog.interface';
 import { ErrorComponent } from '@shared/components/error/error.component';
+import { AuthService } from '@core/services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -35,7 +36,9 @@ import { ErrorComponent } from '@shared/components/error/error.component';
 export class HomePage {
   private homeService = inject(HomeService);
   private genreService = inject(GenreService);
+  private readonly authService = inject(AuthService);
 
+  readonly isAuthenticated = this.authService.isAuthenticated;
   private router = inject(Router);
   readonly limit = signal(10);
   readonly offset = signal(0);
@@ -58,9 +61,13 @@ export class HomePage {
     },
   }));
 
-  readonly recentTracksResource = httpResource<RecentTrack[]>(() =>
-    this.homeService.getHistoryUrl(),
-  );
+  readonly recentTracksResource = httpResource<RecentTrack[]>(() => {
+    if (!this.authService.isAuthenticated()) {
+      return undefined;
+    }
+
+    return this.homeService.getHistoryUrl();
+  });
 
   readonly trendingTracks = computed(() => this.trendingTracksResource.value()?.data ?? []);
   readonly newReleases = computed(() => this.newReleasesResource.value()?.data ?? []);

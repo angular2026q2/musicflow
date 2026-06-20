@@ -14,6 +14,8 @@ import { Artist } from '@shared/interfaces/artist.interface';
 import { Track } from '@shared/interfaces/track.interface';
 import { ButtonModule } from 'primeng/button';
 import { DividerModule } from 'primeng/divider';
+import { MessageModule } from 'primeng/message';
+import { ArtistSkeletonPage } from './skeleton/artist.skeleton';
 
 @Component({
   selector: 'app-artist',
@@ -27,6 +29,9 @@ import { DividerModule } from 'primeng/divider';
     DatePipe,
     RouterLink,
     LucideDynamicIcon,
+    ArtistSkeletonPage,
+    ButtonModule,
+    MessageModule,
   ],
   templateUrl: './artist.page.html',
   styleUrl: './artist.page.scss',
@@ -52,10 +57,10 @@ export class ArtistPage {
   );
 
   readonly showAll = signal(false);
-  readonly isPlay = computed(() => this.playerService.isPlaying()); //)<boolean>(false);
+  readonly isPlay = computed(() => this.playerService.isPlaying());
   readonly isFollowing = signal<boolean>(false);
 
-  readonly artist = computed(() => this.artistResource.value() ?? null);
+  readonly artist = computed(() => this.artistResource.value());
   private readonly allTracks = computed<Track[]>(() => this.allTracksResource.value()?.data ?? []);
   readonly trackCountByAlbum = computed<Map<string, number>>(() => {
     const tracks = this.allTracks();
@@ -137,5 +142,9 @@ export class ArtistPage {
 
   albumLink(albumId: string): string {
     return buildAlbumPath(albumId);
+  }
+
+  reload(): void {
+    this.allAlbumsResource.reload();
   }
 }

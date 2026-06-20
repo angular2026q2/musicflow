@@ -8,9 +8,11 @@
       <app-track-cards [title]="'Trending Now'" [tracks]="trendingTracks()" />
     }
   </div>
+
   <div home-page__genres>
     <app-genres [genres]="genres()" (genreSelected)="searchByGenre($event)"></app-genres>
   </div>
+
   <div home-page__new-relases>
     @if (newReleasesResource.isLoading()) {
       <p>Loading</p>
@@ -28,7 +30,15 @@
       } @else if (recentTracksResource.error(); as error) {
         <app-error [message]="error.message" (retry)="recentTracksResource.reload()" />
       } @else {
-        <app-track-list [tracks]="recentTracks()" />
+        <!-- <app-track-list [tracks]="recentTracks()" /> -->
+        @for (track of recentTracks(); track track.id) {
+          <app-track
+            [track]="toTrack(track)"
+            [meta]="['artist']"
+            [position]="$index + 1"
+            (playTrack)="onTrackPlay(track)"
+          />
+        }
       }
     </div>
   }

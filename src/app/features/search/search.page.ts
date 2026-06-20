@@ -135,6 +135,7 @@ export class SearchPage implements OnInit {
       ...track,
     };
   }
+
   onTrackPlay(track: Track): void {
     const index = this.tracks().indexOf(track);
     this.playerService.playQueue(

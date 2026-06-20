@@ -1,13 +1,17 @@
 .playlist-form {
-  &__form {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-md);
-  }
+  width: clamp(18rem, 50vw, 50rem);
 
   &__wrapper {
     display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin-bottom: var(--space-md);
+  }
+
+  &__info {
+    display: flex;
     flex-direction: column;
+    flex-grow: 1;
     gap: var(--space-sm);
   }
 
@@ -24,5 +28,86 @@
 
   &__input {
     width: 100%;
+  }
+
+  &__selected {
+    width: 100%;
+  }
+
+  &__subheader {
+    margin-bottom: var(--space-sm);
+    font-size: var(--text-body-md);
+    font-weight: var(--weight-regular);
+    color: var(--color-primary);
+  }
+
+  &__field {
+    margin-bottom: var(--space-sm);
+  }
+
+  &__message {
+    font-size: var(--text-label);
+  }
+
+  &__search {
+    flex-grow: 1;
+    min-width: 18rem;
+  }
+
+  &__result-text,
+  &__selected-item-text {
+    margin-bottom: var(--space-sm);
+    font-size: var(--text-body-sm);
+  }
+
+  &__results {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+
+    max-height: 14rem;
+    margin: 0;
+    padding: 0;
+
+    // опционально: визуально выделить область
+    border: 1px solid var(--color-outline-variant);
+    border-radius: var(--radius-sm);
+
+    list-style: none;
+  }
+
+  &__result {
+    display: flex;
+    gap: var(--space-sm);
+    align-items: center;
+    justify-content: space-between;
+
+    padding: var(--space-sm);
+
+    &:not(:last-child) {
+      border-bottom: 1px solid var(--color-outline-variant);
+    }
+  }
+
+  &__selected-list {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    max-height: 12rem;
+  }
+
+  &__selected-item {
+    display: flex;
+    gap: var(--space-sm);
+    align-items: center;
+    justify-content: space-between;
+
+    padding: var(--space-xs) var(--space-sm);
+  }
+
+  &__result-text,
+  &__selected-item-text {
+    overflow: hidden;
+    margin-bottom: 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }

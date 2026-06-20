@@ -1,14 +1,6 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  inject,
-  signal,
-  AfterViewInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 
-import { TrackListComponent } from '@shared/components/track-list/track-list.component';
 import { HomeService } from '@core/services/home.service';
 import { RecentTrack } from '@shared/interfaces/recent-track.interface';
 import { ButtonModule } from 'primeng/button';
@@ -31,7 +23,7 @@ import { MusicPlayerService } from '@core/services/music-player.service';
   selector: 'app-home',
   imports: [
     ButtonModule,
-    TrackListComponent,
+
     GenresComponent,
     TrackCardsComponent,
     SkeletonModule,
@@ -43,7 +35,7 @@ import { MusicPlayerService } from '@core/services/music-player.service';
   styleUrl: './home.page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomePage implements AfterViewInit {
+export class HomePage {
   private homeService = inject(HomeService);
   private genreService = inject(GenreService);
   private readonly authService = inject(AuthService);
@@ -82,24 +74,7 @@ export class HomePage implements AfterViewInit {
 
   readonly trendingTracks = computed(() => this.trendingTracksResource.value()?.data ?? []);
   readonly newReleases = computed(() => this.newReleasesResource.value()?.data ?? []);
-  // readonly recentTracks = computed(() => this.recentTracksResource.value() ?? []);
-  readonly recentTracks = computed(() => {
-    const tracks = this.recentTracksResource.value() ?? [];
-
-    console.log('recent:', tracks);
-
-    return tracks;
-  });
-
-  ngAfterViewInit() {
-    setTimeout(() => {
-      console.log('loading:', this.recentTracksResource.isLoading());
-
-      console.log('error:', this.recentTracksResource.error());
-
-      console.log('value:', this.recentTracksResource.value());
-    });
-  }
+  readonly recentTracks = computed(() => this.recentTracksResource.value() ?? []);
 
   readonly genres = toSignal(this.genreService.getGenres(), {
     initialValue: [],

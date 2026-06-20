@@ -30,7 +30,6 @@
       } @else if (recentTracksResource.error(); as error) {
         <app-error [message]="error.message" (retry)="recentTracksResource.reload()" />
       } @else {
-        <!-- <app-track-list [tracks]="recentTracks()" /> -->
         @for (track of recentTracks(); track track.id) {
           <app-track
             [track]="toTrack(track)"

@@ -1,0 +1,35 @@
+.error {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  align-items: center;
+
+  padding: var(--space-xl);
+  border-radius: var(--radius-md);
+
+  background-color: var(--color-surface-container);
+
+  &__button {
+    cursor: pointer;
+
+    display: flex;
+    gap: var(--space-sm);
+    align-items: center;
+
+    padding: var(--space-sm) var(--space-lg);
+    border: none;
+    border-radius: var(--radius-full);
+
+    color: var(--color-on-surface);
+
+    background-color: var(--color-surface-high);
+
+    transition: background-color 0.2s ease;
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        background-color: var(--color-surface-highest);
+      }
+    }
+  }
+}

@@ -13,7 +13,7 @@ import { SearchService } from '@core/services/search.service';
 import { Track } from '@shared/interfaces/track.interface';
 
 import { SubmitButtonComponent } from '@shared/components/submit-button/submit-button.component';
-import { TrackResponse } from '@shared/interfaces/track-responce.interface';
+
 import { SelectModule } from 'primeng/select';
 import { FormsModule } from '@angular/forms';
 import { TRACK_SORT_OPTIONS, TrackSort } from './track-search.model';
@@ -29,6 +29,7 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { MenubarModule } from 'primeng/menubar';
 import { ICONS } from '@shared/constants/icons';
 import { LucideDynamicIcon } from '@lucide/angular';
+import { CatalogResponse } from '@shared/interfaces/catalog.interface';
 @Component({
   selector: 'app-search',
   imports: [
@@ -218,7 +219,7 @@ export class SearchPage implements OnInit {
         tags: this.selectedGenres(),
       })
       .subscribe({
-        next: (res: TrackResponse<Track>) => {
+        next: (res: CatalogResponse<Track>) => {
           this.rawTracks.update((prev) => [...prev, ...res.data]);
           this.hasMoreTracks.set(res.data.length === this.LIMIT);
         },

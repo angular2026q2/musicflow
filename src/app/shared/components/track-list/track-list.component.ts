@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 import { TrackCardComponent } from '@shared/components/track-card/track-card.component';
-import { TracksResponce } from '@shared/interfaces/tracks-responce.interface';
+import { RecentTrack } from '@shared/interfaces/recent-track.interface';
 
 @Component({
   selector: 'app-track-list',
@@ -11,5 +11,5 @@ import { TracksResponce } from '@shared/interfaces/tracks-responce.interface';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TrackListComponent {
-  tracks = input.required<TracksResponce[]>();
+  tracks = input.required<RecentTrack[]>();
 }

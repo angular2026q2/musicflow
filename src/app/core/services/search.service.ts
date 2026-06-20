@@ -1,8 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { TrackResponse } from '@shared/interfaces/track-responce.interface';
 import { Track } from '@shared/interfaces/track.interface';
 import { SearchTracksRequest } from '@core/services/dto/search-track.dto';
+import { CatalogResponse } from '@shared/interfaces/catalog.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -21,6 +21,6 @@ export class SearchService {
       params = params.set('tags', req.tags.join(','));
     }
 
-    return this.http.get<TrackResponse<Track>>(`${this.baseUrl}/music/tracks`, { params });
+    return this.http.get<CatalogResponse<Track>>(`${this.baseUrl}/music/tracks`, { params });
   }
 }

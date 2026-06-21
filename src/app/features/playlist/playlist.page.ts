@@ -19,14 +19,17 @@ import { Router } from '@angular/router';
 import { LibraryService } from '@core/services/library.service';
 import { MusicPlayerService } from '@core/services/music-player.service';
 import { DropdownMenuComponent } from '@shared/components/dropdown/dropdown-menu.component';
+import { PlaylistFormComponent } from '@shared/components/playlist-form/playlist-form.component';
 import { TrackComponent } from '@shared/components/track/track.component';
 import { APP_ROUTES } from '@shared/constants/routes';
+import { Message } from '@shared/interfaces/message';
 import { Track } from '@shared/interfaces/track.interface';
 import { toHistoryRequest } from '@shared/utils/toHistorRequest';
 import { toTrack } from '@shared/utils/toTrack';
 import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
   selector: 'app-playlist',
@@ -38,6 +41,8 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     CdkDropList,
     CdkDrag,
     CdkDragPlaceholder,
+    PlaylistFormComponent,
+    DialogModule,
   ],
   providers: [ConfirmationService],
   templateUrl: './playlist.page.html',
@@ -55,6 +60,7 @@ export class PlaylistPage {
   readonly id = input.required<string>();
 
   readonly query = signal('');
+  readonly editDialogVisible = signal(false);
 
   readonly playlist = computed(
     () => this.libraryService.playlists.value()?.find((p) => p.id === this.id()) ?? null,
@@ -238,5 +244,18 @@ export class PlaylistPage {
         detail: 'Failed to reorder track',
       });
     }
+  }
+
+  openEdit(): void {
+    this.editDialogVisible.set(true);
+  }
+
+  onPlaylistUpdated(): void {
+    this.libraryService.playlists.reload();
+    this.editDialogVisible.set(false);
+  }
+
+  onFormToast(message: Message): void {
+    this.messageService.add(message);
   }
 }

@@ -2,16 +2,42 @@
 
 <section class="playlist">
   <p-confirmDialog />
-  <p-button label="Back" (click)="goBack()"></p-button>
+  <p-button label="Back" icon="pi pi-arrow-left" severity="secondary" (click)="goBack()"></p-button>
 
   @if (p !== null) {
     <div class="playlist__header">
-      <h1 class="playlist__title">{{ p.name }}</h1>
+      <div class="playlist__subheader">
+        <h1 class="playlist__title">{{ p.name }}</h1>
+
+        <p-button
+          class="playlist__edit-button"
+          label="Edit playlist"
+          icon="pi pi-pencil"
+          severity="secondary"
+          (click)="openEdit()"
+        ></p-button>
+      </div>
 
       @if (p.description) {
         <div class="playlist__description">{{ p.description }}</div>
       }
     </div>
+
+    <p-dialog
+      header="Edit playlist"
+      [(visible)]="editDialogVisible"
+      [modal]="true"
+      [style]="{ width: '50rem' }"
+    >
+      @if (editDialogVisible()) {
+        <app-playlist-form
+          [(visible)]="editDialogVisible"
+          [playlist]="p"
+          (updated)="onPlaylistUpdated()"
+          (toast)="onFormToast($event)"
+        />
+      }
+    </p-dialog>
 
     <div cdkDropList class="playlist__content" (cdkDropListDropped)="drop($event)">
       @for (track of orderedTracks(); track track.id) {

@@ -72,4 +72,8 @@
   <span class="track__duration">
     {{ track().duration | duration }}
   </span>
+
+  <div class="track__actions">
+    <ng-content select="[trackActions]"></ng-content>
+  </div>
 </div>

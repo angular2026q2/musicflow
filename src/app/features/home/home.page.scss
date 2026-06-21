@@ -2,6 +2,9 @@
   height: 100%;
 
   &__recently-played {
+    &__title {
+      margin-bottom: var(--space-md);
+    }
     &__skeleton {
       display: flex;
       flex-direction: column;

@@ -30,6 +30,7 @@
       } @else if (recentTracksResource.error(); as error) {
         <app-error [message]="error.message" (retry)="recentTracksResource.reload()" />
       } @else {
+        <h2 class="home-page__recently-played__title">Recently Played</h2>
         @for (track of recentTracks(); track track.id) {
           <app-track
             [track]="toTrack(track)"

@@ -6,10 +6,13 @@
         <app-small-card
           [title]="genre"
           [icon]="getIcon(genre)"
-          [iconColor]="getRandomColor()"
-          [iconBackgroundColor]="getRandomColor()"
+          [iconColor]="'var(--color-on-secondary-container)'"
+          [iconBackgroundColor]="'var(--color-secondary)'"
         ></app-small-card>
       </button>
+      <div class="genres__content-card-mobile">
+        <app-submit-button [label]="genre" (click)="selectGenre(genre)" />
+      </div>
     }
   </div>
 </div>

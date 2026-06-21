@@ -5,10 +5,11 @@ import { Genre } from '@shared/types/genre.type';
 import { findKeyByValue } from '@shared/utils/findKeyByValue';
 import { IconKey, ICONS } from '@shared/constants/icons';
 import { getRandomColor } from '@shared/utils/getRandomColor';
+import { SubmitButtonComponent } from '@shared/components/submit-button/submit-button.component';
 
 @Component({
   selector: 'app-genres',
-  imports: [SmallCardComponent, CommonModule],
+  imports: [SmallCardComponent, CommonModule, SubmitButtonComponent],
   templateUrl: './genres.component.html',
   styleUrl: './genres.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

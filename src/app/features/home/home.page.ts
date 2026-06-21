@@ -65,9 +65,9 @@ export class HomePage {
   }));
 
   readonly recentTracksResource = httpResource<RecentTrack[]>(() => {
-    // if (!this.authService.isAuthenticated()) {
-    //   return undefined;
-    // }
+    if (!this.authService.isAuthenticated()) {
+      return undefined;
+    }
 
     return this.homeService.getHistoryUrl();
   });

@@ -24,7 +24,6 @@
 
     &-card {
       position: relative;
-
       flex: 0 0 400px;
 
       width: 400px;
@@ -35,21 +34,40 @@
         .track-cards__play-button {
           cursor: pointer;
           opacity: 1;
+          box-shadow: 0 0 15px color-mix(in srgb, var(--color-primary-container) 80%, transparent);
         }
+      }
+
+      &__title {
+        color: var(--color-white);
+      }
+
+      &__description {
+        color: var(--color-white);
       }
     }
   }
 
   &__play-button {
     cursor: default;
-
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: none;
+    background: var(--color-secondary);
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 
     opacity: 0;
-    background: var(--color-tertiary);
+
+    z-index: 10;
+
+    svg {
+      fill: var(--color-on-secondary-container);
+      color: transparent;
+    }
   }
 
   @media (max-width: styles.$bp-sm) {

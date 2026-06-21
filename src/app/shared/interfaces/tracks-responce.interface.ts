@@ -1,6 +1,6 @@
 import { Track } from './track.interface';
 
-export type RecentlyPlayedTrack = Pick<Track, 'id' | 'album_image' | 'artist_name' | 'duration'> & {
+export type TracksResponce = Pick<Track, 'id' | 'album_image' | 'artist_name' | 'duration'> & {
   user_id: string;
   played_at: string;
   track_id: string;

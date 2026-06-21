@@ -5,6 +5,7 @@ import { Payload } from '@shared/interfaces/payload';
 import { PlaylistResponse } from '@shared/interfaces/playlist.interface';
 import { Track } from '@shared/interfaces/track.interface';
 import { firstValueFrom } from 'rxjs';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,9 +15,14 @@ export class LibraryService {
   private readonly historyUrl = this.apiUrl + 'history';
   private readonly playlistsUrl = this.apiUrl + 'playlists';
   private readonly http = inject(HttpClient);
+  private readonly auth = inject(AuthService);
 
-  readonly history = httpResource<HistoryResponse[]>(() => this.historyUrl);
-  readonly playlists = httpResource<PlaylistResponse[]>(() => this.playlistsUrl);
+  readonly history = httpResource<HistoryResponse[]>(() =>
+    this.auth.isAuthenticated() ? this.historyUrl : undefined,
+  );
+  readonly playlists = httpResource<PlaylistResponse[]>(() =>
+    this.auth.isAuthenticated() ? this.playlistsUrl : undefined,
+  );
 
   async addToHistory(track: Track) {
     const body: HistoryRequest = {

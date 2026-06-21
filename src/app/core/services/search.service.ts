@@ -15,7 +15,7 @@ export class SearchService {
   searchTracks(query: Signal<string>) {
     return httpResource<CatalogResponse<Track>>(() => {
       const q = query().trim();
-      
+
       if (q.length < 2) return undefined;
 
       return {

@@ -1,17 +1,31 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
-import { Track } from '@shared/interfaces/track.interface';
-import { SearchTracksRequest } from '@core/services/dto/search-track.dto';
-import { CatalogResponse } from '@shared/interfaces/catalog.interface';
+import { HttpClient, HttpParams, httpResource } from '@angular/common/http';
+import { inject, Injectable, Signal } from '@angular/core';
+import { SearchTracksRequest } from '@core/services/dto/search-track-request';
+import type { CatalogResponse } from '@shared/interfaces/catalog.interface';
+import type { TrackResponse } from '@shared/interfaces/track-responce.interface';
+import type { Track } from '@shared/interfaces/track.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SearchService {
-  private readonly baseUrl = '/api/v1';
   private readonly http = inject(HttpClient);
+  private readonly baseUrl = '/api/v1';
 
-  searchTracks(req: SearchTracksRequest) {
+  searchTracks(query: Signal<string>) {
+    return httpResource<CatalogResponse<Track>>(() => {
+      const q = query().trim();
+      
+      if (q.length < 2) return undefined;
+
+      return {
+        url: `${this.baseUrl}/music/tracks`,
+        params: { search: q, limit: 10 },
+      };
+    });
+  }
+
+  fetchTracks(req: SearchTracksRequest) {
     let params = new HttpParams()
       .set('search', req.search)
       .set('limit', req.limit.toString())
@@ -21,6 +35,6 @@ export class SearchService {
       params = params.set('tags', req.tags.join(','));
     }
 
-    return this.http.get<CatalogResponse<Track>>(`${this.baseUrl}/music/tracks`, { params });
+    return this.http.get<TrackResponse<Track>>(`${this.baseUrl}/music/tracks`, { params });
   }
 }

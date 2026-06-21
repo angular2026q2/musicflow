@@ -13,6 +13,17 @@ export const MusicFlowPreset = definePreset(Aura, {
     },
   },
   components: {
+    chip: {
+      colorScheme: {
+        dark: {
+          root: {
+            paddingX: 'var(--space-lg)',
+            borderRadius: 'var(--radius-full)',
+            background: 'var(--color-primary-container)',
+          },
+        },
+      },
+    },
     button: {
       colorScheme: {
         dark: {

@@ -12,6 +12,10 @@
       <app-nav-item [item]="item" />
     }
 
+    @if (auth.hasToken()) {
+      <app-nav-item [item]="libraryNavItem" />
+    }
+
     @let contextItems = contextNavItems();
     @if (contextItems.length > 0) {
       <div class="sidebar__context-nav">

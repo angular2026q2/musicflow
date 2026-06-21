@@ -1,0 +1,69 @@
+.library-page {
+  min-height: 100%;
+  padding: var(--space-xl) 0;
+
+  &__playlists,
+  &__history {
+    padding: var(--space-xl) 0;
+  }
+
+  &__playlist-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__history-header {
+    margin-bottom: var(--space-lg);
+  }
+
+  &__dates-slider {
+    scrollbar-width: thin;
+
+    overflow-x: auto;
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: flex-start;
+
+    padding-bottom: var(--space-md);
+  }
+
+  &__date-chip {
+    cursor: pointer;
+    font-size: var(--text-label);
+    font-weight: var(--weight-bold);
+    transition: background var(--duration-default);
+
+    &:hover {
+      background-color: var(--color-on-primary);
+    }
+  }
+
+  &__history-group {
+    padding-block: var(--space-md);
+
+    &-title {
+      margin-bottom: var(--space-sm);
+      color: var(--color-secondary);
+    }
+  }
+
+  &__content {
+    padding-block: var(--space-lg);
+  }
+
+  &__playlist-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, min(100%, 280px));
+    gap: var(--space-md);
+  }
+
+  &__playlist-empty {
+    text-align: center;
+  }
+
+  &__dialog {
+    position: absolute;
+    width: 25rem;
+  }
+}

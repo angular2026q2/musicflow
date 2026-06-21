@@ -17,7 +17,14 @@
           [meta]="['artist', 'album']"
           [position]="$index + 1"
           (playTrack)="onTrackPlay(track)"
-        />
+        >
+          <app-dropdown-menu
+            trackActions
+            dir="vertical"
+            [items]="createDropdownList(track)"
+            (click)="$event.stopPropagation()"
+          ></app-dropdown-menu
+        ></app-track>
       }
     </div>
   }

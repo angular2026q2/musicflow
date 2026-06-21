@@ -7,12 +7,13 @@ import { PlaylistCardComponent } from '@shared/components/playlist-card/playlist
 import { PlaylistFormComponent } from '@shared/components/playlist-form/playlist-form.component';
 import { TrackComponent } from '@shared/components/track/track.component';
 import { APP_ROUTES } from '@shared/constants/routes';
-import { HistoryGroup, HistoryRequest, HistoryResponse } from '@shared/interfaces/history';
+import { HistoryGroup, HistoryResponse } from '@shared/interfaces/history';
 import { Message } from '@shared/interfaces/message';
 import { PlaylistResponse } from '@shared/interfaces/playlist.interface';
 import { Track } from '@shared/interfaces/track.interface';
 import { formatDate } from '@shared/utils/formatDate';
 import { toLocalDateKey } from '@shared/utils/toLocalDateKey';
+import { toTrack } from '@shared/utils/toTrack';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { ChipModule } from 'primeng/chip';
@@ -39,7 +40,7 @@ import { HistoryGroupSkeletonComponent } from './skeleton/history-group.skeleton
     PlaylistFormComponent,
     DialogModule,
   ],
-  providers: [ConfirmationService, MessageService],
+  providers: [ConfirmationService],
   templateUrl: './library.page.html',
   styleUrl: './library.page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -80,7 +81,7 @@ export class LibraryPage {
       groups.push({
         date,
         label: formatDate(date),
-        tracks: unique.map((t) => this.toTrack(t)),
+        tracks: unique.map((t) => toTrack(t)),
       });
     }
 
@@ -110,32 +111,6 @@ export class LibraryPage {
         this.playlistsResource.reload();
         break;
     }
-  }
-
-  toTrack(track: HistoryRequest): Track {
-    return {
-      id: track.track_id,
-      name: track.track_name,
-      artist_name: track?.artist_name ?? '',
-      album_name: track?.album_name ?? '',
-      album_image: track.album_image ?? '',
-      audio: track.audio,
-      duration: track.duration,
-
-      album_id: '',
-      artist_idstr: '',
-      artist_id: '',
-      license_ccurl: '',
-      position: 0,
-      releasedate: '',
-      audiodownload: '',
-      prourl: '',
-      shorturl: '',
-      shareurl: '',
-      image: '',
-      audiodownload_allowed: false,
-      content_id_free: false,
-    };
   }
 
   onTrackPlay(track: Track): void {

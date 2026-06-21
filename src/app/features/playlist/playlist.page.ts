@@ -1,18 +1,22 @@
 import { Location } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { LibraryService } from '@core/services/library.service';
 import { MusicPlayerService } from '@core/services/music-player.service';
 import { DropdownMenuComponent } from '@shared/components/dropdown/dropdown-menu.component';
 import { TrackComponent } from '@shared/components/track/track.component';
+import { APP_ROUTES } from '@shared/constants/routes';
 import { Track } from '@shared/interfaces/track.interface';
 import { toHistoryRequest } from '@shared/utils/toHistorRequest';
 import { toTrack } from '@shared/utils/toTrack';
-import { MenuItem, MessageService } from 'primeng/api';
+import { ConfirmationService, MenuItem, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @Component({
   selector: 'app-playlist',
-  imports: [ButtonModule, TrackComponent, DropdownMenuComponent],
+  imports: [ButtonModule, TrackComponent, DropdownMenuComponent, ConfirmDialogModule],
+  providers: [ConfirmationService],
   templateUrl: './playlist.page.html',
   styleUrl: './playlist.page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -22,6 +26,8 @@ export class PlaylistPage {
   private readonly libraryService = inject(LibraryService);
   private readonly location = inject(Location);
   private readonly messageService = inject(MessageService);
+  private readonly router = inject(Router);
+  private readonly confirmationService = inject(ConfirmationService);
 
   readonly id = input.required<string>();
 
@@ -38,7 +44,7 @@ export class PlaylistPage {
       {
         label: 'Delete',
         icon: 'pi pi-trash',
-        command: () => this.delete(track),
+        command: () => this.handleDelete(track),
       },
     ];
   }
@@ -53,7 +59,90 @@ export class PlaylistPage {
     this.playerService.playQueue(allTracks, index);
   }
 
-  async delete(track: Track) {
+  handleDelete(track: Track): void {
+    const playlist = this.playlist();
+    if (playlist === null) return;
+
+    const isLastTrack = playlist.tracks.length === 1;
+
+    if (isLastTrack) {
+      this.confirmDeleteLastTrack(track);
+    } else {
+      this.deleteTrack(track);
+    }
+  }
+
+  confirmDeleteLastTrack(track: Track): void {
+    const playlist = this.playlist();
+    if (playlist === null) return;
+
+    this.confirmationService.confirm({
+      message: `“${track.name}” is the last track. Removing it will delete the playlist “${playlist.name}”. Continue?`,
+      header: 'Delete playlist',
+      icon: 'pi pi-exclamation-triangle',
+      rejectLabel: 'Cancel',
+      rejectButtonProps: {
+        label: 'Cancel',
+        severity: 'secondary',
+        outlined: true,
+      },
+      acceptButtonProps: {
+        label: 'Delete',
+        severity: 'danger',
+      },
+
+      accept: async () => {
+        try {
+          this.deletePlaylist(playlist.id, playlist.name);
+        } catch {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Error',
+            detail: 'Failed to delete playlist',
+          });
+        }
+      },
+      reject: () => {
+        this.messageService.add({
+          severity: 'info',
+          summary: 'Rejected',
+          detail: 'You have rejected',
+        });
+      },
+    });
+  }
+
+  async deletePlaylist(id: string, name: string): Promise<void> {
+    this.messageService.add({
+      severity: 'info',
+      summary: 'Deleting',
+      detail: `Deleting playlist '${name}'...`,
+      sticky: true,
+    });
+
+    try {
+      await this.libraryService.deletePlaylist(id);
+      this.libraryService.playlists.value.update((list) => list?.filter((p) => p.id !== id));
+
+      this.messageService.clear();
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Deleted',
+        detail: `Playlist '${name}' deleted`,
+      });
+
+      this.router.navigate([APP_ROUTES.LIBRARY.route]);
+    } catch {
+      this.messageService.clear();
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Failed to delete playlist',
+      });
+    }
+  }
+
+  async deleteTrack(track: Track): Promise<void> {
     const playlist = this.playlist();
     if (playlist === null) return;
 

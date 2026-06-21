@@ -1,14 +1,17 @@
 @let p = playlist();
 
 <section class="playlist">
+  <p-confirmDialog />
   <p-button label="Back" (click)="goBack()"></p-button>
 
   @if (p !== null) {
-    <h1 class="playlist__title">{{ p.name }}</h1>
+    <div class="playlist__header">
+      <h1 class="playlist__title">{{ p.name }}</h1>
 
-    @if (p.description) {
-      <div class="playlist__decription">{{ p.description }}</div>
-    }
+      @if (p.description) {
+        <div class="playlist__decription">{{ p.description }}</div>
+      }
+    </div>
 
     <div class="playlist__content">
       @for (track of tracks(); track track.id) {

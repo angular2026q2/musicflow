@@ -6,14 +6,7 @@
         <p class="search__empty-description">Please wait while we find your music.</p>
       </div>
     </div>
-  } @else if (!query()) {
-    <div class="search__empty">
-      <div class="search__empty-wrapper">
-        <p class="search__empty-title">Find your music</p>
-        <p class="search__empty-description">Search for artists, tracks, or albums.</p>
-      </div>
-    </div>
-  } @else if (tracks().length) {
+  } @else if (tracks().length || selectedGenres().length) {
     <h2 class="search__title">
       Results for
       <span class="search__title-query">
@@ -85,6 +78,13 @@
         <app-submit-button [label]="'Load more'" (click)="loadMore()" />
       </div>
     }
+  } @else if (!query()) {
+    <div class="search__empty">
+      <div class="search__empty-wrapper">
+        <p class="search__empty-title">Find your music</p>
+        <p class="search__empty-description">Search for artists, tracks, or albums.</p>
+      </div>
+    </div>
   } @else {
     <div class="search__empty">
       <div class="search__empty-wrapper">

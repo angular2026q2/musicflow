@@ -23,10 +23,66 @@
     }
 
     &-card {
+      position: relative;
+
       flex: 0 0 400px;
+
       width: 400px;
       height: 225px;
       border-radius: var(--radius-md);
+
+      &:hover {
+        .track-cards__play-button {
+          cursor: pointer;
+          opacity: 1;
+          box-shadow: 0 0 15px color-mix(in srgb, var(--color-primary-container) 80%, transparent);
+        }
+      }
+
+      &__title {
+        color: var(--color-white);
+      }
+
+      &__description {
+        color: var(--color-white);
+      }
+    }
+  }
+
+  &__play-button {
+    cursor: default;
+
+    position: absolute;
+    z-index: 10;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    width: 64px;
+    height: 64px;
+    border: none;
+    border-radius: 50%;
+
+    opacity: 0;
+    background: var(--color-secondary);
+
+    svg {
+      color: transparent;
+      fill: var(--color-on-secondary-container);
+    }
+  }
+
+  @media (max-width: styles.$bp-md) {
+    &__content-card {
+      width: 100%;
+      max-width: 160px;
+      height: 100%;
+
+      &__description {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
   }
 

@@ -1,0 +1,18 @@
+<div class="genres">
+  <h2 class="genres__title">Genres</h2>
+  <div class="genres__content">
+    @for (genre of genres(); track genre) {
+      <button class="genres__content-card" (click)="selectGenre(genre)">
+        <app-small-card
+          [title]="genre"
+          [icon]="getIcon(genre)"
+          [iconColor]="'var(--color-on-secondary-container)'"
+          [iconBackgroundColor]="'var(--color-secondary)'"
+        ></app-small-card>
+      </button>
+      <div class="genres__content-card-mobile">
+        <app-submit-button [label]="genre" (click)="selectGenre(genre)" />
+      </div>
+    }
+  </div>
+</div>

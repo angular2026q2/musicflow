@@ -1,6 +1,6 @@
 import { HttpClient, HttpParams, httpResource } from '@angular/common/http';
 import { inject, Injectable, Signal } from '@angular/core';
-import { SearchTracksRequest } from '@core/services/dto/search-track-request';
+import { SearchTracksRequest } from '@core/services/dto/search-track.dto';
 import type { CatalogResponse } from '@shared/interfaces/catalog.interface';
 import type { TrackResponse } from '@shared/interfaces/track-responce.interface';
 import type { Track } from '@shared/interfaces/track.interface';

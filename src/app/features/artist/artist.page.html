@@ -1,7 +1,22 @@
 @let albumCount = albums().length;
 
 <section class="artist-page">
-  @if (artist(); as artist) {
+  @if (isLoading()) {
+    <app-artist-skeleton />
+  } @else if (error()) {
+    <div class="catalog__error">
+      <p-message severity="error">Failed to load. Please try again later.</p-message>
+      <p-button
+        label="Retry"
+        type="text"
+        (click)="reload()"
+        class="catalog__retry-btn"
+        severity="primary"
+      >
+        <svg [lucideIcon]="retryIcon"></svg>
+      </p-button>
+    </div>
+  } @else if (artist(); as artist) {
     <div
       class="artist-page__header"
       [class.artist-page__header--no-cover]="!artist.image"
@@ -32,22 +47,23 @@
           }
         </div>
         <div class="artist-page__right-side">
-          <app-control-button
-            [icon]="iconPlay()"
-            [active]="isPlay()"
-            (click)="toggleMusicPlay()"
+          <button
             class="artist-page__button artist-page__button--play"
-          />
+            type="button"
+            (click)="onAllTracksPlay()"
+            aria-label="Play all tracks"
+          >
+            {{ isPlay() ? 'Pause' : 'Play all' }}
+          </button>
 
           <button
             type="button"
             class="artist-page__button artist-page__button--follow"
             (click)="toggleFollow()"
+            aria-label="Follow the artist"
           >
             {{ isFollowing() ? 'unfollow' : 'follow' }}
           </button>
-
-          <!-- <app-dropdown-menu [items]="dropDownMenuItems"></app-dropdown-menu> -->
         </div>
       </div>
     </div>
@@ -65,7 +81,12 @@
           <div class="artist-page__tracks-divider"></div>
 
           @for (track of tracks(); track track.id) {
-            <app-track [track]="track" [meta]="['album', 'releasedate']" [position]="$index + 1" />
+            <app-track
+              [track]="track"
+              [meta]="['album', 'releasedate']"
+              [position]="$index + 1"
+              (click)="onTrackPlay(track)"
+            />
           }
         </div>
       </div>

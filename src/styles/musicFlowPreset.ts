@@ -92,6 +92,20 @@ export const MusicFlowPreset = definePreset(Aura, {
         .timestep .p-slider-range {
           background: var(--color-secondary);
         }
+        .search__control .search__slider {
+          width: 100%;
+        }
+        .search__control .search__slider .p-slider-handle {
+          background: var(--color-white);
+          width: 20px;
+          height: 20px;
+          border: 2px solid var(--color-primary);
+        }
+        .search__control .search__slider .p-slider-handle:hover {
+          border-color: var(--color-primary);
+          background: var(--color-white);
+          box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.08);
+        }
       `,
       track: {
         background: 'var(--color-surface-highest)',
@@ -185,6 +199,55 @@ export const MusicFlowPreset = definePreset(Aura, {
         color: var(--color-primary);
         }
         `,
+    },
+    selectbutton: {
+      css: () => `
+  
+      .search__select-button .p-togglebutton {
+        border-color: transparent;
+        background-color: var(--color-primary-container);
+        color: var(--color-on-primary-container);
+        margin: var(--space-xs);
+      }
+
+      .search__select-button .p-togglebutton,
+      .search__select-button .p-togglebutton:first-child,
+      .search__select-button .p-togglebutton:last-child {
+        border-radius: var(--space-lg);
+        flex-shrink: 0;
+      }
+
+      .search__select-button .p-togglebutton .p-togglebutton-label {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+     
+      }
+  `,
+    },
+    select: {
+      css: () => `
+        .p-select.search__select {
+          background: var(--color-surface-high);
+          border: none;
+        }
+        .search__select .p-select-label {
+          color: var(--color-on-surface);
+        }
+
+        .search__select .p-select-overlay {
+          background: var(--color-surface-high);
+          border: none;
+        }
+
+      .search__select .p-select-overlay .p-select-option {
+        color: var(--color-on-surface);
+      }
+      .search__select .p-select-overlay .p-select-option.p-select-option-selected {
+        background: var(--color-primary);
+        color: background: var(--color-surface-high);
+      }
+      `,
     },
   },
   css: () => `

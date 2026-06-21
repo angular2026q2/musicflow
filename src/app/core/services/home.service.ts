@@ -1,10 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { RecentlyPlayedTrack } from '@shared/interfaces/recently-played-track.interface';
+import { TracksResponce } from '@shared/interfaces/tracks-responce.interface';
 import { TrackResponse } from '@shared/interfaces/track-responce.interface';
 import { Track } from '@shared/interfaces/track.interface';
-import { Genre } from '@shared/types/genre.type';
-import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -33,21 +31,7 @@ export class HomeService {
     });
   }
 
-  getGenres() {
-    return of<Genre[]>([
-      Genre.Rock,
-      Genre.Electronic,
-      Genre.Classical,
-      Genre.AmbientNewAge,
-      Genre.Filmscore,
-      Genre.Advertising,
-      Genre.Pop,
-      Genre.Corporate,
-      Genre.Alternative,
-    ]);
-  }
-
   getRecentlyPlayed() {
-    return this.http.get<RecentlyPlayedTrack[]>(`${this.baseUrl}/history`);
+    return this.http.get<TracksResponce[]>(`${this.baseUrl}/history`);
   }
 }

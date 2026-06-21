@@ -11,7 +11,7 @@ import type { Track } from '@shared/interfaces/track.interface';
 export class SearchService {
   private readonly http = inject(HttpClient);
   private readonly baseUrl = '/api/v1';
-  
+
   searchTracks(query: Signal<string>) {
     return httpResource<CatalogResponse<Track>>(() => {
       const q = query().trim();
@@ -24,17 +24,17 @@ export class SearchService {
       };
     });
   }
-  
+
   fetchTracks(req: SearchTracksRequest) {
     let params = new HttpParams()
       .set('search', req.search)
       .set('limit', req.limit.toString())
       .set('offset', req.offset.toString());
-    
+
     if (req.tags?.length) {
       params = params.set('tags', req.tags.join(','));
     }
-    
-    return this.http.get<TrackResponse<Track>>(`${this.baseUrl}/music/tracks`, { params })
+
+    return this.http.get<TrackResponse<Track>>(`${this.baseUrl}/music/tracks`, { params });
   }
 }

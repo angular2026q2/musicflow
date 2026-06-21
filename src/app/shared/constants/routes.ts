@@ -10,6 +10,7 @@ export const APP_ROUTES = {
   ALBUM: { label: 'Album', route: 'album/:id' },
   ARTISTS: { label: 'Artists', route: 'artists' },
   ARTIST: { label: 'Artist', route: 'artist/:id' },
+  PLAYLIST: { label: 'Playlist', route: 'playlist/:id' },
   RESET_PASSWORD: { label: 'Reset Password', route: 'reset-password' },
 } as const;
 

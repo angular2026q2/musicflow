@@ -202,7 +202,7 @@ export class SearchPage implements OnInit {
     this.loading.set(true);
 
     this.searchService
-      .searchTracks({
+      .fetchTracks({
         search: search,
         offset,
         limit: this.LIMIT,

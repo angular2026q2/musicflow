@@ -24,6 +24,7 @@
 
     &-card {
       position: relative;
+
       flex: 0 0 400px;
 
       width: 400px;
@@ -50,23 +51,38 @@
 
   &__play-button {
     cursor: default;
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    border: none;
-    background: var(--color-secondary);
+
     position: absolute;
+    z-index: 10;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 
-    opacity: 0;
+    width: 64px;
+    height: 64px;
+    border: none;
+    border-radius: 50%;
 
-    z-index: 10;
+    opacity: 0;
+    background: var(--color-secondary);
 
     svg {
-      fill: var(--color-on-secondary-container);
       color: transparent;
+      fill: var(--color-on-secondary-container);
+    }
+  }
+
+  @media (max-width: styles.$bp-md) {
+    &__content-card {
+      width: 100%;
+      max-width: 160px;
+      height: 100%;
+
+      &__description {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
   }
 

@@ -9,25 +9,30 @@
       <h1 class="playlist__title">{{ p.name }}</h1>
 
       @if (p.description) {
-        <div class="playlist__decription">{{ p.description }}</div>
+        <div class="playlist__description">{{ p.description }}</div>
       }
     </div>
 
-    <div class="playlist__content">
-      @for (track of tracks(); track track.id) {
-        <app-track
-          [track]="track"
-          [meta]="['artist', 'album']"
-          [position]="$index + 1"
-          (playTrack)="onTrackPlay(track)"
-        >
-          <app-dropdown-menu
-            trackActions
-            dir="vertical"
-            [items]="createDropdownList(track)"
-            (click)="$event.stopPropagation()"
-          ></app-dropdown-menu
-        ></app-track>
+    <div cdkDropList class="playlist__content" (cdkDropListDropped)="drop($event)">
+      @for (track of orderedTracks(); track track.id) {
+        <div cdkDrag>
+          <div class="playlist__track-placeholder" *cdkDragPlaceholder></div>
+
+          <app-track
+            [track]="track"
+            [meta]="['artist', 'album']"
+            [position]="$index + 1"
+            (playTrack)="onTrackPlay(track)"
+            class="playlist__track"
+          >
+            <app-dropdown-menu
+              trackActions
+              dir="vertical"
+              [items]="createDropdownList(track)"
+              (click)="$event.stopPropagation()"
+            ></app-dropdown-menu
+          ></app-track>
+        </div>
       }
     </div>
   }

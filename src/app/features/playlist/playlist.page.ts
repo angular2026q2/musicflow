@@ -1,5 +1,20 @@
+import {
+  CdkDrag,
+  CdkDragDrop,
+  CdkDragPlaceholder,
+  CdkDropList,
+  moveItemInArray,
+} from '@angular/cdk/drag-drop';
 import { Location } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  input,
+  signal,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { LibraryService } from '@core/services/library.service';
 import { MusicPlayerService } from '@core/services/music-player.service';
@@ -15,7 +30,15 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @Component({
   selector: 'app-playlist',
-  imports: [ButtonModule, TrackComponent, DropdownMenuComponent, ConfirmDialogModule],
+  imports: [
+    ButtonModule,
+    TrackComponent,
+    DropdownMenuComponent,
+    ConfirmDialogModule,
+    CdkDropList,
+    CdkDrag,
+    CdkDragPlaceholder,
+  ],
   providers: [ConfirmationService],
   templateUrl: './playlist.page.html',
   styleUrl: './playlist.page.scss',
@@ -38,6 +61,13 @@ export class PlaylistPage {
   );
 
   readonly tracks = computed(() => this.playlist()?.tracks.map((t) => toTrack(t)) ?? []);
+  readonly orderedTracks = signal<Track[]>([]);
+
+  constructor() {
+    effect(() => {
+      this.orderedTracks.set(this.tracks());
+    });
+  }
 
   createDropdownList(track: Track): MenuItem[] {
     return [
@@ -91,17 +121,7 @@ export class PlaylistPage {
         severity: 'danger',
       },
 
-      accept: async () => {
-        try {
-          this.deletePlaylist(playlist.id, playlist.name);
-        } catch {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'Failed to delete playlist',
-          });
-        }
-      },
+      accept: () => this.deletePlaylist(playlist.id, playlist.name),
       reject: () => {
         this.messageService.add({
           severity: 'info',
@@ -178,6 +198,44 @@ export class PlaylistPage {
         severity: 'error',
         summary: 'Error',
         detail: 'Failed to remove track',
+      });
+    }
+  }
+
+  drop(event: CdkDragDrop<Track[]>): void {
+    if (event.previousIndex === event.currentIndex) return;
+
+    const tracks = [...this.orderedTracks()];
+    moveItemInArray(tracks, event.previousIndex, event.currentIndex);
+
+    this.orderedTracks.set(tracks);
+
+    this.saveOrder(this.orderedTracks());
+  }
+
+  async saveOrder(tracks: Track[]): Promise<void> {
+    const playlist = this.playlist();
+    if (!playlist) return;
+
+    const ordered = tracks
+      .map((track) => playlist.tracks.find((t) => t.track_id === track.id))
+      .filter((t) => t != null)
+      .map((t) => toHistoryRequest(t!));
+
+    try {
+      const payload = {
+        name: playlist.name,
+        description: playlist.description,
+        tracks: ordered,
+      };
+
+      await this.libraryService.updatePlaylist(playlist.id, payload);
+      this.libraryService.playlists.reload();
+    } catch {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Error',
+        detail: 'Failed to reorder track',
       });
     }
   }

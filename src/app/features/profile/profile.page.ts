@@ -1,10 +1,15 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { AuthService } from '@core/services/auth.service';
 import { UserService } from '@core/services/user.service';
+import { CopyToClipboardDirective } from '@shared/directives/copy-to-clipboard.directive';
 import { passwordsMatch } from '@shared/validators/passwords-match.validator';
+
+import { AutofocusDirective } from '@shared/directives/autofocus.directive';
+import { InitialsPipe } from '@shared/pipes/initials.pipe';
+import { TruncatePipe } from '@shared/pipes/truncate.pipe';
 
 import { MessageService } from 'primeng/api';
 import { AvatarModule } from 'primeng/avatar';
@@ -12,6 +17,7 @@ import { PasswordModule } from 'primeng/password';
 import { LucideDynamicIcon } from '@lucide/angular';
 import { ICONS } from '@shared/constants/icons';
 
+import { ProfileSkeletonComponent } from './skeleton/profile.skeleton';
 import { FormFieldComponent } from '@shared/components/form-field/form-field.component';
 import { SubmitButtonComponent } from '@shared/components/submit-button/submit-button.component';
 
@@ -24,6 +30,11 @@ import { SubmitButtonComponent } from '@shared/components/submit-button/submit-b
     LucideDynamicIcon,
     FormFieldComponent,
     SubmitButtonComponent,
+    InitialsPipe,
+    TruncatePipe,
+    AutofocusDirective,
+    CopyToClipboardDirective,
+    ProfileSkeletonComponent,
   ],
   templateUrl: './profile.page.html',
   styleUrl: './profile.page.scss',
@@ -38,6 +49,7 @@ export class ProfilePage {
 
   readonly currentUser = this.authService.currentUser;
   readonly ICONS = ICONS;
+  readonly isLoading = computed(() => this.authService.hasToken() && this.currentUser() === null);
 
   readonly avatarUploading = signal<boolean>(false);
   readonly showDeleteConfirm = signal<boolean>(false);
@@ -71,7 +83,7 @@ export class ProfilePage {
         this.messageService.add({
           severity: 'error',
           summary: 'Error',
-          detail: 'Could not save profile. Try again later.',
+          detail: 'Could not save profile.\nProbably entered data already exist.\nTry again later.',
           life: 4000,
         });
       },

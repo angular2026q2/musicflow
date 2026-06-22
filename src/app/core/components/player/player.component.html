@@ -4,7 +4,13 @@
       <div class="player__info">
         <div class="player__info-card">
           <div class="player__cover-container">
-            <img [ngSrc]="'images/track-cover.webp'" alt="Track cover" class="player__cover" width="50" height="50" />
+            <img
+              [ngSrc]="'images/track-cover.webp'"
+              alt="Track cover"
+              class="player__cover"
+              width="50"
+              height="50"
+            />
           </div>
           <div class="player__description">
             <app-meta [title]="title()" [primaryDesc]="primaryDesc()"></app-meta>

@@ -3,6 +3,7 @@
 ### by Pavel Konyakhin
 
 > Backend part development Diary of **MusicFlow** project,
+
 > a music streaming service, inspired by Spotify.  
 > **Main Stack**: NestJS • TypeScript (strict) • Supabase • Jamendo API
 
@@ -218,7 +219,6 @@ supabase gen types typescript --project-id uwazcuzqtmozmhwiedap --schema public 
 Thus, I have received complete TypeScript types (`Row`, `Insert`, `Update`) for all created in Supabase tables in one file `src/types/database.types.ts`.
 
 **`supabase.service.ts`** - a wrapper over `Supabase` Client:
-
 - uses the `service_role` key (grants full access to the DB, bypasses `RLS`);
 - `autoRefreshToken: false`, `persistSession: false` - server mode;
 - `client` typed via `SupabaseClient<Database>` - removed temp `any`;

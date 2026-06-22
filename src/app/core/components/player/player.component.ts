@@ -1,3 +1,4 @@
+import { NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { MusicPlayerService } from '@core/services/music-player.service';
 import { ControlButtonComponent } from '@shared/components/control-button/control-button.component';
@@ -7,7 +8,13 @@ import { VolumeComponent } from '@shared/components/volume/volume.component';
 
 @Component({
   selector: 'app-player',
-  imports: [VolumeComponent, ControlsBarComponent, MetaComponent, ControlButtonComponent],
+  imports: [
+    VolumeComponent,
+    ControlsBarComponent,
+    MetaComponent,
+    ControlButtonComponent,
+    NgOptimizedImage,
+  ],
   templateUrl: './player.component.html',
   styleUrl: './player.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

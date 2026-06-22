@@ -7,22 +7,25 @@ export const authInterceptor: HttpInterceptorFn = (
   req: HttpRequest<unknown>,
   next: HttpHandlerFn,
 ) => {
-  // добавляю токен только к API-запросам, не трогаю сторонние URL (jamendo, supabase, s3, и прочее)
-  if (!req.url.startsWith('/api/')) {
-    return next(req);
-  }
+  const isRelativeApiUrl = req.url.startsWith('/api/');
+  const isAbsoluteApiUrl = req.url.startsWith(environment.apiUrl);
 
-  const absoluteUrl = req.url.replace('/api/', `${environment.apiUrl}/`);
+  if (!isRelativeApiUrl && !isAbsoluteApiUrl) return next(req);
+
+  const absoluteUrl = isRelativeApiUrl
+    ? req.url.replace('/api/', `${environment.apiUrl}/`)
+    : req.url;
+
   const token = inject(TokenService).get();
 
   if (!token) {
     return next(req.clone({ url: absoluteUrl }));
   }
 
-  const authReq = req.clone({
-    url: absoluteUrl,
-    setHeaders: { Authorization: `Bearer ${token}` },
-  });
-
-  return next(authReq);
+  return next(
+    req.clone({
+      url: absoluteUrl,
+      setHeaders: { Authorization: `Bearer ${token}` },
+    }),
+  );
 };

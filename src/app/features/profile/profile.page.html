@@ -1,1 +1,166 @@
-<p>profile works!</p>
+<div class="profile">
+  <!-- Hero -->
+  <div class="profile__hero">
+    <div class="profile__avatar-block">
+      <p-avatar
+        class="profile-avatar"
+        [image]="currentUser()?.avatar_url ?? undefined"
+        [icon]="currentUser()?.avatar_url ? undefined : 'pi pi-user'"
+        size="xlarge"
+        shape="circle"
+      />
+      <div class="profile__avatar-actions">
+        <label class="profile__upload-label" for="avatarInput">
+          {{ avatarUploading() ? 'Uploading...' : 'Upload Photo' }}
+        </label>
+        <input
+          id="avatarInput"
+          type="file"
+          accept="image/jpeg,image/png"
+          class="profile__avatar-input"
+          (change)="onAvatarChange($event)"
+        />
+        <button type="button" class="profile__btn-ghost" (click)="onDeleteAvatar()">
+          Reset to Default
+        </button>
+      </div>
+    </div>
+    <div class="profile__hero-info">
+      <p class="profile__hero-name">
+        {{ currentUser()?.full_name || currentUser()?.username || 'Anonymous' }}
+      </p>
+      <p class="profile__hero-email">{{ currentUser()?.email }}</p>
+    </div>
+  </div>
+
+  <!-- Edit Profile -->
+  <section class="profile__section">
+    <h2 class="profile__section-title">
+      <svg [lucideIcon]="ICONS.user.icon" [size]="18"></svg>
+      Edit Profile
+    </h2>
+    <form [formGroup]="profileForm" (ngSubmit)="onSaveProfile()" class="profile__form">
+      <app-form-field
+        label="USERNAME"
+        inputId="username"
+        icon="user"
+        type="text"
+        [control]="profileForm.controls.username"
+      />
+      <app-form-field
+        label="FULL NAME"
+        inputId="fullName"
+        icon="user"
+        type="text"
+        [control]="profileForm.controls.full_name"
+      />
+      <app-submit-button label="Save Changes" [isLoading]="false" [disabled]="false" />
+    </form>
+  </section>
+
+  <!-- Change Password -->
+  <section class="profile__section">
+    <h2 class="profile__section-title">
+      <svg [lucideIcon]="ICONS.lock.icon" [size]="18"></svg>
+      Change Password
+    </h2>
+    <form [formGroup]="passwordForm" (ngSubmit)="onUpdatePassword()" class="profile__form">
+      <div class="profile__field">
+        <label for="newPassword" class="profile__label">NEW PASSWORD</label>
+        <div class="profile__password-wrapper form-field--fluid">
+          <svg [lucideIcon]="ICONS.lock.icon" [size]="16" class="lock-icon"></svg>
+          <p-password
+            formControlName="newPassword"
+            inputId="newPassword"
+            [toggleMask]="true"
+            [feedback]="false"
+            placeholder="••••••••"
+            autocomplete="new-password"
+          />
+        </div>
+        <span class="profile__error">
+          @if (
+            passwordForm.controls.newPassword.touched &&
+            passwordForm.controls.newPassword.hasError('required')
+          ) {
+            Password is required
+          } @else if (
+            passwordForm.controls.newPassword.touched &&
+            passwordForm.controls.newPassword.hasError('minlength')
+          ) {
+            Minimum 8 characters
+          }
+        </span>
+      </div>
+
+      <div class="profile__field">
+        <label for="confirmPassword" class="profile__label">CONFIRM PASSWORD</label>
+        <div class="profile__password-wrapper form-field--fluid">
+          <svg [lucideIcon]="ICONS.lock.icon" [size]="16" class="lock-icon"></svg>
+          <p-password
+            formControlName="confirmPassword"
+            inputId="confirmPassword"
+            [toggleMask]="true"
+            [feedback]="false"
+            placeholder="••••••••"
+            autocomplete="new-password"
+          />
+        </div>
+        <span class="profile__error">
+          @if (
+            passwordForm.controls.confirmPassword.touched &&
+            passwordForm.hasError('passwordsMismatch')
+          ) {
+            Passwords do not match
+          }
+        </span>
+      </div>
+
+      <app-submit-button
+        label="Update Password"
+        [isLoading]="false"
+        [disabled]="passwordForm.invalid"
+      />
+    </form>
+  </section>
+
+  <!-- Danger Zone -->
+  <div class="profile__footer">
+    <button type="button" class="profile__btn profile__btn--logout" (click)="onLogout()">
+      <svg [lucideIcon]="ICONS.arrowBigLeft.icon" [size]="16"></svg>
+      Logout from Music Flow
+    </button>
+
+    @if (!showDeleteConfirm()) {
+      <button
+        type="button"
+        class="profile__btn profile__btn--danger"
+        (click)="showDeleteConfirm.set(true)"
+      >
+        Delete Account
+      </button>
+    } @else {
+      <div class="profile__confirm">
+        <p class="profile__confirm-text">
+          Danger! You are about to permanently delete your account. This action cannot be undone.
+        </p>
+        <div class="profile__confirm-actions">
+          <button
+            type="button"
+            class="profile__btn profile__btn--ghost"
+            (click)="showDeleteConfirm.set(false)"
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            class="profile__btn profile__btn--danger"
+            (click)="onDeleteAccount()"
+          >
+            Yes, Delete My Account
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+</div>

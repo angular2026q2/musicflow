@@ -1,0 +1,7 @@
+{
+  "/api": {
+    "target": "https://musicflow-backend-production.up.railway.app",
+    "secure": true,
+    "changeOrigin": true
+  }
+}

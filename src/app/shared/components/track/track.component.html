@@ -1,0 +1,79 @@
+<div class="track">
+  <div class="track__position">
+    <span class="track__num">{{ position() }}</span>
+    <button
+      class="track__play-btn"
+      type="button"
+      (click)="onPlayClick()"
+      [attr.aria-label]="`Play ${track().name}`"
+    >
+      <svg
+        [lucideIcon]="isCurrentlyPlaying() ? ICONS.pause.icon : ICONS.play.icon"
+        [size]="16"
+      ></svg>
+    </button>
+  </div>
+
+  <div class="track__content">
+    @if (showImage()) {
+      <img
+        [ngSrc]="track().album_image"
+        alt="{{ track().name }} image"
+        class="track__image"
+        width="40"
+        height="40"
+      />
+    }
+
+    <div class="track__info">
+      <span class="track__name">{{ track().name }}</span>
+
+      @if (meta().length) {
+        <div class="track__meta">
+          @for (field of meta(); track field; let last = $last) {
+            @switch (field) {
+              @case ('artist') {
+                @if (track().artist_id) {
+                  <a [routerLink]="artistLink(track().artist_id)" class="track__meta-item">
+                    {{ track().artist_name }}
+                  </a>
+                } @else {
+                  <span class="track__meta-item">{{ track().artist_name }}</span>
+                }
+              }
+              @case ('album') {
+                @if (track().album_id) {
+                  <a [routerLink]="artistLink(track().artist_id)" class="track__meta-item">
+                    {{ track().album_name }}
+                  </a>
+                } @else {
+                  <span class="track__meta-item">{{ track().album_name }}</span>
+                }
+              }
+              @case ('releasedate') {
+                <span class="track__meta-item">{{ track().releasedate | date: 'yyyy' }}</span>
+              }
+            }
+
+            @if (!last) {
+              <span class="track__meta-dot" aria-hidden="true">•</span>
+            }
+          }
+        </div>
+      }
+    </div>
+  </div>
+
+  <span class="track__plays">
+    <!-- todo: заменить на реальное значение plays когда API начнёт отдавать это поле -->
+    –
+  </span>
+
+  <span class="track__duration">
+    {{ track().duration | duration }}
+  </span>
+
+  <div class="track__actions">
+    <ng-content select="[trackActions]"></ng-content>
+  </div>
+</div>

@@ -1,0 +1,24 @@
+<header class="header">
+  <div class="header__search">
+    <p-iconfield>
+      <p-inputicon class="pi pi-search"></p-inputicon>
+      <input
+        pInputText
+        type="text"
+        placeholder="Search artists, songs..."
+        class="header__search-input"
+        [formControl]="searchControl"
+      />
+    </p-iconfield>
+  </div>
+
+  <div class="header__actions">
+    <app-control-button class="header__actions-btn" icon="bell" ariaLabel="Notifications" />
+
+    <a [routerLink]="APP_ROUTES.SETTINGS.route" class="header__actions-btn" aria-label="Settings">
+      <svg [lucideIcon]="ICONS.settings.icon"></svg>
+    </a>
+
+    <app-user-avatar class="header__actions-btn" ariaLabel="User profile" size="normal" />
+  </div>
+</header>

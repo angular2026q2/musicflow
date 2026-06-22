@@ -1,0 +1,20 @@
+@use 'styles/breakpoints' as styles;
+
+.recently-played {
+  width: 100%;
+
+  &__title {
+    margin-bottom: var(--space-lg);
+  }
+
+  @media (max-width: styles.$bp-sm) {
+    &__title {
+      margin-bottom: var(--space-md);
+    }
+
+    &__tracks {
+      display: flex;
+      gap: var(--space-md);
+    }
+  }
+}

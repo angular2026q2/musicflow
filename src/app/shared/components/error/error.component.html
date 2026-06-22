@@ -1,0 +1,10 @@
+<div class="error">
+  <p-message severity="error">
+    {{ message() }}
+  </p-message>
+
+  <button type="button" (click)="retry.emit()" class="error__button">
+    <svg [lucideIcon]="ICONS.retry.icon"></svg>
+    <span>Retry</span>
+  </button>
+</div>

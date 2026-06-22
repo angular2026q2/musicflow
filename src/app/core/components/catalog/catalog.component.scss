@@ -1,0 +1,42 @@
+@use 'styles/index' as styles;
+
+.catalog {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xxl);
+
+  min-height: 100%;
+  padding-bottom: var(--space-xxl);
+
+  &__banner {
+    padding: var(--space-xxl);
+    border-radius: var(--radius-md);
+    font-size: var(--text-headline-md);
+    text-align: center;
+
+    @include styles.shimmer-background;
+  }
+
+  &__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr));
+    gap: var(--space-lg);
+  }
+
+  &__empty,
+  &__loading,
+  &__error {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: var(--space-lg);
+    align-items: center;
+    justify-content: center;
+
+    font-size: var(--text-headline-md);
+  }
+
+  &__loadmore-btn {
+    text-align: center;
+  }
+}

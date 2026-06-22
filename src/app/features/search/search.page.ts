@@ -1,0 +1,247 @@
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  signal,
+  OnInit,
+  computed,
+} from '@angular/core';
+
+import { ActivatedRoute } from '@angular/router';
+import { SearchService } from '@core/services/search.service';
+
+import { Track } from '@shared/interfaces/track.interface';
+
+import { SubmitButtonComponent } from '@shared/components/submit-button/submit-button.component';
+
+import { SelectModule } from 'primeng/select';
+import { FormsModule } from '@angular/forms';
+import { TRACK_SORT_OPTIONS, TrackSort } from './track-search.model';
+import { SliderModule } from 'primeng/slider';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { GenreService } from '@core/services/genre.service';
+import { catchError, of } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { Genre } from '@shared/types/genre.type';
+import { TrackComponent } from '@shared/components/track/track.component';
+import { MusicPlayerService } from '@core/services/music-player.service';
+import { FieldsetModule } from 'primeng/fieldset';
+import { MenubarModule } from 'primeng/menubar';
+import { ICONS } from '@shared/constants/icons';
+import { LucideDynamicIcon } from '@lucide/angular';
+import { CatalogResponse } from '@shared/interfaces/catalog.interface';
+@Component({
+  selector: 'app-search',
+  imports: [
+    SubmitButtonComponent,
+    SelectModule,
+    SelectButtonModule,
+    SliderModule,
+    FormsModule,
+    TrackComponent,
+    FieldsetModule,
+    MenubarModule,
+    LucideDynamicIcon,
+  ],
+  templateUrl: './search.page.html',
+  styleUrl: './search.page.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class SearchPage implements OnInit {
+  private readonly route = inject(ActivatedRoute);
+  private readonly playerService = inject(MusicPlayerService);
+  private readonly searchService = inject(SearchService);
+  private readonly genreService = inject(GenreService);
+  private readonly LIMIT = 20;
+
+  readonly ICONS = ICONS;
+  readonly sortOptions = [...TRACK_SORT_OPTIONS];
+  private readonly SORT_CONFIG = new Map(TRACK_SORT_OPTIONS.map((o) => [o.value, o]));
+
+  readonly query = signal('');
+  readonly rawTracks = signal<Track[]>([]);
+  readonly loading = signal(false);
+  readonly hasMoreTracks = signal(true);
+  readonly filters = signal<{ category?: string }>({});
+  readonly sortBy = signal<TrackSort | null>(null);
+  readonly selectedGenres = signal<Genre[]>([]);
+  readonly maxDurationFilter = signal<number>(600);
+  readonly genres = toSignal(
+    this.genreService.getGenres().pipe(catchError(() => of<Genre[]>([]))),
+    { initialValue: [] },
+  );
+
+  readonly maxDuration = computed(() => {
+    const items = this.rawTracks();
+
+    return items.length ? Math.max(...items.map((t) => t.duration ?? 0)) : 600;
+  });
+
+  maxDurationModel = this.maxDurationFilter();
+
+  setMaxDuration(value: number): void {
+    this.maxDurationFilter.set(value);
+    this.maxDurationModel = value;
+  }
+
+  private isServerSort(sort: TrackSort): boolean {
+    return this.SORT_CONFIG.get(sort)?.mode === 'server';
+  }
+
+  readonly tracks = computed(() => {
+    const items = this.rawTracks();
+    const max = this.maxDurationFilter();
+    const sort = this.sortBy();
+
+    let result = [...items];
+
+    result = result.filter((t) => t.duration <= max);
+
+    switch (sort) {
+      case 'artist_asc':
+        result.sort((a, b) => a.artist_name.localeCompare(b.artist_name));
+        break;
+
+      case 'artist_desc':
+        result.sort((a, b) => b.artist_name.localeCompare(a.artist_name));
+        break;
+
+      case 'track_asc':
+        result.sort((a, b) => a.name.localeCompare(b.name));
+        break;
+
+      case 'track_desc':
+        result.sort((a, b) => b.name.localeCompare(a.name));
+        break;
+
+      case 'date_desc':
+        result.sort((a, b) => b.releasedate.localeCompare(a.releasedate));
+        break;
+
+      case 'date_asc':
+        result.sort((a, b) => a.releasedate.localeCompare(b.releasedate));
+        break;
+    }
+
+    return result;
+  });
+
+  ngOnInit(): void {
+    this.initFromUrl();
+  }
+
+  toTrack(track: Track): Track {
+    return {
+      ...track,
+    };
+  }
+
+  onTrackPlay(track: Track): void {
+    const index = this.tracks().indexOf(track);
+    this.playerService.playQueue(
+      this.tracks().map((t) => this.toTrack(t)),
+      index,
+    );
+  }
+  onGenresChange(value: Genre[]) {
+    this.selectedGenres.set(value);
+
+    this.reset();
+    this.search(this.query(), true);
+  }
+
+  private initFromUrl(): void {
+    this.route.queryParamMap.subscribe((params) => {
+      const q = params.get('q') ?? '';
+      const tag = params.get('tags');
+
+      this.query.set(q);
+
+      if (tag) {
+        const genre = this.genres().find((g) => g === tag);
+
+        if (genre) {
+          this.selectedGenres.set([genre]);
+        }
+      }
+
+      this.reset();
+      this.search(q, true);
+    });
+  }
+
+  private reset(): void {
+    this.rawTracks.set([]);
+    this.hasMoreTracks.set(true);
+  }
+
+  private resolveServerOrder(sort: TrackSort | null): string | undefined {
+    switch (sort) {
+      case 'popularity_desc':
+        return 'popularity_total';
+
+      case 'popularity_asc':
+        return 'popularity_total_asc';
+
+      default:
+        return undefined;
+    }
+  }
+
+  private buildSearch(query: string, sort: TrackSort | null): string {
+    let result = query;
+
+    const order = sort && this.isServerSort(sort) ? this.resolveServerOrder(sort) : null;
+
+    if (order) {
+      result += `&order=${order}`;
+    }
+
+    return result;
+  }
+
+  search(query: string, reset = false): void {
+    if (!query && !this.selectedGenres().length) return;
+
+    if (reset) {
+      this.reset();
+    }
+
+    const offset = this.rawTracks().length;
+
+    const search = this.buildSearch(query, this.sortBy());
+    this.loading.set(true);
+
+    this.searchService
+      .fetchTracks({
+        search: search,
+        offset,
+        limit: this.LIMIT,
+        tags: this.selectedGenres(),
+      })
+      .subscribe({
+        next: (res: CatalogResponse<Track>) => {
+          this.rawTracks.update((prev) => [...prev, ...res.data]);
+          this.hasMoreTracks.set(res.data.length === this.LIMIT);
+        },
+        complete: () => this.loading.set(false),
+        error: () => this.loading.set(false),
+      });
+  }
+
+  loadMore(): void {
+    if (this.loading() || !this.hasMoreTracks()) return;
+
+    const q = this.query();
+
+    this.search(q, false);
+  }
+
+  setSort(sort: TrackSort): void {
+    this.sortBy.set(sort);
+    if (this.isServerSort(sort)) {
+      this.reset();
+      this.search(this.query(), true);
+    }
+  }
+}

@@ -1,0 +1,19 @@
+<div class="item-details">
+  <img
+    [src]="imageUrl()"
+    [alt]="title()"
+    class="item-details__image"
+    [ngClass]="'item-details__image-' + imageVariant()"
+  />
+  <div class="item-details__textBlock">
+    <h4 class="item-details__title" [ngClass]="'item-details__title-' + titleVariant()">
+      {{ title() }}
+    </h4>
+    <div class="item-details__description">
+      <span>{{ primaryDesc() }}</span>
+      @if (secondaryDesc()) {
+        <span class="item-details__secondaryDesc">{{ secondaryDesc() }}</span>
+      }
+    </div>
+  </div>
+</div>

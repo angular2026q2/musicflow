@@ -1,0 +1,30 @@
+<p-card class="team-member-card">
+  <div class="team-member-card__member-info">
+    <div class="team-member-card__text">
+      <div class="team-member-card__name">{{ member().name }}</div>
+      <div class="team-member-card__role">{{ member().role }}</div>
+    </div>
+
+    @if (member().photo) {
+      <div class="team-member-card__avatar">
+        <img [alt]="member().name" [src]="member().photo" class="team-member-card__avatar-img" />
+      </div>
+    }
+  </div>
+
+  <p class="team-member-card__bio">
+    {{ member().bio }}
+  </p>
+
+  <ng-template #footer>
+    <a
+      [href]="'https://github.com/' + member().githubNick"
+      class="team-member-card__github-link"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <i class="pi pi-github" style="margin-right: 7px"></i>
+      <span>Github Link</span>
+    </a>
+  </ng-template>
+</p-card>

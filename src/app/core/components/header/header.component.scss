@@ -1,0 +1,73 @@
+@use 'styles/breakpoints' as bp;
+
+.header {
+  position: sticky;
+  z-index: 100;
+  top: 0;
+
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: var(--space-md) var(--space-xl);
+
+  &__search {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    width: clamp(12.5rem, 40vw, 25rem);
+
+    &-form {
+      display: flex;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+
+    & p-iconfield {
+      width: 100%;
+    }
+
+    &-input {
+      width: 100%;
+      border: none;
+
+      color: var(--color-on-surface-variant);
+
+      opacity: 0.9;
+      background: var(--color-surface-high);
+    }
+  }
+
+  &__actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+
+    &-btn {
+      padding: 0;
+      border: none;
+
+      line-height: 0;
+      color: var(--color-on-surface-variant);
+
+      background: none;
+
+      transition:
+        color 0.2s ease,
+        transform 0.15s ease;
+
+      @media (hover: hover) and (pointer: fine) {
+        &:hover {
+          cursor: pointer;
+          transform: translateY(-1px);
+          color: var(--color-secondary);
+        }
+      }
+    }
+  }
+
+  @media (max-width: bp.$bp-md) {
+    padding: var(--space-sm) var(--space-md);
+  }
+}

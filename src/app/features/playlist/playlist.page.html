@@ -1,0 +1,65 @@
+@let p = playlist();
+
+<section class="playlist">
+  <p-confirmDialog />
+  <p-button label="Back" icon="pi pi-arrow-left" severity="secondary" (click)="goBack()"></p-button>
+
+  @if (p !== null) {
+    <div class="playlist__header">
+      <div class="playlist__subheader">
+        <h1 class="playlist__title">{{ p.name }}</h1>
+
+        <p-button
+          class="playlist__edit-button"
+          label="Edit playlist"
+          icon="pi pi-pencil"
+          severity="secondary"
+          (click)="openEdit()"
+        ></p-button>
+      </div>
+
+      @if (p.description) {
+        <div class="playlist__description">{{ p.description }}</div>
+      }
+    </div>
+
+    <p-dialog
+      header="Edit playlist"
+      [(visible)]="editDialogVisible"
+      [modal]="true"
+      [style]="{ width: '50rem' }"
+    >
+      @if (editDialogVisible()) {
+        <app-playlist-form
+          [(visible)]="editDialogVisible"
+          [playlist]="p"
+          (updated)="onPlaylistUpdated()"
+          (toast)="onFormToast($event)"
+        />
+      }
+    </p-dialog>
+
+    <div cdkDropList class="playlist__content" (cdkDropListDropped)="drop($event)">
+      @for (track of orderedTracks(); track track.id) {
+        <div cdkDrag>
+          <div class="playlist__track-placeholder" *cdkDragPlaceholder></div>
+
+          <app-track
+            [track]="track"
+            [meta]="['artist', 'album']"
+            [position]="$index + 1"
+            (playTrack)="onTrackPlay(track)"
+            class="playlist__track"
+          >
+            <app-dropdown-menu
+              trackActions
+              dir="vertical"
+              [items]="createDropdownList(track)"
+              (click)="$event.stopPropagation()"
+            ></app-dropdown-menu
+          ></app-track>
+        </div>
+      }
+    </div>
+  }
+</section>

@@ -1,0 +1,60 @@
+@use 'styles/breakpoints' as styles;
+
+.track-cards {
+  width: 100%;
+
+  &__title {
+    margin-bottom: var(--space-lg);
+  }
+
+  &__content {
+    scrollbar-width: none;
+
+    overflow-x: scroll;
+    display: flex;
+    gap: var(--space-lg);
+
+    margin-bottom: var(--space-xl);
+
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    &-card {
+      flex: 0 0 400px;
+      width: 400px;
+      height: 225px;
+      border-radius: var(--radius-md);
+
+      &__title {
+        color: var(--color-white);
+      }
+
+      &__description {
+        color: var(--color-white);
+      }
+    }
+  }
+
+  @media (max-width: styles.$bp-md) {
+    &__content-card {
+      width: 100%;
+      max-width: 160px;
+      height: 100%;
+
+      &__description {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  }
+
+  @media (max-width: styles.$bp-sm) {
+    &__title {
+      margin-bottom: var(--space-md);
+    }
+  }
+}

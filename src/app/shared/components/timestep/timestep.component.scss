@@ -1,0 +1,20 @@
+:host {
+  width: 100%;
+}
+
+.timestep {
+  display: flex;
+  gap: var(--space-sm);
+  align-items: center;
+  font-size: var(--text-label);
+
+  &__time {
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__slider {
+    cursor: pointer;
+    flex: 1;
+    padding: 3px 0;
+  }
+}

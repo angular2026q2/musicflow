@@ -1,0 +1,58 @@
+.catalog-card {
+  position: relative;
+
+  display: inline-block;
+
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  border-radius: var(--p-card-border-radius);
+
+  &::after {
+    pointer-events: none;
+    content: '';
+
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+
+    border-radius: var(--p-card-border-radius);
+
+    background: linear-gradient(
+      to top,
+      var(--color-surface) 0%,
+      color-mix(in srgb, var(--color-surface) 45%, transparent) 25%,
+      color-mix(in srgb, var(--color-surface) 0%, transparent) 60%
+    );
+  }
+
+  &:hover {
+    box-shadow: 0 0 15px color-mix(in srgb, var(--color-secondary) 30%, transparent);
+  }
+
+  &__content {
+    position: relative;
+    z-index: 2;
+  }
+
+  &__meta-dot {
+    font-size: var(--text-label);
+    color: var(--color-primary);
+  }
+
+  &__title {
+    font-weight: var(--weight-semibold);
+  }
+
+  &__meta {
+    display: flex;
+    gap: var(--space-xs);
+    align-items: center;
+  }
+
+  &__releasedate,
+  &__artist,
+  &__joindate {
+    font-size: var(--text-body-sm);
+    color: var(--color-on-surface-variant);
+  }
+}

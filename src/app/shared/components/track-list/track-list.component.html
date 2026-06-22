@@ -1,0 +1,8 @@
+<div class="recently-played">
+  <h2 class="recently-played__title">Recently Played</h2>
+  <div class="recently-played__tracks">
+    @for (track of tracks(); track track.id) {
+      <app-track-card [track]="track" />
+    }
+  </div>
+</div>

@@ -1,0 +1,46 @@
+<section class="home-page">
+  <div home-page__trending>
+    @if (trendingTracksResource.isLoading()) {
+      <p>Loading...</p>
+    } @else if (trendingTracksResource.error(); as error) {
+      <app-error [message]="error.message" (retry)="trendingTracksResource.reload()" />
+    } @else {
+      <app-track-cards [title]="'Trending Now'" [tracks]="trendingTracks()" />
+    }
+  </div>
+
+  <div home-page__genres>
+    <app-genres [genres]="genres()" (genreSelected)="searchByGenre($event)"></app-genres>
+  </div>
+
+  <div home-page__new-relases>
+    @if (newReleasesResource.isLoading()) {
+      <p>Loading</p>
+    } @else if (newReleasesResource.error(); as error) {
+      <app-error [message]="error.message" (retry)="newReleasesResource.reload()" />
+    } @else {
+      <app-track-cards [title]="'Release Radar'" [tracks]="newReleases()" />
+    }
+  </div>
+
+  @if (isAuthenticated()) {
+    <div class="home-page__recently-played">
+      @if (recentTracksResource.isLoading()) {
+        <p>Loading...</p>
+      } @else if (recentTracksResource.error(); as error) {
+        <app-error [message]="error.message" (retry)="recentTracksResource.reload()" />
+      } @else {
+        <h2 class="home-page__recently-played__title">Recently Played</h2>
+
+        @for (track of recentTracks(); track track.id) {
+          <app-track
+            [track]="toTrack(track)"
+            [meta]="['artist']"
+            [position]="$index + 1"
+            (playTrack)="onTrackPlay(track)"
+          />
+        }
+      }
+    </div>
+  }
+</section>

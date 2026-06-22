@@ -129,6 +129,14 @@ export const MusicFlowPreset = definePreset(Aura, {
         },
       },
     },
+    avatar: {
+      css: () => `
+      .settings-avatar img {
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+      }`,
+    },
     card: {
       css: () => `
         .p-card.cover-card {

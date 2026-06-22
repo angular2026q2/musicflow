@@ -6,14 +6,18 @@ import { PlaylistResponse } from '@shared/interfaces/playlist.interface';
 import { Track } from '@shared/interfaces/track.interface';
 import { firstValueFrom } from 'rxjs';
 import { AuthService } from './auth.service';
+import { API_CONFIG, BUILD_URL } from 'src/app/api.tokens';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LibraryService {
-  private readonly apiUrl = '/api/v1/';
-  private readonly historyUrl = this.apiUrl + 'history';
-  private readonly playlistsUrl = this.apiUrl + 'playlists';
+  private readonly config = inject(API_CONFIG);
+  private readonly buildUrl = inject(BUILD_URL);
+
+  private readonly historyUrl = this.buildUrl(this.config.path.history);
+  private readonly playlistsUrl = this.buildUrl(this.config.path.playlists);
+
   private readonly http = inject(HttpClient);
   private readonly auth = inject(AuthService);
 

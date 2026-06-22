@@ -1,0 +1,37 @@
+.playlist-card {
+  cursor: pointer;
+
+  padding: var(--space-md);
+  border: 1px solid var(--color-surface-lowest);
+  border-radius: var(--radius-md);
+
+  background: var(--color-surface-bright);
+  box-shadow: 0 0 15px rgb(0 0 0 / 30%);
+
+  &__header {
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: space-between;
+  }
+
+  &__title {
+    margin-bottom: var(--space-lg);
+    font-weight: var(--weight-bold);
+    color: var(--color-secondary);
+    text-align: center;
+  }
+
+  &__meta {
+    display: flex;
+    gap: var(--space-sm);
+    justify-content: center;
+
+    font-size: var(--text-label);
+    color: var(--color-primary);
+  }
+
+  &__meta-dot {
+    font-size: var(--text-label);
+    color: var(--color-primary);
+  }
+}

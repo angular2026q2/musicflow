@@ -35,33 +35,10 @@ import { CardModule } from 'primeng/card';
 @Component({
   selector: 'app-cover-card',
   imports: [CardModule],
-  template: `
-    <p-card
-      styleClass="cover-card"
-      [style.background-image]="'url(' + backgroundImage() + ')'"
-      styleClass="cover-card"
-    >
-      <ng-content> </ng-content>
-    </p-card>
-  `,
+  templateUrl: './cover-card.component.html',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styles: [
-    `
-      :host {
-        display: block;
-        width: 100%;
-        height: 100%;
-      }
-      .cover-card {
-        width: 100%;
-        height: 100%;
-        background-size: cover;
-        background-position: center center;
-        background-repeat: no-repeat;
-      }
-    `,
-  ],
+  styleUrl: './cover-card.component.scss',
 })
 export class CoverCardComponent {
   backgroundImage = input<string>('');

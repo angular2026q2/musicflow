@@ -1,6 +1,8 @@
 import { NgOptimizedImage, TitleCasePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@angular/core';
 import { isActive, Router } from '@angular/router';
+
+import { AuthService } from '@core/services/auth.service';
 import { type NavItem, NavItemComponent } from '@shared/components/nav-item/nav-item.component';
 import { ICONS } from '@shared/constants/icons';
 import { APP_ROUTES } from '@shared/constants/routes';
@@ -14,7 +16,9 @@ import { DividerModule } from 'primeng/divider';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidebarComponent {
-  private readonly router = inject(Router);
+  readonly router = inject(Router);
+  readonly auth = inject(AuthService);
+
   readonly title = 'music flow';
   readonly subtitle = 'free music';
 
@@ -29,8 +33,9 @@ export class SidebarComponent {
     { ...APP_ROUTES.SEARCH, icon: ICONS.search.icon },
     { ...APP_ROUTES.ALBUMS, icon: ICONS.albums.icon },
     { ...APP_ROUTES.ARTISTS, icon: ICONS.artists.icon },
-    { ...APP_ROUTES.LIBRARY, icon: ICONS.playlist.icon },
   ];
+
+  readonly libraryNavItem: NavItem = { ...APP_ROUTES.LIBRARY, icon: ICONS.library.icon };
 
   readonly aboutNavItem: NavItem = { ...APP_ROUTES.ABOUT, icon: ICONS.info.icon };
 

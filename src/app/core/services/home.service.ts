@@ -1,10 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { RecentlyPlayedTrack } from '@shared/interfaces/recently-played-track.interface';
-import { TrackResponse } from '@shared/interfaces/track-responce.interface';
+import { CatalogResponse } from '@shared/interfaces/catalog.interface';
+import { RecentTrack } from '@shared/interfaces/recent-track.interface';
 import { Track } from '@shared/interfaces/track.interface';
-import { Genre } from '@shared/types/genre.type';
-import { of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -13,8 +11,16 @@ export class HomeService {
   private readonly baseUrl = '/api/v1';
   private http = inject(HttpClient);
 
+  getTracksUrl() {
+    return `${this.baseUrl}/music/tracks`;
+  }
+
+  getHistoryUrl() {
+    return `${this.baseUrl}/history`;
+  }
+
   getTrendingTracks() {
-    return this.http.get<TrackResponse<Track>>(`${this.baseUrl}/music/tracks`, {
+    return this.http.get<CatalogResponse<Track>>(`${this.baseUrl}/music/tracks`, {
       params: {
         search: '?order=popularity_total',
         limit: '15',
@@ -24,7 +30,7 @@ export class HomeService {
   }
 
   getNewReleases() {
-    return this.http.get<TrackResponse<Track>>(`${this.baseUrl}/music/tracks`, {
+    return this.http.get<CatalogResponse<Track>>(`${this.baseUrl}/music/tracks`, {
       params: {
         search: `?order=releasedate_desc`,
         limit: '10',
@@ -33,21 +39,7 @@ export class HomeService {
     });
   }
 
-  getGenres() {
-    return of<Genre[]>([
-      Genre.Rock,
-      Genre.Electronic,
-      Genre.Classical,
-      Genre.AmbientNewAge,
-      Genre.Filmscore,
-      Genre.Advertising,
-      Genre.Pop,
-      Genre.Corporate,
-      Genre.Alternative,
-    ]);
-  }
-
   getRecentlyPlayed() {
-    return this.http.get<RecentlyPlayedTrack[]>(`${this.baseUrl}/history`);
+    return this.http.get<RecentTrack[]>(`${this.baseUrl}/history`);
   }
 }

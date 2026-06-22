@@ -1,0 +1,130 @@
+<div class="playlist-form">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()" class="playlist-form__form">
+    <div class="playlist-form__wrapper">
+      <div class="playlist-form__info">
+        <p-floatlabel variant="in">
+          <input
+            pInputText
+            id="playlist-name"
+            formControlName="name"
+            [invalid]="name.touched && name.invalid"
+            autocomplete="off"
+            class="playlist-form__input"
+          />
+          <label for="playlist-name">Playlist title</label>
+        </p-floatlabel>
+        @if (name.touched && name.invalid) {
+          @if (name.hasError('required')) {
+            <small class="playlist-form__text--required">Title is required</small>
+          }
+          @if (name.hasError('minlength')) {
+            <small class="playlist-form__text--required">Title must be at least 3 characters</small>
+          }
+        }
+
+        <p-floatlabel variant="in">
+          <textarea
+            pTextarea
+            id="playlist-description"
+            formControlName="description"
+            rows="5"
+            cols="30"
+            style="resize: none"
+            class="playlist-form__textarea"
+          ></textarea>
+          <label for="playlist-description">Description</label>
+        </p-floatlabel>
+
+        @if (description.touched && description.invalid) {
+          @if (description.hasError('maxlength')) {
+            <small class="playlist-form__text--required"
+              >Description must be at most 200 characters</small
+            >
+          }
+        }
+      </div>
+
+      <div class="playlist-form__search">
+        <div class="playlist-form__field">
+          <p-floatlabel variant="in">
+            <input
+              pInputText
+              id="search"
+              autocomplete="off"
+              class="playlist-form__input"
+              [value]="queryInput()"
+              (input)="onSearchInput($any($event.target).value)"
+            />
+            <label for="search">Search tracks</label>
+          </p-floatlabel>
+
+          @if (!tracksValid()) {
+            <p-message
+              severity="warn"
+              variant="simple"
+              size="small"
+              text="Add at least one track"
+            />
+          }
+
+          @if (searchResource.isLoading()) {
+            <p>Searching...</p>
+          } @else {
+            <ol class="playlist-form__results">
+              @for (track of searchResults(); track track.id) {
+                <li class="playlist-form__result">
+                  <span class="playlist-form__result-text"
+                    >{{ track.name }} — {{ track.artist_name }}</span
+                  >
+                  <p-button
+                    icon="pi pi-plus"
+                    severity="success"
+                    size="small"
+                    text
+                    (click)="addTrack(track)"
+                  />
+                </li>
+              } @empty {
+                @if (query().length >= 2) {
+                  <li>Nothing found</li>
+                }
+              }
+            </ol>
+          }
+        </div>
+
+        <div class="playlist-form__selected">
+          <h4 class="playlist-form__subheader">Selected tracks ({{ selectedTracks().length }})</h4>
+
+          @if (selectedTracks().length === 0) {
+            <div class="playlist-form__message">You have no saved tracks</div>
+          } @else {
+            <div class="playlist-form__selected-list">
+              @for (track of selectedTracks(); track track.track_id) {
+                <div class="playlist-form__selected-item">
+                  <span class="playlist-form__selected-item-text"
+                    >{{ track.track_name }} — {{ track.artist_name }}</span
+                  >
+                  <p-button
+                    icon="pi pi-times"
+                    severity="danger"
+                    size="small"
+                    text
+                    (click)="removeTrack(track.track_id)"
+                  />
+                </div>
+              }
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    <p-button
+      type="submit"
+      label="Submit"
+      [loading]="isLoading()"
+      [disabled]="form.invalid || !tracksValid()"
+    ></p-button>
+  </form>
+</div>

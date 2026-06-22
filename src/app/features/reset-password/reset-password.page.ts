@@ -7,6 +7,7 @@ import { LucideDynamicIcon } from '@lucide/angular';
 import { MessageService } from 'primeng/api';
 import { PasswordModule } from 'primeng/password';
 import { ModalService } from '@core/services/modal.service';
+import { passwordsMatch } from '@shared/validators/passwords-match.validator';
 
 import { SubmitButtonComponent } from '@shared/components/submit-button/submit-button.component';
 import { ICONS } from '@shared/constants/icons';
@@ -37,11 +38,7 @@ export class ResetPasswordPage implements OnInit {
       confirmPassword: ['', [Validators.required, Validators.minLength(6)]],
     },
     {
-      validators: (group) => {
-        const password = group.get('password')?.value;
-        const confirm = group.get('confirmPassword')?.value;
-        return password === confirm ? null : { passwordMismatch: true };
-      },
+      validators: passwordsMatch('password', 'confirmPassword'),
     },
   );
 

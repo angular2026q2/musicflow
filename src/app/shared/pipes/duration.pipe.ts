@@ -11,14 +11,17 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class DurationPipe implements PipeTransform {
   transform(seconds: number, format: 'track' | 'total' = 'track'): string {
-    if (!seconds || seconds < 0) return '0:00';
+    const invalid = !seconds || seconds < 0;
 
     if (format === 'total') {
+      if (invalid) return '0 min';
+
       const h = Math.floor(seconds / 3600);
       const m = Math.floor((seconds % 3600) / 60);
       return h > 0 ? `${h}h ${m} min` : `${m} min`;
     }
 
+    if (invalid) return '0:00';
     // * format === 'track' --> mm:ss
     const h = Math.floor(seconds / 3600);
     const m = Math.floor((seconds % 3600) / 60);

@@ -1,1 +1,99 @@
-<p>library works!</p>
+<section class="library-page">
+  <p-confirmdialog />
+
+  <div class="library-page__header">
+    <h1 class="library-page__title">{{ PAGE_TITLE }}</h1>
+  </div>
+
+  <section class="library-page__playlists">
+    <div class="library-page__playlist-section-header">
+      <h2 class="library-page__playlist-section-title">{{ PLAYLIST_SECTION_TITLE }}</h2>
+
+      <p-button
+        class="library-page__create-button"
+        label="Create playlist"
+        icon="pi pi-plus"
+        severity="secondary"
+        (click)="showCreationForm()"
+      ></p-button>
+
+      <p-dialog
+        [header]="editingPlaylist() ? 'Edit playlist' : 'Create playlist'"
+        [modal]="true"
+        [(visible)]="visible"
+        class="library-page__dialog"
+      >
+        <app-playlist-form
+          [playlist]="editingPlaylist()"
+          [(visible)]="visible"
+          (created)="onPlaylistCreated($event)"
+          (updated)="onPlaylistUpdated($event)"
+          (toast)="showToast($event)"
+        ></app-playlist-form>
+      </p-dialog>
+    </div>
+
+    <div class="library-page__content">
+      @if (playlistIsLoading()) {
+        <p>Loading...</p>
+      } @else if (playlistError()) {
+        <app-error-message (retry)="reload('playlist')"></app-error-message>
+      } @else if (playlists().length === 0) {
+        <p class="library-page__playlist-empty">You have no playlists</p>
+      } @else {
+        <div class="library-page__playlist-content">
+          @for (playlist of playlists(); track playlist.id) {
+            <app-playlist-card
+              [data]="playlist"
+              (delete)="confirmDelete(playlist)"
+              (edit)="editPlaylist(playlist)"
+              (cardClick)="routeToPlaylist(playlist.id)"
+            ></app-playlist-card>
+          }
+        </div>
+      }
+    </div>
+  </section>
+
+  <section class="library-page__history">
+    <div class="library-page__history-header">
+      <h2 class="library-page__history-title">{{ HISTORY_SECTION_TITLE }}</h2>
+    </div>
+
+    @if (history.isLoading()) {
+      <app-dates-slider-skeleton></app-dates-slider-skeleton>
+
+      <app-history-group-skeleton></app-history-group-skeleton>
+      <app-history-group-skeleton></app-history-group-skeleton>
+    } @else if (history.error()) {
+      <app-error-message (retry)="reload('history')"></app-error-message>
+    } @else if (history.value()?.length === 0) {
+      <p class="library-page__history-empty">Your history is empty</p>
+    } @else {
+      <div class="library-page__dates-slider">
+        @for (chip of dateChips(); track chip.date) {
+          <p-chip
+            [label]="chip.label"
+            (click)="scrollToDate(chip.date)"
+            class="library-page__date-chip"
+          />
+        }
+      </div>
+      @for (group of groups(); track group.date) {
+        <section class="library-page__history-group" [id]="'date-' + group.date">
+          <div class="library-page__history-group-title">{{ group.label }}</div>
+
+          @for (track of group.tracks; track track.id) {
+            <app-track
+              [track]="track"
+              [meta]="['artist', 'album']"
+              [position]="$index + 1"
+              [showImage]="true"
+              (playTrack)="onTrackPlay(track)"
+            />
+          }
+        </section>
+      }
+    }
+  </section>
+</section>

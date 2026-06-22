@@ -18,6 +18,12 @@
     align-items: center;
     width: clamp(12.5rem, 40vw, 25rem);
 
+    &-form {
+      display: flex;
+      gap: var(--space-sm);
+      align-items: center;
+    }
+
     & p-iconfield {
       width: 100%;
     }
@@ -25,6 +31,9 @@
     &-input {
       width: 100%;
       border: none;
+
+      color: var(--color-on-surface-variant);
+
       opacity: 0.9;
       background: var(--color-surface-high);
     }

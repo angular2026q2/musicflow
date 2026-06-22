@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { libraryGuard } from '@core/guards/library.guard';
 import { APP_ROUTES } from '@shared/constants/routes';
 
 export const routes: Routes = [
@@ -12,7 +13,17 @@ export const routes: Routes = [
   },
   {
     path: APP_ROUTES.LIBRARY.route,
-    loadComponent: () => import('@features/library/library.page').then((m) => m.LibraryPage),
+    canActivate: [libraryGuard],
+    children: [
+      {
+        path: '',
+        loadComponent: () => import('@features/library/library.page').then((m) => m.LibraryPage),
+      },
+      {
+        path: 'playlist/:id',
+        loadComponent: () => import('@features/playlist/playlist.page').then((m) => m.PlaylistPage),
+      },
+    ],
   },
   {
     path: APP_ROUTES.SETTINGS.route,

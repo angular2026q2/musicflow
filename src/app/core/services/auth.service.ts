@@ -1,8 +1,8 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { computed, inject, Injectable, signal } from '@angular/core';
 import { TokenService } from '@core/services/token.service';
-import { firstValueFrom } from 'rxjs';
 import { environment } from '@environments/environment';
+import { firstValueFrom } from 'rxjs';
 
 import type { SignInDto, SignUpDto } from '@core/services/dto/auth.dto';
 import type { AuthUser } from '@shared/interfaces/auth-user.interface';
@@ -19,6 +19,7 @@ export class AuthService {
   readonly currentUser = this._currentUser.asReadonly();
   readonly isAuthenticated = computed(() => this._currentUser() !== null);
   readonly isGuest = computed(() => this._currentUser() === null);
+  readonly hasToken = computed(() => this.tokenService.exists());
 
   constructor() {
     // restores session on application strt fi token exists
@@ -55,6 +56,11 @@ export class AuthService {
   signOut(): void {
     this.tokenService.clear();
     this._currentUser.set(null);
+  }
+
+  /** @description Updates Current User */
+  updateCurrentUser(partial: Partial<AuthUser>): void {
+    this._currentUser.update((user) => (user ? { ...user, ...partial } : null));
   }
 
   /** @description Reset password: sends password reset email via musicflow-backend

@@ -2,19 +2,20 @@ import { ChangeDetectionStrategy, Component, computed, inject, input } from '@an
 import { CoverCardComponent } from '@shared/components/cover-card/cover-card.component';
 import { TrackDurationComponent } from '@shared/components/track-duration/track-duration.component';
 import { Track } from '@shared/interfaces/track.interface';
-
-import { ICONS } from '@shared/constants/icons';
-import { LucideDynamicIcon } from '@lucide/angular';
 import { MusicPlayerService } from '@core/services/music-player.service';
 import { isMobilervice } from '@core/services/isMobile.service';
 import { MobileCoverCardComponent } from '../cover-card-mobile/cover-card-mobile.component';
+import { OverlayDirective } from '@shared/directives/overlay.directive';
+import { PlayButtonComponent } from '../play-button/play-button.component';
+
 @Component({
   selector: 'app-track-cards',
   imports: [
     TrackDurationComponent,
     CoverCardComponent,
-    LucideDynamicIcon,
     MobileCoverCardComponent,
+    OverlayDirective,
+    PlayButtonComponent,
   ],
   templateUrl: './track-cards.component.html',
   styleUrl: './track-cards.component.scss',
@@ -25,7 +26,6 @@ export class TrackCardsComponent {
   tracks = input.required<Track[]>();
   private readonly playerService = inject(MusicPlayerService);
   private readonly isMobileService = inject(isMobilervice);
-  protected readonly ICONS = ICONS;
   readonly isPlaying = computed(() => this.playerService.isPlaying());
   readonly isMobile = this.isMobileService.isMobile;
 

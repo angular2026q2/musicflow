@@ -5,12 +5,11 @@
   <div class="track-cards__content">
     @for (track of tracks(); track track.id) {
       <div class="track-cards__content-card">
-        <button class="track-cards__play-button" (click)="togglePlay(track)">
-          <svg
-            [lucideIcon]="isCurrentTrack(track) && isPlaying() ? ICONS.pause.icon : ICONS.play.icon"
-            [size]="36"
-          ></svg>
-        </button>
+        <app-play-button
+          appOverlay
+          [playing]="isCurrentTrack(track) && isPlaying()"
+          (playToggle)="togglePlay(track)"
+        ></app-play-button>
         @if (!isMobile()) {
           <app-cover-card [backgroundImage]="track.album_image">
             <h3 class="track-cards__content-card__title">{{ track.name }}</h3>

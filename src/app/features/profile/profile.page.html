@@ -93,12 +93,12 @@
           @if (
             passwordForm.controls.newPassword.touched &&
             passwordForm.controls.newPassword.hasError('required')
-          ) {
+            ) {
             Password is required
           } @else if (
             passwordForm.controls.newPassword.touched &&
             passwordForm.controls.newPassword.hasError('minlength')
-          ) {
+            ) {
             Minimum 8 characters
           }
         </span>
@@ -121,7 +121,7 @@
           @if (
             passwordForm.controls.confirmPassword.touched &&
             passwordForm.hasError('passwordsMismatch')
-          ) {
+            ) {
             Passwords do not match
           }
         </span>

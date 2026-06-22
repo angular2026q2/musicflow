@@ -16,7 +16,7 @@ import { DividerModule } from 'primeng/divider';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidebarComponent {
-  private readonly router = inject(Router);
+  readonly router = inject(Router);
   readonly auth = inject(AuthService);
 
   readonly title = 'music flow';

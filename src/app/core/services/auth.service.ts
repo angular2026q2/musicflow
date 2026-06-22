@@ -58,6 +58,11 @@ export class AuthService {
     this._currentUser.set(null);
   }
 
+  /** @description Updates Current User */
+  updateCurrentUser(partial: Partial<AuthUser>): void {
+    this._currentUser.update((user) => (user ? { ...user, ...partial } : null));
+  }
+
   /** @description Reset password: sends password reset email via musicflow-backend
    * @param email - user email
    */

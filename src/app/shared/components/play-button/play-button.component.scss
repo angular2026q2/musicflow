@@ -1,0 +1,15 @@
+.play-button {
+  cursor: default;
+
+  width: 64px;
+  height: 64px;
+  border: none;
+  border-radius: 50%;
+  background: var(--color-secondary);
+  box-shadow: 0 0 15px color-mix(in srgb, var(--color-primary-container) 80%, transparent);
+
+  svg {
+    color: transparent;
+    fill: var(--color-on-secondary-container);
+  }
+}

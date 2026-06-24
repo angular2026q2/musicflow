@@ -5,10 +5,11 @@ import { ICONS } from '@shared/constants/icons';
 import { CatalogData } from '@shared/types/catalog-data.types';
 import { Button } from 'primeng/button';
 import { MessageModule } from 'primeng/message';
+import { CatalogSkeleton } from './skeletons/catalog.skeleton';
 
 @Component({
   selector: 'app-catalog',
-  imports: [Button, CatalogCardComponent, MessageModule, LucideDynamicIcon],
+  imports: [Button, CatalogCardComponent, MessageModule, LucideDynamicIcon, CatalogSkeleton],
   templateUrl: './catalog.component.html',
   styleUrl: './catalog.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

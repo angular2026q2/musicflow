@@ -4,9 +4,7 @@
   </div>
 
   @if (isInitialLoading()) {
-    <div class="catalog__loading">
-      <p-message severity="secondary">Loading ...</p-message>
-    </div>
+    <app-catalog-skeleton></app-catalog-skeleton>
   } @else if (error()) {
     <div class="catalog__error">
       <p-message severity="error">Failed to load. Please try again later.</p-message>

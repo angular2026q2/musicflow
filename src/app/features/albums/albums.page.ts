@@ -16,7 +16,7 @@ import { CatalogData } from '@shared/types/catalog-data.types';
 export class AlbumsPage {
   readonly PAGE_TITLE = 'Albums';
 
-  readonly limit = signal(10);
+  readonly limit = signal(20);
   readonly offset = signal(0);
   readonly accumulated = signal<CatalogData[]>([]);
   readonly albums = this.accumulated.asReadonly();

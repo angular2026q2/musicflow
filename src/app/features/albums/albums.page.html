@@ -4,10 +4,9 @@
   [title]="PAGE_TITLE"
   [items]="albums"
   [route]="'/album'"
-  [isLoading]="isLoading()"
   [isInitialLoading]="isInitialLoading()"
   [error]="error()"
-  (loadMore)="loadMore()"
+  (scrolled)="loadMore()"
   (reload)="albumsResource.reload()"
 >
 </app-catalog>

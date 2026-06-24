@@ -4,9 +4,8 @@
   [title]="PAGE_TITLE"
   [items]="artists"
   [route]="'/artist'"
-  [isLoading]="isLoading()"
   [isInitialLoading]="isInitialLoading()"
   [error]="error()"
-  (loadMore)="loadMore()"
+  (scrolled)="loadMore()"
   (reload)="artistsResource.reload()"
 ></app-catalog>

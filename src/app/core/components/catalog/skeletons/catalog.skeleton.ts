@@ -9,5 +9,5 @@ import { CatalogCardSkeleton } from '@shared/components/catalog-card/skeletons/c
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CatalogSkeleton {
-  readonly items: string[] = Array.from({ length: 20 }, (_, i) => `Item ${i}`);
+  readonly items: string[] = Array.from({ length: 15 }, (_, i) => `Item ${i}`);
 }

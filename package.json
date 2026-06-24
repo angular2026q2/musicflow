@@ -47,6 +47,7 @@
     "@angular/router": "^21.2.0",
     "@lucide/angular": "^1.14.0",
     "@primeuix/themes": "^2.0.3",
+    "ngx-infinite-scroll": "^21.0.0",
     "primeicons": "^7.0.0",
     "primeng": "^21.1.7",
     "rxjs": "~7.8.0",

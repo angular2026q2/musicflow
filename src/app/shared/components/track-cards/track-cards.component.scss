@@ -29,8 +29,8 @@
       border-radius: var(--radius-md);
 
       &__title {
-        color: var(--color-white);
         overflow: hidden;
+        color: var(--color-white);
         text-overflow: ellipsis;
         white-space: nowrap;
       }

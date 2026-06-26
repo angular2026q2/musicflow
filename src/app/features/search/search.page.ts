@@ -16,7 +16,7 @@ import { SubmitButtonComponent } from '@shared/components/submit-button/submit-b
 
 import { SelectModule } from 'primeng/select';
 import { FormsModule } from '@angular/forms';
-import { TRACK_SORT_OPTIONS, TrackSort } from './track-search.model';
+import { TRACK_SORT_OPTIONS, TrackSort } from './track-sort.model';
 import { SliderModule } from 'primeng/slider';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { GenreService } from '@core/services/genre.service';

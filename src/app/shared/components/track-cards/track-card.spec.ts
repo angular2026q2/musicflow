@@ -4,7 +4,7 @@ import { vi } from 'vitest';
 
 import { TrackCardsComponent } from '@shared/components/track-cards/track-cards.component';
 import { MusicPlayerService } from '@core/services/music-player.service';
-import { isMobilervice } from '@core/services/isMobile.service';
+
 import { Track } from '@shared/interfaces/track.interface';
 import { By } from '@angular/platform-browser';
 
@@ -45,7 +45,7 @@ describe('TrackCardsComponent', () => {
           useValue: playerService,
         },
         {
-          provide: isMobilervice,
+          provide: isMobileService,
           useValue: isMobileService,
         },
       ],

@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { isMobilervice } from '@core/services/isMobile.service';
+import { TrackCardSkeletonComponent } from '@shared/components/track-card-skeleton/track-card-skeleton.component';
 import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   selector: 'app-search-skeleton',
-  imports: [SkeletonModule],
+  imports: [SkeletonModule, TrackCardSkeletonComponent],
   templateUrl: './search.skeleton.html',
   styleUrl: './search.skeleton.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

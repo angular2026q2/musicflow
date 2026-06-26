@@ -1,6 +1,14 @@
 .home-page {
   height: 100%;
 
+  &__trending {
+    &-skeleton {
+      margin: var(--space-md) 0 var(--space-lg) 0;
+      display: flex;
+      gap: var(--space-lg);
+    }
+  }
+
   &__recently-played {
     &__title {
       margin-bottom: var(--space-md);

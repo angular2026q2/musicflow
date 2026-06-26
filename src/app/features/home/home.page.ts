@@ -18,12 +18,13 @@ import { ErrorComponent } from '@shared/components/error/error.component';
 import { AuthService } from '@core/services/auth.service';
 import { TrackComponent } from '@shared/components/track/track.component';
 import { MusicPlayerService } from '@core/services/music-player.service';
+import { TrackCardSkeletonComponent } from '@shared/components/track-card-skeleton/track-card-skeleton.component';
 
 @Component({
   selector: 'app-home',
   imports: [
     ButtonModule,
-
+    TrackCardSkeletonComponent,
     GenresComponent,
     TrackCardsComponent,
     SkeletonModule,

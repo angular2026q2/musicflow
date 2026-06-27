@@ -6,7 +6,8 @@ import { MusicPlayerService } from '@core/services/music-player.service';
 import { isMobileService } from '@core/services/isMobile.service';
 import { MobileCoverCardComponent } from '../cover-card-mobile/cover-card-mobile.component';
 import { OverlayDirective } from '@shared/directives/overlay.directive';
-import { PlayButtonComponent } from '../play-button/play-button.component';
+import { PlayButtonComponent } from '@shared/components/play-button/play-button.component';
+import { WaveFormComponent } from '@shared/components/wave-form/wave-form.component';
 
 @Component({
   selector: 'app-track-cards',
@@ -16,6 +17,7 @@ import { PlayButtonComponent } from '../play-button/play-button.component';
     MobileCoverCardComponent,
     OverlayDirective,
     PlayButtonComponent,
+    WaveFormComponent,
   ],
   templateUrl: './track-cards.component.html',
   styleUrl: './track-cards.component.scss',

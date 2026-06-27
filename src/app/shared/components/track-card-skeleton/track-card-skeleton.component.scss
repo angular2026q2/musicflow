@@ -1,0 +1,17 @@
+.track-card-skeleton {
+  display: flex;
+  gap: var(--space-md);
+
+  &__description {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    width: 80%;
+  }
+
+  &__data {
+    display: flex;
+    gap: var(--space-md);
+    align-self: center;
+  }
+}

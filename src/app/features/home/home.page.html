@@ -1,7 +1,12 @@
 <section class="home-page">
   <div home-page__trending>
     @if (trendingTracksResource.isLoading()) {
-      <p>Loading...</p>
+      <p-skeleton width="30rem" height="2rem"></p-skeleton>
+      <div class="home-page__trending-skeleton">
+        <p-skeleton width="25rem" height="14rem" borderRadius="16px"></p-skeleton>
+        <p-skeleton width="25rem" height="14rem" borderRadius="16px"></p-skeleton>
+        <p-skeleton width="25rem" height="14rem" borderRadius="16px"></p-skeleton>
+      </div>
     } @else if (trendingTracksResource.error(); as error) {
       <app-error [message]="error.message" (retry)="trendingTracksResource.reload()" />
     } @else {
@@ -15,7 +20,12 @@
 
   <div home-page__new-relases>
     @if (newReleasesResource.isLoading()) {
-      <p>Loading</p>
+      <p-skeleton width="30rem" height="2rem"></p-skeleton>
+      <div class="home-page__trending-skeleton">
+        <p-skeleton width="25rem" height="14rem" borderRadius="16px"></p-skeleton>
+        <p-skeleton width="25rem" height="14rem" borderRadius="16px"></p-skeleton>
+        <p-skeleton width="25rem" height="14rem" borderRadius="16px"></p-skeleton>
+      </div>
     } @else if (newReleasesResource.error(); as error) {
       <app-error [message]="error.message" (retry)="newReleasesResource.reload()" />
     } @else {
@@ -26,7 +36,12 @@
   @if (isAuthenticated()) {
     <div class="home-page__recently-played">
       @if (recentTracksResource.isLoading()) {
-        <p>Loading...</p>
+        <div class="home-page__recently-played__skeleton">
+          <p-skeleton width="30rem" height="2rem"></p-skeleton>
+          <app-track-card-skeleton></app-track-card-skeleton>
+          <app-track-card-skeleton></app-track-card-skeleton>
+          <app-track-card-skeleton></app-track-card-skeleton>
+        </div>
       } @else if (recentTracksResource.error(); as error) {
         <app-error [message]="error.message" (retry)="recentTracksResource.reload()" />
       } @else {

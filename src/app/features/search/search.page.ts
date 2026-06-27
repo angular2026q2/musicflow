@@ -30,6 +30,7 @@ import { MenubarModule } from 'primeng/menubar';
 import { ICONS } from '@shared/constants/icons';
 import { LucideDynamicIcon } from '@lucide/angular';
 import { CatalogResponse } from '@shared/interfaces/catalog.interface';
+import { SearchSkeletonComponent } from './skeleton/search.skeleton';
 @Component({
   selector: 'app-search',
   imports: [
@@ -42,6 +43,7 @@ import { CatalogResponse } from '@shared/interfaces/catalog.interface';
     FieldsetModule,
     MenubarModule,
     LucideDynamicIcon,
+    SearchSkeletonComponent,
   ],
   templateUrl: './search.page.html',
   styleUrl: './search.page.scss',

@@ -1,0 +1,8 @@
+@if (trackResource.value(); as track) {
+  <img [src]="track.image" [alt]="track.name" />
+  <h1>{{ track.name }}</h1>
+  <p>{{ track.artist_name }}</p>
+  <p>{{ track.album_name }}</p>
+  <p>{{ track.releasedate | date }}</p>
+  <p>{{ track.duration | duration }}</p>
+}

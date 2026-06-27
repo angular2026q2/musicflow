@@ -11,8 +11,10 @@ export const APP_ROUTES = {
   ARTISTS: { label: 'Artists', route: 'artists' },
   ARTIST: { label: 'Artist', route: 'artist/:id' },
   PLAYLIST: { label: 'Playlist', route: 'playlist/:id' },
+  TRACK: { label: 'Track', route: 'track/:id' },
   RESET_PASSWORD: { label: 'Reset Password', route: 'reset-password' },
 } as const;
 
 export const buildAlbumPath = (id: string): string => `/album/${id}`;
 export const buildArtistPath = (id: string): string => `/artist/${id}`;
+export const buildTrackPath = (id: string): string => `/track/${id}`;

@@ -5,5 +5,6 @@
   <p>{{ track.album_name }}</p>
   <p>{{ track.releasedate | date }}</p>
   <p>{{ track.duration | duration }}</p>
+  <app-dropdown-menu [items]="menuItems()"></app-dropdown-menu>
   <app-wave-form [waveform]="track.waveform"></app-wave-form>
 }

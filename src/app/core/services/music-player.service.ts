@@ -47,7 +47,6 @@ export class MusicPlayerService {
   readonly duration = this._duration.asReadonly();
 
   constructor() {
-    console.log('🔥 MusicPlayerService CREATED');
     effect(() => {
       const track = this._currentTrack();
       if (track) {

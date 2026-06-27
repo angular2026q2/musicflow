@@ -1,21 +1,17 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { LucideDynamicIcon } from '@lucide/angular';
 import { CatalogCardComponent } from '@shared/components/catalog-card/catalog-card.component';
 import { ErrorComponent } from '@shared/components/error/error.component';
 import { ICONS } from '@shared/constants/icons';
 import { CatalogData } from '@shared/types/catalog-data.types';
 import { InfiniteScrollDirective } from 'ngx-infinite-scroll';
-import { Button } from 'primeng/button';
 import { MessageModule } from 'primeng/message';
 import { CatalogSkeleton } from './skeletons/catalog.skeleton';
 
 @Component({
   selector: 'app-catalog',
   imports: [
-    Button,
     CatalogCardComponent,
     MessageModule,
-    LucideDynamicIcon,
     CatalogSkeleton,
     InfiniteScrollDirective,
     ErrorComponent,

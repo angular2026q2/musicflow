@@ -3,7 +3,7 @@ import { Injectable, signal } from '@angular/core';
 @Injectable({
   providedIn: 'root',
 })
-export class isMobilervice {
+export class isMobileService {
   private readonly mediaQuery = window.matchMedia('(max-width: 768px)');
 
   readonly isMobile = signal(this.mediaQuery.matches);

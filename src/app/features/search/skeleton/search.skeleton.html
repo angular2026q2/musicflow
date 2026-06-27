@@ -1,0 +1,22 @@
+<div class="search-skeleton">
+  <p-skeleton width="15rem" height="2rem" borderRadius="8px"></p-skeleton>
+
+  <div class="search-skeleton__genres">
+    @for (_ of skeletonGenresItems(); track $index) {
+      <p-skeleton width="6rem" height="3rem" borderRadius="32px" />
+    }
+  </div>
+
+  <div class="search-skeleton__filters">
+    @if (!isMobile()) {
+      <p-skeleton width="10rem" height="2rem"></p-skeleton>
+    } @else {
+      <p-skeleton width="100%" height="2rem"></p-skeleton>
+    }
+
+    <p-skeleton width="10rem" height="2rem"></p-skeleton>
+  </div>
+  @for (_ of skeletonGenresItems(); track $index) {
+    <app-track-card-skeleton></app-track-card-skeleton>
+  }
+</div>

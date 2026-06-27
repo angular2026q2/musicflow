@@ -1,0 +1,42 @@
+@use 'styles/breakpoints' as *;
+
+.search-skeleton {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+
+  width: 100%;
+  margin-top: var(--space-lg);
+
+  &__genres {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+  }
+
+  &__filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+  }
+
+  @media (max-width: $bp-md) {
+    &__genres {
+      scrollbar-width: none;
+      overflow-x: scroll;
+      flex-wrap: nowrap;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      > * {
+        flex-shrink: 0;
+      }
+    }
+
+    &__filters {
+      flex-direction: column;
+    }
+  }
+}

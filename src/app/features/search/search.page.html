@@ -1,11 +1,6 @@
 <div class="search">
   @if (loading()) {
-    <div class="search__empty">
-      <div class="search__empty-wrapper">
-        <p class="search__empty-title">Searching...</p>
-        <p class="search__empty-description">Please wait while we find your music.</p>
-      </div>
-    </div>
+    <app-search-skeleton [genresCount]="genres().length"></app-search-skeleton>
   } @else if (tracks().length || selectedGenres().length) {
     <h2 class="search__title">
       Results for

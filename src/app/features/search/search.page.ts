@@ -16,7 +16,7 @@ import { SubmitButtonComponent } from '@shared/components/submit-button/submit-b
 
 import { SelectModule } from 'primeng/select';
 import { FormsModule } from '@angular/forms';
-import { TRACK_SORT_OPTIONS, TrackSort } from './track-search.model';
+import { TRACK_SORT_OPTIONS, TrackSort } from './track-sort.model';
 import { SliderModule } from 'primeng/slider';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { GenreService } from '@core/services/genre.service';
@@ -30,6 +30,7 @@ import { MenubarModule } from 'primeng/menubar';
 import { ICONS } from '@shared/constants/icons';
 import { LucideDynamicIcon } from '@lucide/angular';
 import { CatalogResponse } from '@shared/interfaces/catalog.interface';
+import { SearchSkeletonComponent } from './skeleton/search.skeleton';
 @Component({
   selector: 'app-search',
   imports: [
@@ -42,6 +43,7 @@ import { CatalogResponse } from '@shared/interfaces/catalog.interface';
     FieldsetModule,
     MenubarModule,
     LucideDynamicIcon,
+    SearchSkeletonComponent,
   ],
   templateUrl: './search.page.html',
   styleUrl: './search.page.scss',

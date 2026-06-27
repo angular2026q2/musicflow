@@ -38,6 +38,7 @@ import {
   LucideDrum,
   LucideCrown,
   LucideMegaphone,
+  LucideExternalLink,
 } from '@lucide/angular';
 import { IconConfig } from '@shared/interfaces/icon-config';
 
@@ -82,6 +83,7 @@ export const ICONS = {
   music: { icon: LucideMusic, label: 'Music' },
   albums: { icon: LucideDisc3, label: 'Albums' },
   artists: { icon: LucideMicVocal, label: 'Artists' },
+  expand: { icon: LucideExternalLink, label: 'Expand' },
 } as const satisfies Record<string, IconConfig>;
 
 export type IconKey = keyof typeof ICONS;

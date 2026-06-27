@@ -99,7 +99,7 @@ describe('AuthService', () => {
   describe('signIn', () => {
     it('should POST credentials, save token with persistent flag, and load user', async () => {
       setup(false);
-      const credentials = { email: 'a@b.com', password: 'pass' };
+      const credentials = { identifier: 'a@b.com', password: 'pass' };
       const promise = service.signIn(credentials, true);
 
       const signInReq = httpMock.expectOne(`${environment.apiUrl}/v1/auth/sign-in`);
@@ -121,7 +121,7 @@ describe('AuthService', () => {
 
     it('should pass persistent=false to tokenService when flag is false', async () => {
       setup(false);
-      const promise = service.signIn({ email: 'a@b.com', password: 'pass' }, false);
+      const promise = service.signIn({ identifier: 'a@b.com', password: 'pass' }, false);
 
       httpMock
         .expectOne(`${environment.apiUrl}/v1/auth/sign-in`)

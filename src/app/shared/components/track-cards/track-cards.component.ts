@@ -3,8 +3,8 @@ import { CoverCardComponent } from '@shared/components/cover-card/cover-card.com
 import { TrackDurationComponent } from '@shared/components/track-duration/track-duration.component';
 import { Track } from '@shared/interfaces/track.interface';
 import { MusicPlayerService } from '@core/services/music-player.service';
-import { isMobilervice } from '@core/services/isMobile.service';
-import { MobileCoverCardComponent } from '@shared/components/cover-card-mobile/cover-card-mobile.component';
+import { isMobileService } from '@core/services/isMobile.service';
+import { MobileCoverCardComponent } from '../cover-card-mobile/cover-card-mobile.component';
 import { OverlayDirective } from '@shared/directives/overlay.directive';
 import { PlayButtonComponent } from '@shared/components/play-button/play-button.component';
 import { WaveFormComponent } from '@shared/components/wave-form/wave-form.component';
@@ -27,7 +27,7 @@ export class TrackCardsComponent {
   title = input('');
   tracks = input.required<Track[]>();
   private readonly playerService = inject(MusicPlayerService);
-  private readonly isMobileService = inject(isMobilervice);
+  private readonly isMobileService = inject(isMobileService);
   readonly isPlaying = computed(() => this.playerService.isPlaying());
   readonly isMobile = this.isMobileService.isMobile;
 

@@ -1,0 +1,9 @@
+.track-page {
+  display: flex;
+  &__info {
+    &-wave-form {
+      width: 100%;
+      height: 300px;
+    }
+  }
+}

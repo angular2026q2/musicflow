@@ -1,4 +1,4 @@
-<div class="track">
+<div class="track" [class.track--playing]="isCurrentlyPlaying()">
   <div class="track__position">
     <span class="track__num">{{ position() }}</span>
     <button
@@ -26,7 +26,8 @@
     }
 
     <div class="track__info">
-      <span class="track__name">{{ track().name }}</span>
+      <!-- <span class="track__name">{{ track().name }}</span> -->
+      <a [routerLink]="trackLink(track().id)" class="track__meta-item">{{ track().name }}</a>
 
       @if (meta().length) {
         <div class="track__meta">

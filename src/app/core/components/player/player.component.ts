@@ -6,6 +6,7 @@ import { ControlButtonComponent } from '@shared/components/control-button/contro
 import { ControlsBarComponent } from '@shared/components/controls-bar/controls-bar.component';
 import { MetaComponent } from '@shared/components/meta/meta.component';
 import { VolumeComponent } from '@shared/components/volume/volume.component';
+import { buildTrackPath } from '@shared/constants/routes';
 
 @Component({
   selector: 'app-player',
@@ -36,6 +37,11 @@ export class PlayerComponent {
 
   // * описание ниже!
   protected readonly isFavorite = signal<boolean>(false);
+
+  readonly trackPath = computed(() => {
+    const trackId = this.playerService.currentTrack()?.id;
+    return trackId ? buildTrackPath(trackId) : null;
+  });
 
   onPlayToggle(): void {
     this.playerService.togglePlay();
@@ -72,7 +78,7 @@ export class PlayerComponent {
     const id = this.playerService.currentTrack()?.id;
 
     if (id) {
-      this.router.navigate(['/track', id]);
+      this.router.navigateByUrl(buildTrackPath(id));
     }
   }
 }

@@ -13,7 +13,11 @@
             />
           </div>
           <div class="player__description">
-            <app-meta [title]="title()" [primaryDesc]="primaryDesc()"></app-meta>
+            <app-meta
+              [title]="title()"
+              [primaryDesc]="primaryDesc()"
+              [titleLink]="trackPath()"
+            ></app-meta>
           </div>
         </div>
       </div>

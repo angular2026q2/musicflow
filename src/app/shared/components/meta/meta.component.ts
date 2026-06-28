@@ -10,18 +10,20 @@ import {
   viewChild,
 } from '@angular/core';
 
+import { RouterLink } from '@angular/router';
+
 @Component({
   selector: 'app-meta',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './meta.component.html',
   styleUrl: './meta.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MetaComponent {
   readonly title = input<string>('');
+  readonly titleLink = input<string | null>(null);
   readonly primaryDesc = input<string>('');
   readonly isScrolling = signal<boolean>(false);
-
   private readonly containerRef = viewChild<ElementRef<HTMLElement>>('marqueeContainer');
 
   /** @description

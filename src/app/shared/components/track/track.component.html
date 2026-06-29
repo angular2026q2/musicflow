@@ -26,7 +26,6 @@
     }
 
     <div class="track__info">
-      <!-- <span class="track__name">{{ track().name }}</span> -->
       <a [routerLink]="trackLink(track().id)" class="track__meta-item">{{ track().name }}</a>
 
       @if (meta().length) {

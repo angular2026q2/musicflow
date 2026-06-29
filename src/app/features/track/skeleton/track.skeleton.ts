@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-// import { isMobileService } from '@core/services/isMobile.service';
 import { TrackCardSkeletonComponent } from '@shared/components/track-card-skeleton/track-card-skeleton.component';
 
 import { SkeletonModule } from 'primeng/skeleton';
@@ -11,6 +10,4 @@ import { SkeletonModule } from 'primeng/skeleton';
   styleUrls: ['./track.skeleton.scss', '../track.page.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TrackSkeletonComponent {
-  // private readonly isMobileService = inject(isMobileService);
-}
+export class TrackSkeletonComponent {}

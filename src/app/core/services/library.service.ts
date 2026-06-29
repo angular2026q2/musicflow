@@ -1,12 +1,13 @@
 import { HttpClient, httpResource } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { HistoryRequest, HistoryResponse } from '@shared/interfaces/history';
+import { HistoryResponse } from '@shared/interfaces/history';
 import { Payload } from '@shared/interfaces/payload';
 import { PlaylistResponse } from '@shared/interfaces/playlist.interface';
 import { Track } from '@shared/interfaces/track.interface';
+import { toHistoryRequest } from '@shared/utils/toHistorRequest';
 import { firstValueFrom } from 'rxjs';
-import { AuthService } from './auth.service';
 import { API_CONFIG, BUILD_URL } from 'src/app/api.tokens';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -29,15 +30,7 @@ export class LibraryService {
   );
 
   async addToHistory(track: Track) {
-    const body: HistoryRequest = {
-      track_id: track.id,
-      track_name: track.name,
-      artist_name: track.artist_name,
-      album_name: track.album_name,
-      album_image: track.album_image,
-      audio: track.audio,
-      duration: track.duration,
-    };
+    const body = toHistoryRequest(track);
 
     await firstValueFrom(this.http.post(this.historyUrl, body));
   }

@@ -4,18 +4,7 @@
   @if (isLoading()) {
     <app-artist-skeleton />
   } @else if (error()) {
-    <div class="catalog__error">
-      <p-message severity="error">Failed to load. Please try again later.</p-message>
-      <p-button
-        label="Retry"
-        type="text"
-        (click)="reload()"
-        class="catalog__retry-btn"
-        severity="primary"
-      >
-        <svg [lucideIcon]="retryIcon"></svg>
-      </p-button>
-    </div>
+    <app-error message="Failed to load. Please try again." (reload)="reload()"></app-error>
   } @else if (artist(); as artist) {
     <div
       class="artist-page__header"
@@ -56,14 +45,14 @@
             {{ isPlay() ? 'Pause' : 'Play all' }}
           </button>
 
-          <button
+          <!-- <button
             type="button"
             class="artist-page__button artist-page__button--follow"
             (click)="toggleFollow()"
             aria-label="Follow the artist"
           >
             {{ isFollowing() ? 'unfollow' : 'follow' }}
-          </button>
+          </button> -->
         </div>
       </div>
     </div>

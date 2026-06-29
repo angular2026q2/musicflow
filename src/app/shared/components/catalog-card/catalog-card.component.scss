@@ -29,6 +29,17 @@
     box-shadow: 0 0 15px color-mix(in srgb, var(--color-secondary) 30%, transparent);
   }
 
+  &--skeleton {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    justify-content: flex-end;
+
+    padding: var(--space-md);
+    border: 1px solid var(--color-on-surface);
+    border-radius: var(--radius-lg);
+  }
+
   &__content {
     position: relative;
     z-index: 2;

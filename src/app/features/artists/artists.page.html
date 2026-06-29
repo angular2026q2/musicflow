@@ -1,12 +1,11 @@
-@let artists = accumulated();
+@let artists = catalog.data();
 
 <app-catalog
   [title]="PAGE_TITLE"
   [items]="artists"
   [route]="'/artist'"
-  [isLoading]="isLoading()"
-  [isInitialLoading]="isInitialLoading()"
-  [error]="error()"
-  (loadMore)="loadMore()"
-  (reload)="artistsResource.reload()"
+  [isInitialLoading]="catalog.isInitialLoading()"
+  [error]="catalog.error()"
+  (scrolled)="catalog.loadMore()"
+  (reload)="catalog.reload()"
 ></app-catalog>

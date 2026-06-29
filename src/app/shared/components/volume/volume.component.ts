@@ -21,12 +21,13 @@ import { IconKey } from '@shared/constants/icons';
 })
 export class VolumeComponent {
   private readonly DEFAULT_VOLUME_VALUE = 50;
+
   private readonly playerService = inject(MusicPlayerService);
 
   readonly volume = signal(this.DEFAULT_VOLUME_VALUE);
   private readonly volumeBeforeMute = signal(this.DEFAULT_VOLUME_VALUE);
-  private readonly isMuted = computed(() => this.volume() === 0);
 
+  private readonly isMuted = computed(() => this.volume() === 0);
   readonly iconKey = computed<IconKey>(() => {
     if (this.isMuted() || this.volume() === 0) return 'volumeOff';
     if (this.volume() < this.DEFAULT_VOLUME_VALUE) return 'volumeDown';

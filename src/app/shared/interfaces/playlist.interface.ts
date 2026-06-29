@@ -1,9 +1,6 @@
-import { HistoryRequest } from './history';
+import { Payload } from './payload';
 
-export interface Playlist {
-  name: string;
-  description: string;
-  tracks: HistoryRequest[];
+export interface Playlist extends Payload {
   duration?: number;
 }
 

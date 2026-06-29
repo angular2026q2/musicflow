@@ -1,5 +1,5 @@
 <section class="artist-page">
-  <div class="artist-page__header">
+  <div class="artist-page__header artist-page__header--skeleton">
     <p-skeleton shape="circle" size="10rem" class="artist-page__avatar" />
 
     <div class="artist-page__header-root">
@@ -10,31 +10,35 @@
         <div class="artist-page__meta">
           <p-skeleton width="10rem" height="2rem" class="artist-page__meta-icon" />
 
-          <p-skeleton width="10rem" height="2rem" class="artist-page__meta-label" />
+          <!-- <p-skeleton width="10rem" height="2rem" class="artist-page__meta-label" /> -->
         </div>
       </div>
       <div class="artist-page__right-side">
         <p-skeleton width="5rem" height="2rem" class="artist-page__button" borderRadius="16px" />
-        <p-skeleton width="5rem" height="2rem" class="artist-page__button" borderRadius="16px" />
+        <!-- <p-skeleton width="5rem" height="2rem" class="artist-page__button" borderRadius="16px" /> -->
       </div>
     </div>
   </div>
 
   <div class="artist-page__content">
-    <div class="artist-page__tracklist">
+    <div class="artist-page__tracklist artist-page__tracklist--skeleton">
       <div class="artist-page__tracks">
         <div class="artist-page__tracks-header">
-          <p-skeleton width="70%" height="2rem" class="artist-page__tracks-title" />
-          <p-skeleton width="20%" height="2rem" class="artist-page__button--show-all" />
+          <p-skeleton width="70%" height="3rem" class="artist-page__tracks-title" />
+          <p-skeleton width="20%" height="3rem" class="artist-page__button--show-all" />
         </div>
+
+        @for (track of tracks; track track) {
+          <p-skeleton width="100%" height="3.5rem" class="artist-page__track--skeleton" />
+        }
       </div>
     </div>
 
-    <div class="artist-page__sidebar-info">
+    <div class="artist-page__sidebar-info artist-page__sidebar-info--skeleton">
       <div class="artist-page__discography">
         <p-skeleton width="100%" height="2rem" class="artist-page__discography-title" />
 
-        <div class="artist-page__albums">
+        <div class="artist-page__albums artist-page__albums--skeleton">
           <p-skeleton width="100%" height="140px" class="artist-page__album" />
           <p-skeleton width="100%" height="140px" class="artist-page__album" />
         </div>

@@ -24,8 +24,9 @@ export class DurationPipe implements PipeTransform {
     if (invalid) return '0:00';
     // * format === 'track' --> mm:ss
     const h = Math.floor(seconds / 3600);
-    const m = Math.floor((seconds % 3600) / 60);
-    const s = seconds % 60;
+    const m = Math.floor(seconds / 60);
+    const s = Math.floor(seconds % 60);
+
     const mm = m.toString().padStart(h > 0 ? 2 : 1, '0');
     const ss = s.toString().padStart(2, '0');
     return h > 0 ? `${h}:${mm}:${ss}` : `${mm}:${ss}`;

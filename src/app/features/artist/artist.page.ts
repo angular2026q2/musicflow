@@ -6,6 +6,7 @@ import { ArtistService } from '@core/services/artist.service';
 import { MusicPlayerService } from '@core/services/music-player.service';
 import { LucideDynamicIcon } from '@lucide/angular';
 import { CoverCardComponent } from '@shared/components/cover-card/cover-card.component';
+import { ErrorComponent } from '@shared/components/error/error.component';
 import { TrackComponent } from '@shared/components/track/track.component';
 import { ICONS } from '@shared/constants/icons';
 import { buildAlbumPath } from '@shared/constants/routes';
@@ -21,7 +22,6 @@ import { ArtistSkeletonPage } from './skeleton/artist.skeleton';
   selector: 'app-artist',
   imports: [
     LucideDynamicIcon,
-    // DropdownMenuComponent,
     DividerModule,
     TrackComponent,
     ButtonModule,
@@ -32,6 +32,7 @@ import { ArtistSkeletonPage } from './skeleton/artist.skeleton';
     ArtistSkeletonPage,
     ButtonModule,
     MessageModule,
+    ErrorComponent,
   ],
   templateUrl: './artist.page.html',
   styleUrl: './artist.page.scss',
@@ -87,16 +88,6 @@ export class ArtistPage {
       this.playerService.isPlaying() &&
       this.playerService.currentTrack()?.artist_id === this.artist()?.id,
   );
-
-  // !TODO: добавить функционал копирования и может еще что то
-  // readonly dropDownMenuItems: MenuItem[] = [
-  //   {
-  //     label: 'Shared',
-  //   },
-  //   {
-  //     label: 'About artist',
-  //   },
-  // ];
 
   readonly isLoading = computed(() => this.artistResource.isLoading());
   readonly error = computed(() => this.artistResource.error());

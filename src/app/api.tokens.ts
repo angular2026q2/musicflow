@@ -6,6 +6,8 @@ export const apiConfig: ApiConfig = {
   path: {
     history: 'history',
     playlists: 'playlists',
+    albums: 'albums',
+    artists: 'artists',
   },
 };
 

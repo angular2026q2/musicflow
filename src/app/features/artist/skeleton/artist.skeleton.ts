@@ -8,4 +8,6 @@ import { SkeletonModule } from 'primeng/skeleton';
   styleUrl: '../artist.page.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ArtistSkeletonPage {}
+export class ArtistSkeletonPage {
+  readonly tracks = Array.from({ length: 5 }, (_, i) => `Track #${i}`);
+}

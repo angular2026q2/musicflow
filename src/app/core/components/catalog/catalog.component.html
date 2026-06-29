@@ -4,34 +4,26 @@
   </div>
 
   @if (isInitialLoading()) {
-    <div class="catalog__loading">
-      <p-message severity="secondary">Loading ...</p-message>
-    </div>
+    <app-catalog-skeleton></app-catalog-skeleton>
   } @else if (error()) {
-    <div class="catalog__error">
-      <p-message severity="error">Failed to load. Please try again later.</p-message>
-      <p-button
-        label="Retry"
-        type="text"
-        (click)="reload.emit()"
-        class="catalog__retry-btn"
-        severity="primary"
-      >
-        <svg [lucideIcon]="retryIcon"></svg>
-      </p-button>
-    </div>
+    <app-error
+      message="Failed to load data. Please try again later."
+      (reload)="reload.emit()"
+    ></app-error>
   } @else if (items()?.length) {
-    <div class="catalog__list">
+    <div
+      class="catalog__list"
+      infiniteScroll
+      [infiniteScrollDistance]="2"
+      [infiniteScrollThrottle]="150"
+      (scrolled)="scrolled.emit()"
+      [infiniteScrollContainer]="'.app-layout__main'"
+      [fromRoot]="true"
+    >
       @for (item of items(); track item.id) {
         <app-catalog-card [data]="item" [route]="route()"></app-catalog-card>
       }
     </div>
-    <p-button
-      label="Load more"
-      [loading]="isLoading()"
-      (click)="loadMore.emit()"
-      class="catalog__loadmore-btn"
-    ></p-button>
   } @else {
     <div class="catalog__empty">
       <p-message severity="secondary">Nothing found</p-message>

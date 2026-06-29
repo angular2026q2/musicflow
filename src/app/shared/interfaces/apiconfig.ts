@@ -3,5 +3,7 @@ export interface ApiConfig {
   path: {
     history: string;
     playlists: string;
+    albums: string;
+    artists: string;
   };
 }

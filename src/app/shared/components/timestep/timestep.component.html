@@ -1,5 +1,5 @@
 <div class="timestep">
-  <span class="timestep__time">{{ formattedCurrentTime() }}</span>
+  <span class="timestep__time">{{ formattedCurrentTime() | duration }}</span>
 
   <p-slider
     [ngModel]="currentTime()"
@@ -11,5 +11,5 @@
     ariaLabel="Timestep"
   />
 
-  <span class="timestep__time">{{ formattedDuration() }}</span>
+  <span class="timestep__time">{{ formattedDuration() | duration }}</span>
 </div>

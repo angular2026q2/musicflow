@@ -34,6 +34,11 @@
       background-color: var(--color-on-primary);
     }
 
+    &--skeleton {
+      border: 1px solid var(--color-on-surface);
+      border-radius: var(--radius-lg);
+    }
+
     &-root {
       position: relative;
       z-index: 2;
@@ -171,6 +176,18 @@
     flex-grow: 1;
   }
 
+  &__tracklist--skeleton,
+  &__sidebar-info--skeleton {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+
+    width: 280px;
+    padding: var(--space-md);
+    border: 1px solid var(--color-on-surface);
+    border-radius: var(--radius-lg);
+  }
+
   &__sidebar-info {
     display: flex;
     flex: 1 1 140px;
@@ -192,6 +209,12 @@
     text-transform: capitalize;
   }
 
+  &__discography--skeleton {
+    padding: var(--space-md);
+    border: 1px solid var(--color-on-surface);
+    border-radius: var(--radius-lg);
+  }
+
   &__discography-title,
   &__about-artist-title {
     margin-bottom: var(--space-md);
@@ -203,6 +226,11 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: var(--space-md);
+
+    &--skeleton {
+      display: flex;
+      flex-wrap: wrap;
+    }
   }
 
   &__album {
@@ -243,5 +271,9 @@
       font-size: var(--text-body-sm);
       color: var(--color-on-surface-variant);
     }
+  }
+
+  &__track--skeleton {
+    margin-block: var(--space-md);
   }
 }

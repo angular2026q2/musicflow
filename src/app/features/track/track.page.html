@@ -1,6 +1,11 @@
+<!-- <app-track-skeleton></app-track-skeleton> -->
 <div class="track-page">
   <div class="track-page__info">
-    @if (trackResource.value(); as track) {
+    @if (trackResource.isLoading()) {
+      <app-track-skeleton></app-track-skeleton>
+    } @else if (trackResource.error(); as error) {
+      <app-error [message]="error.message" (retry)="trackResource.reload()" />
+    } @else if (trackResource.value(); as track) {
       <div class="track-page__info-cover">
         <img class="track-page__info-cover-vinyl" src="images/vinil.webp" alt="" />
 

@@ -1,14 +1,14 @@
 @use 'styles/breakpoints' as bp;
 
 .track-page {
-  min-height: 100vh;
   display: flex;
+  min-height: 100vh;
 
   a {
     text-decoration: underline;
+    text-decoration-color: rgb(255 255 255 / 50%);
     text-decoration-thickness: 1px;
     text-underline-offset: 4px;
-    text-decoration-color: rgba(255, 255, 255, 0.5);
 
     &:hover {
       text-decoration-color: var(--color-primary);
@@ -25,38 +25,35 @@
 
       &-vinyl {
         position: absolute;
-
         z-index: 1;
+        top: 10px;
+        right: -30px;
+        transform: rotate(20deg);
 
         width: 280px;
         height: 280px;
-
-        top: 10px;
-        right: -30px;
         border-radius: 50%;
 
         object-fit: cover;
-
-        transform: rotate(20deg);
-
-        filter: drop-shadow(0 12px 20px rgba(0, 0, 0, 0.25));
+        filter: drop-shadow(0 12px 20px rgb(0 0 0 / 25%));
       }
 
       &-image {
         position: relative;
         z-index: 2;
+
         width: 300px;
         height: 300px;
-
         border-radius: 16px;
 
         object-fit: cover;
       }
+
       &-interface {
         position: absolute;
         z-index: 4;
-        left: 4%;
         bottom: 6%;
+        left: 4%;
       }
     }
 
@@ -65,10 +62,10 @@
       justify-content: space-between;
 
       &-track {
+        position: relative;
         display: flex;
         gap: var(--space-md);
         align-items: center;
-        position: relative;
 
         &-time {
           display: flex;
@@ -82,14 +79,15 @@
             content: '';
 
             position: absolute;
-            left: -6px;
             top: 50%;
+            left: -6px;
             transform: translate(-50%, -50%);
 
             width: 4px;
             height: 4px;
             border-radius: 50%;
-            background-color: currentColor;
+
+            background-color: currentcolor;
           }
         }
       }
@@ -116,13 +114,15 @@
       margin-bottom: var(--space-sm);
 
       &-button {
+        cursor: pointer;
+
         padding: 0;
         border: none;
-        background: none;
 
-        color: var(--color-primary);
         font: inherit;
-        cursor: pointer;
+        color: var(--color-primary);
+
+        background: none;
 
         transition: color 0.2s ease;
 
@@ -134,8 +134,8 @@
   }
 
   @media (max-width: bp.$bp-md) {
-    margin-top: var(--space-sm);
     flex-direction: column;
+    margin-top: var(--space-sm);
 
     &__info {
       &-description {

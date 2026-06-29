@@ -1,0 +1,10 @@
+.track-skeleton {
+  width: 100%;
+  .track-page__info-cover-vinyl {
+    position: absolute !important;
+  }
+
+  .track-page__info-description {
+    margin-bottom: var(--space-sm);
+  }
+}

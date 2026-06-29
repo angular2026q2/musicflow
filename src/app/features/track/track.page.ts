@@ -1,13 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { httpResource } from '@angular/common/http';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  effect,
-  inject,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MusicPlayerService } from '@core/services/music-player.service';
 import { DropdownMenuComponent } from '@shared/components/dropdown/dropdown-menu.component';
@@ -23,6 +16,8 @@ import { PlayButtonComponent } from '@shared/components/play-button/play-button.
 import { ControlsBarComponent } from '@shared/components/controls-bar/controls-bar.component';
 import { isMobileService } from '@core/services/isMobile.service';
 import { ButtonModule } from 'primeng/button';
+import { ErrorComponent } from '@shared/components/error/error.component';
+import { TrackSkeletonComponent } from './skeleton/track.skeleton';
 @Component({
   selector: 'app-track-page',
   imports: [
@@ -35,6 +30,8 @@ import { ButtonModule } from 'primeng/button';
     ControlsBarComponent,
     RouterLink,
     ButtonModule,
+    ErrorComponent,
+    TrackSkeletonComponent,
   ],
   templateUrl: './track.page.html',
   styleUrl: './track.page.scss',
@@ -69,13 +66,6 @@ export class TrackPage {
 
   protected albumPath(artistId: string): string {
     return buildAlbumPath(artistId);
-  }
-
-  constructor() {
-    effect(() => {
-      console.log('CURRENT:', this.playerService.currentTrack());
-      console.log('QUEUE:', this.queue());
-    });
   }
 
   readonly menuItems = computed<MenuItem[]>(() => {

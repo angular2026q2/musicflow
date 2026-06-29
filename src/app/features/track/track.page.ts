@@ -8,7 +8,7 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MusicPlayerService } from '@core/services/music-player.service';
 import { DropdownMenuComponent } from '@shared/components/dropdown/dropdown-menu.component';
 import { TrackComponent } from '@shared/components/track/track.component';
@@ -22,6 +22,7 @@ import { map } from 'rxjs';
 import { PlayButtonComponent } from '@shared/components/play-button/play-button.component';
 import { ControlsBarComponent } from '@shared/components/controls-bar/controls-bar.component';
 import { isMobileService } from '@core/services/isMobile.service';
+import { ButtonModule } from 'primeng/button';
 @Component({
   selector: 'app-track-page',
   imports: [
@@ -32,6 +33,8 @@ import { isMobileService } from '@core/services/isMobile.service';
     TrackComponent,
     PlayButtonComponent,
     ControlsBarComponent,
+    RouterLink,
+    ButtonModule,
   ],
   templateUrl: './track.page.html',
   styleUrl: './track.page.scss',
@@ -60,10 +63,18 @@ export class TrackPage {
   protected readonly repeatMode = computed(() => this.playerService.repeatMode());
   protected readonly isFavorite = signal<boolean>(false);
 
+  protected artistPath(artistId: string): string {
+    return buildArtistPath(artistId);
+  }
+
+  protected albumPath(artistId: string): string {
+    return buildAlbumPath(artistId);
+  }
+
   constructor() {
     effect(() => {
       console.log('CURRENT:', this.playerService.currentTrack());
-      console.log('QUEUE:', this.playerService.queue());
+      console.log('QUEUE:', this.queue());
     });
   }
 
@@ -75,11 +86,11 @@ export class TrackPage {
     return [
       {
         label: 'Go to Artist',
-        command: () => this.router.navigateByUrl(buildArtistPath(track.artist_id)),
+        command: () => this.router.navigateByUrl(this.artistPath(track.artist_id)),
       },
       {
         label: 'Show Album',
-        command: () => this.router.navigateByUrl(buildAlbumPath(track.album_id)),
+        command: () => this.router.navigateByUrl(this.albumPath(track.album_id)),
       },
     ];
   });

@@ -8,6 +8,7 @@ export const apiConfig: ApiConfig = {
     playlists: 'playlists',
     albums: 'albums',
     artists: 'artists',
+    playCounts: 'play-counts',
   },
 };
 

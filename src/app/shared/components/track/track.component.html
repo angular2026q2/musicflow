@@ -65,8 +65,7 @@
   </div>
 
   <span class="track__plays">
-    <!-- todo: заменить на реальное значение plays когда API начнёт отдавать это поле -->
-    –
+    {{ track().plays | playCount }}
   </span>
 
   <span class="track__duration">

@@ -35,6 +35,7 @@ export class MusicPlayerService {
   private readonly _repeatMode = signal<RepeatMode>('none');
   private readonly _currentTime = signal<number>(0);
   private readonly _duration = signal<number>(0);
+  private _playCounted = false;
 
   // * эти внешние - для всех потребителей
   readonly currentTrack = this._currentTrack.asReadonly();
@@ -49,6 +50,7 @@ export class MusicPlayerService {
   constructor() {
     effect(() => {
       const track = this._currentTrack();
+      this._playCounted = false;
       if (track) {
         this.audio.src = track.audio;
         this.audio.play().catch(() => {
@@ -62,6 +64,16 @@ export class MusicPlayerService {
 
     this.audio.addEventListener('timeupdate', () => {
       this._currentTime.set(this.audio.currentTime);
+
+      const threshold = Math.min(30, this.audio.duration * 0.5);
+
+      if (!this._playCounted && this.audio.currentTime >= threshold) {
+        const track = this._currentTrack();
+        if (track) {
+          this._playCounted = true;
+          void this.libraryService.incrementPlayCount(track);
+        }
+      }
     });
     this.audio.addEventListener('loadedmetadata', () => {
       this._duration.set(this.audio.duration);

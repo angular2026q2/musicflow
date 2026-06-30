@@ -20,4 +20,5 @@ export interface Track {
   audiodownload_allowed: boolean;
   content_id_free: boolean;
   waveform?: string;
+  plays?: number;
 }

@@ -7,14 +7,14 @@ import { ICONS } from '@shared/constants/icons';
 
 import { buildAlbumPath, buildArtistPath, buildTrackPath } from '@shared/constants/routes';
 import { DurationPipe } from '@shared/pipes/duration.pipe';
-// import { PlayCountPipe } from '@shared/pipes/play-count.pipe';
+import { PlayCountPipe } from '@shared/pipes/play-count.pipe';
 import type { Track } from '@shared/interfaces/track.interface';
 
 type TrackMetaField = 'album' | 'artist' | 'releasedate';
 
 @Component({
   selector: 'app-track',
-  imports: [RouterLink, LucideDynamicIcon, DurationPipe, DatePipe, NgOptimizedImage],
+  imports: [RouterLink, LucideDynamicIcon, DurationPipe, DatePipe, PlayCountPipe, NgOptimizedImage],
   templateUrl: './track.component.html',
   styleUrl: './track.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -33,7 +33,6 @@ export class TrackComponent {
   );
 
   protected readonly ICONS = ICONS;
-  /** todo: PlayCountPipe будет использоваться когда API начнёт отдавать поле plays */
 
   onPlayClick(): void {
     if (this.isCurrentlyPlaying()) {

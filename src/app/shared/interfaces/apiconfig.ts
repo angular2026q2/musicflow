@@ -5,5 +5,6 @@ export interface ApiConfig {
     playlists: string;
     albums: string;
     artists: string;
+    playCounts: string;
   };
 }

@@ -122,7 +122,8 @@
   }
 
   @media (hover: hover) and (pointer: fine) {
-    &:hover {
+    &:hover,
+    &.track--playing {
       background-color: var(--color-surface-container);
 
       .track__num {

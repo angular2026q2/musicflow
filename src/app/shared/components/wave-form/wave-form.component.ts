@@ -40,6 +40,7 @@ export class WaveFormComponent implements AfterViewInit, OnDestroy {
 
   private readonly currentTime = this.player.currentTime;
   private readonly duration = this.player.duration;
+  private readonly isPlaying = this.player.isPlaying;
 
   private readonly barWidth = 3;
   private readonly gap = 1;
@@ -122,6 +123,7 @@ export class WaveFormComponent implements AfterViewInit, OnDestroy {
     const frame = () => {
       const duration = this.duration();
       const currentTime = this.currentTime();
+      const isPlaying = this.isPlaying();
 
       const progress = duration ? currentTime / duration : 0;
 
@@ -132,7 +134,7 @@ export class WaveFormComponent implements AfterViewInit, OnDestroy {
 
         const baseHeight = peak * maxHeight;
 
-        const movement = 1 + Math.sin(Date.now() / 500 + index * 0.25) * 0.15;
+        const movement = isPlaying ? 1 + Math.sin(Date.now() / 500 + index * 0.25) * 0.15 : 1;
 
         const barHeight = baseHeight * movement;
 
@@ -140,7 +142,9 @@ export class WaveFormComponent implements AfterViewInit, OnDestroy {
 
         const y = height - barHeight;
 
-        ctx.fillStyle = index / peaks.length <= progress ? this.accentColor : this.mainColor;
+        const playedIndex = Math.floor(progress * peaks.length);
+
+        ctx.fillStyle = index < playedIndex ? this.accentColor : this.mainColor;
 
         ctx.beginPath();
 

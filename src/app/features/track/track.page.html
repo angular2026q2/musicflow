@@ -1,0 +1,86 @@
+<!-- <app-track-skeleton></app-track-skeleton> -->
+<div class="track-page">
+  <div class="track-page__info">
+    @if (trackResource.isLoading()) {
+      <app-track-skeleton></app-track-skeleton>
+    } @else if (trackResource.error(); as error) {
+      <app-error [message]="error.message" (retry)="trackResource.reload()" />
+    } @else if (trackResource.value(); as track) {
+      <div class="track-page__info-cover">
+        <img class="track-page__info-cover-vinyl" src="images/vinil.webp" alt="" />
+
+        <img class="track-page__info-cover-image" [src]="track.image" [alt]="track.name" />
+        @if (!isMobile()) {
+          <div class="track-page__info-cover-interface">
+            <app-play-button
+              [playing]="isCurrentTrackPlaying()"
+              (playToggle)="onPlayClick(track)"
+            />
+          </div>
+        }
+      </div>
+      <div class="track-page__info-description">
+        <div class="track-page__info-description-track">
+          <p>{{ track.name }}</p>
+
+          <a [routerLink]="artistPath(track.artist_id)">
+            {{ track.artist_name }}
+          </a>
+        </div>
+        <div class="track-page__info-description-track-time">
+          @if (isMobile()) {
+            <app-dropdown-menu [items]="menuItems()"></app-dropdown-menu>
+          }
+          <p>{{ track.duration | duration }}</p>
+        </div>
+      </div>
+
+      @if (!isMobile()) {
+        <div class="track-page__info-details">
+          <a [routerLink]="albumPath(track.album_id)">
+            {{ track.album_name }}
+          </a>
+
+          <p>{{ track.releasedate | date }}</p>
+        </div>
+      }
+
+      @if (isMobile()) {
+        <app-controls-bar
+          [isPlaying]="isActive()"
+          [isShuffle]="isShuffle()"
+          [repeatMode]="repeatMode()"
+          (playToggle)="onPlayClick(track)"
+          (prev)="onPrev()"
+          (next)="onNext()"
+          (shuffleToggle)="onShuffleToggle()"
+          (repeatToggle)="onRepeatToggle()"
+        ></app-controls-bar>
+      }
+
+      <div class="track-page__info-wave-form">
+        <app-wave-form [waveform]="track.waveform"></app-wave-form>
+      </div>
+    }
+  </div>
+  @if (queue().length > 0) {
+    <div class="track-page__queue">
+      <div class="track-page__queue-header">
+        <h3>Up next</h3>
+        @if (hasMoreQueue()) {
+          <button class="track-page__queue-header-button" (click)="toggleQueue()">
+            {{ showAllQueue() ? 'Show less' : 'Show all' }}
+          </button>
+        }
+      </div>
+      @for (track of visibleQueue(); track track.id) {
+        <app-track
+          [track]="track"
+          [meta]="['artist']"
+          [position]="$index + 1"
+          (playTrack)="onTrackPlay(track)"
+        />
+      }
+    </div>
+  }
+</div>

@@ -5,7 +5,7 @@ import { MusicPlayerService } from '@core/services/music-player.service';
 import { LucideDynamicIcon } from '@lucide/angular';
 import { ICONS } from '@shared/constants/icons';
 
-import { buildAlbumPath, buildArtistPath } from '@shared/constants/routes';
+import { buildAlbumPath, buildArtistPath, buildTrackPath } from '@shared/constants/routes';
 import { DurationPipe } from '@shared/pipes/duration.pipe';
 // import { PlayCountPipe } from '@shared/pipes/play-count.pipe';
 import type { Track } from '@shared/interfaces/track.interface';
@@ -49,5 +49,9 @@ export class TrackComponent {
 
   albumLink(albumId: string): string {
     return buildAlbumPath(albumId);
+  }
+
+  trackLink(trackId: string): string {
+    return buildTrackPath(trackId);
   }
 }

@@ -1,10 +1,12 @@
 import { NgOptimizedImage } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { MusicPlayerService } from '@core/services/music-player.service';
 import { ControlButtonComponent } from '@shared/components/control-button/control-button.component';
 import { ControlsBarComponent } from '@shared/components/controls-bar/controls-bar.component';
 import { MetaComponent } from '@shared/components/meta/meta.component';
 import { VolumeComponent } from '@shared/components/volume/volume.component';
+import { buildTrackPath } from '@shared/constants/routes';
 
 @Component({
   selector: 'app-player',
@@ -21,7 +23,7 @@ import { VolumeComponent } from '@shared/components/volume/volume.component';
 })
 export class PlayerComponent {
   private readonly playerService = inject(MusicPlayerService);
-
+  private readonly router = inject(Router);
   // * я тут использую `computed` для создания реактивных свойств. Если использовать `signal`, то нужно будет обрабатывать изменения вручную
   protected readonly title = computed(
     () => this.playerService.currentTrack()?.name ?? 'Unknown song',
@@ -35,6 +37,11 @@ export class PlayerComponent {
 
   // * описание ниже!
   protected readonly isFavorite = signal<boolean>(false);
+
+  readonly trackPath = computed(() => {
+    const trackId = this.playerService.currentTrack()?.id;
+    return trackId ? buildTrackPath(trackId) : null;
+  });
 
   onPlayToggle(): void {
     this.playerService.togglePlay();
@@ -65,5 +72,13 @@ export class PlayerComponent {
    * `/favorites/:trackId/check`, потом обновляем состояние сердечка. Это отдельная задача.*/
   toggleFavorite(): void {
     this.isFavorite.update((v) => !v);
+  }
+
+  onExpand(): void {
+    const id = this.playerService.currentTrack()?.id;
+
+    if (id) {
+      this.router.navigateByUrl(buildTrackPath(id));
+    }
   }
 }

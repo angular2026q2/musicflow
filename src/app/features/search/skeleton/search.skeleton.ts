@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { isMobileService } from '@core/services/isMobile.service';
 import { TrackCardSkeletonComponent } from '@shared/components/track-card-skeleton/track-card-skeleton.component';
+
 import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({

@@ -25,7 +25,10 @@
       <div class="artist-page__tracks">
         <div class="artist-page__tracks-header">
           <p-skeleton width="70%" height="3rem" class="artist-page__tracks-title" />
-          <p-skeleton width="20%" height="3rem" class="artist-page__button--show-all" />
+          <div>
+            <p-skeleton width="20%" height="3rem" class="artist-page__tracks-plays" />
+            <p-skeleton width="20%" height="3rem" class="artist-page__button--show-all" />
+          </div>
         </div>
 
         @for (track of tracks; track track) {

@@ -4,7 +4,7 @@
   @if (isLoading()) {
     <app-artist-skeleton />
   } @else if (error()) {
-    <app-error message="Failed to load. Please try again." (reload)="reload()"></app-error>
+    <app-error message="Failed to load. Please try again." (retry)="reload()"></app-error>
   } @else if (artist(); as artist) {
     <div
       class="artist-page__header"
@@ -62,9 +62,15 @@
         <div class="artist-page__tracks">
           <div class="artist-page__tracks-header">
             <span class="artist-page__tracks-title">Top tracks</span>
-            <p-button text="true" class="artist-page__button--show-all" (click)="toggleShowAll()">{{
-              showAll() ? 'Show less' : 'Show all'
-            }}</p-button>
+            <div>
+              <span class="artist-page__tracks-plays">Plays</span>
+              <p-button
+                text="true"
+                class="artist-page__button--show-all"
+                (click)="toggleShowAll()"
+                >{{ showAll() ? 'Show less' : 'Show all' }}</p-button
+              >
+            </div>
           </div>
 
           <div class="artist-page__tracks-divider"></div>

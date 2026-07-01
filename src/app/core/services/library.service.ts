@@ -15,6 +15,7 @@ import { AuthService } from './auth.service';
 export class LibraryService {
   private readonly config = inject(API_CONFIG);
   private readonly buildUrl = inject(BUILD_URL);
+  private readonly playCountsUrl = this.buildUrl(this.config.path.playCounts);
 
   private readonly historyUrl = this.buildUrl(this.config.path.history);
   private readonly playlistsUrl = this.buildUrl(this.config.path.playlists);
@@ -28,6 +29,12 @@ export class LibraryService {
   readonly playlists = httpResource<PlaylistResponse[]>(() =>
     this.auth.isAuthenticated() ? this.playlistsUrl : undefined,
   );
+
+  async incrementPlayCount(track: Track): Promise<void> {
+    await firstValueFrom(
+      this.http.post(this.playCountsUrl, { track_id: track.id, track_name: track.name }),
+    );
+  }
 
   async addToHistory(track: Track) {
     const body = toHistoryRequest(track);

@@ -1,13 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
+import { By } from '@angular/platform-browser';
+import { signal } from '@angular/core';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
-import { vi } from 'vitest';
 import { SearchPage } from '@features/search/search.page';
 import { MusicPlayerService } from '@core/services/music-player.service';
 import { SearchService } from '@core/services/search.service';
+import { isMobileService } from '@core/services/isMobile.service';
 import { CatalogResponse } from '@shared/interfaces/catalog.interface';
 import { Track } from '@shared/interfaces/track.interface';
-import { By } from '@angular/platform-browser';
 
 describe('Search Page', () => {
   let component: SearchPage;
@@ -26,7 +27,6 @@ describe('Search Page', () => {
             queryParamMap: queryParamMap$.asObservable(),
           },
         },
-
         {
           provide: MusicPlayerService,
           useValue: {
@@ -35,17 +35,13 @@ describe('Search Page', () => {
             isPlaying: vi.fn(),
           },
         },
-
         {
           provide: SearchService,
           useValue: {
-            fetchTracks: vi.fn(() =>
-              of({
-                data: [],
-              }),
-            ),
+            fetchTracks: vi.fn(() => of({ data: [] })),
           },
         },
+        { provide: isMobileService, useValue: { isMobile: signal(false) } },
       ],
     }).compileComponents();
 
@@ -201,18 +197,21 @@ describe('Search Page', () => {
       expect(fixture.nativeElement.textContent).toContain('Find your music');
     });
 
-    it('should show loading state', () => {
+    it('should show loading state as skeleton', () => {
       vi.spyOn(searchService, 'fetchTracks').mockReturnValue(
         new Observable(() => {
           /* empty */
         }),
       );
 
-      queryParamMap$.next(new Map([['q', 'metal']]));
+      // queryParamMap$.next(new Map([['q', 'metal']]));
 
       fixture.detectChanges();
+      component.search('metal', true);
+      fixture.detectChanges();
 
-      expect(fixture.nativeElement.textContent).toContain('Searching...');
+      // expect(fixture.nativeElement.textContent).toContain('Searching...');
+      expect(fixture.debugElement.query(By.css('app-search-skeleton'))).toBeTruthy();
     });
 
     it('should show no results state', () => {

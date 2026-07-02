@@ -105,7 +105,7 @@ describe('AuthService', () => {
       const signInReq = httpMock.expectOne(`${environment.apiUrl}/v1/auth/sign-in`);
       expect(signInReq.request.method).toBe('POST');
       expect(signInReq.request.body).toEqual(credentials);
-      signInReq.flush({ access_token: 'jwt-token' });
+      signInReq.flush({ accessToken: 'jwt-token' });
       await flushMicrotasks();
 
       const meReq = httpMock.expectOne(`${environment.apiUrl}/v1/auth/me`);
@@ -125,7 +125,7 @@ describe('AuthService', () => {
 
       httpMock
         .expectOne(`${environment.apiUrl}/v1/auth/sign-in`)
-        .flush({ access_token: 'jwt-token' });
+        .flush({ accessToken: 'jwt-token' });
       await flushMicrotasks();
       httpMock.expectOne(`${environment.apiUrl}/v1/auth/me`).flush(mockUser);
 
@@ -148,7 +148,7 @@ describe('AuthService', () => {
       const signUpReq = httpMock.expectOne(`${environment.apiUrl}/v1/auth/sign-up`);
       expect(signUpReq.request.method).toBe('POST');
       expect(signUpReq.request.body).toEqual(dto);
-      signUpReq.flush({ access_token: 'jwt-token' });
+      signUpReq.flush({ accessToken: 'jwt-token' });
       await flushMicrotasks();
 
       httpMock.expectOne(`${environment.apiUrl}/v1/auth/me`).flush(mockUser);

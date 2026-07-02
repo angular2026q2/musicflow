@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpTestingController } from '@angular/common/http/testing';
 import { provideHttpClient } from '@angular/common/http';
 import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { provideRouter } from '@angular/router';
 import { Router } from '@angular/router';
 import { HomePage } from '@features/home/home.page';
 import { HomeService } from '@core/services/home.service';
@@ -45,7 +46,7 @@ describe('HomePage', () => {
       providers: [
         provideHttpClient(),
         provideHttpClientTesting(),
-
+        provideRouter([]),
         {
           provide: MusicPlayerService,
           useValue: {
@@ -54,7 +55,6 @@ describe('HomePage', () => {
             isPlaying: vi.fn(),
           },
         },
-
         {
           provide: HomeService,
           useValue: {
@@ -62,19 +62,16 @@ describe('HomePage', () => {
             getHistoryUrl: vi.fn(() => '/history'),
           },
         },
-
         {
           provide: GenreService,
           useValue: {
             getGenres: vi.fn(() => of(['Rock', 'Pop'] as Genre[])),
           },
         },
-
         {
           provide: AuthService,
           useValue: authServiceMock,
         },
-
         {
           provide: isMobileService,
           useValue: mockIsMobileService,
@@ -278,10 +275,10 @@ describe('HomePage', () => {
   describe('template', () => {
     it('should show loading for trending tracks', () => {
       vi.spyOn(component.trendingTracksResource, 'isLoading').mockReturnValue(true);
-
       fixture.detectChanges();
 
-      expect(fixture.nativeElement.textContent).toContain('Loading...');
+      // expect(fixture.nativeElement.textContent).toContain('Loading...');
+      expect(fixture.debugElement.query(By.css('p-skeleton'))).toBeTruthy();
 
       flushTracks();
     });

@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { signal } from '@angular/core';
-import { vi } from 'vitest';
+
+import { MusicPlayerService } from '@core/services/music-player.service';
+import { isMobileService } from '@core/services/isMobile.service';
 
 import { TrackCardsComponent } from '@shared/components/track-cards/track-cards.component';
-import { MusicPlayerService } from '@core/services/music-player.service';
-
 import { Track } from '@shared/interfaces/track.interface';
-import { By } from '@angular/platform-browser';
 
 const tracks: Track[] = [
   { id: '1', name: 'Track 1' } as Track,
@@ -25,7 +25,7 @@ describe('TrackCardsComponent', () => {
     isPlaying: ReturnType<typeof vi.fn>;
   };
 
-  const isMobileService = {
+  const isMobileServiceMock = {
     isMobile: signal(false),
   };
 
@@ -46,7 +46,7 @@ describe('TrackCardsComponent', () => {
         },
         {
           provide: isMobileService,
-          useValue: isMobileService,
+          useValue: isMobileServiceMock,
         },
       ],
     }).compileComponents();
@@ -116,7 +116,7 @@ describe('TrackCardsComponent', () => {
     });
 
     it('should show desktop cover card on desktop', () => {
-      isMobileService.isMobile.set(false);
+      isMobileServiceMock.isMobile.set(false);
 
       fixture.detectChanges();
 
@@ -129,7 +129,7 @@ describe('TrackCardsComponent', () => {
     });
 
     it('should show mobile cover card on mobile', () => {
-      isMobileService.isMobile.set(true);
+      isMobileServiceMock.isMobile.set(true);
 
       fixture.detectChanges();
 

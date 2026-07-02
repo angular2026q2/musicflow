@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { IconKey } from '@shared/constants/icons';
 
 import { ControlButtonComponent } from './control-button.component';
 
@@ -13,6 +14,7 @@ describe('ControlButtonComponent', () => {
 
     fixture = TestBed.createComponent(ControlButtonComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('icon', 'arrowBigLeft' as IconKey);
     await fixture.whenStable();
   });
 

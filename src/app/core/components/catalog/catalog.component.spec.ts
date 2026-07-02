@@ -17,7 +17,7 @@ class CatalogCardComponentStub {
   readonly route = input.required<string>();
 }
 
-describe.only('CatalogComponent', () => {
+describe('CatalogComponent', () => {
   let component: CatalogComponent;
   let fixture: ComponentFixture<CatalogComponent>;
 
@@ -167,4 +167,6 @@ describe.only('CatalogComponent', () => {
     expect(empty).toBeTruthy();
     expect(empty.nativeElement.textContent).toContain('Nothing found');
   });
+
+  afterAll(() => TestBed.resetTestingModule());
 });

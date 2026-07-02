@@ -3,9 +3,9 @@
 
   &__trending {
     &-skeleton {
-      margin: var(--space-md) 0 var(--space-lg) 0;
       display: flex;
       gap: var(--space-lg);
+      margin: var(--space-md) 0 var(--space-lg) 0;
     }
   }
 

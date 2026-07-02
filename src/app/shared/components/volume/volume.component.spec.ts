@@ -70,4 +70,6 @@ describe('VolumeComponent', () => {
   it('should set player volume', () => {
     expect(playerServiceMock.setVolume).toHaveBeenCalledWith(50);
   });
+
+  afterAll(() => TestBed.resetTestingModule());
 });

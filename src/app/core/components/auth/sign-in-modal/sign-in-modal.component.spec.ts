@@ -1,8 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { MessageService } from 'primeng/api';
 
+import { MessageService } from 'primeng/api';
 import { AuthService } from '@core/services/auth.service';
 import { ModalService } from '@core/services/modal.service';
+
 import { SignInModalComponent } from './sign-in-modal.component';
 
 describe('SignInModalComponent', () => {
@@ -31,11 +32,11 @@ describe('SignInModalComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create Modal component', () => {
+  it('should create SignIn Modal component', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have invalid form on init', () => {
+  it('should SignIn form be invalid on init', () => {
     expect(component.form.valid).toBe(false);
   });
 
@@ -75,7 +76,7 @@ describe('SignInModalComponent', () => {
     );
   });
 
-  it('should close modal window when signIn was successful', async () => {
+  it('should SignIn Modal component be closed when signIn was successful', async () => {
     component.form.setValue({
       identifier: 'john',
       password: 'qwerty123',
@@ -96,13 +97,18 @@ describe('SignInModalComponent', () => {
     expect(messageServiceMock.add).toHaveBeenCalled();
   });
 
-  it('should close modal', () => {
+  it('should close SignIn Modal component', () => {
     component.close();
     expect(modalServiceMock.close).toHaveBeenCalled();
   });
 
-  it('should switchTo other Modal', () => {
+  it('should switchTo SignUp Modal', () => {
     component.switchTo('sign-up');
     expect(modalServiceMock.switchTo).toHaveBeenCalledWith('sign-up');
+  });
+
+  it('should switchTo ForgotPassword Modal', () => {
+    component.switchTo('forgot-password');
+    expect(modalServiceMock.switchTo).toHaveBeenCalledWith('forgot-password');
   });
 });
